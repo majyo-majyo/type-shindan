@@ -1,8 +1,13 @@
-<title>職場タイプ診断</title>
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>診断ファイル室</title>
+<meta name="description" content="8つの質問で職場タイプがわかる診断など、いろいろなタイプ診断をまとめたポータルサイトです。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
-
 <style>
   :root {
     --paper: #e7dcbd;
@@ -64,15 +69,55 @@
     font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
     display: flex;
     justify-content: center;
-    padding: 48px 20px 64px;
+    padding: 56px 20px 64px;
   }
 
   .page {
     width: 100%;
-    max-width: 640px;
+    max-width: 720px;
   }
 
-  .file {
+  header {
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin: 0 0 14px;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-family: "Shippori Mincho", "Hiragino Mincho ProN", serif;
+    font-weight: 600;
+    font-size: clamp(28px, 6vw, 38px);
+    line-height: 1.4;
+    margin: 0 0 14px;
+    text-wrap: balance;
+  }
+
+  .lead {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--ink-soft);
+    margin: 0 auto;
+    max-width: 44ch;
+  }
+
+  .shelf {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .file-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
     position: relative;
   }
 
@@ -105,616 +150,113 @@
     background: var(--card);
     border: 1px solid var(--card-line);
     border-radius: 4px 14px 14px 14px;
-    box-shadow: 0 18px 40px -20px var(--shadow), 0 2px 0 var(--card-line);
-    padding: 44px 40px 40px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .file-body::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: repeating-linear-gradient(90deg, var(--accent) 0 10px, transparent 10px 20px);
-    opacity: 0.5;
-  }
-
-  .screen[hidden] { display: none; }
-
-  .eyebrow {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 12px;
-    letter-spacing: 0.18em;
-    color: var(--accent);
-    margin: 0 0 14px;
-    text-transform: uppercase;
-  }
-
-  h1 {
-    font-family: "Shippori Mincho", "Hiragino Mincho ProN", serif;
-    font-weight: 600;
-    font-size: clamp(24px, 5vw, 32px);
-    line-height: 1.4;
-    margin: 0 0 18px;
-    text-wrap: balance;
-  }
-
-  .lead {
-    font-size: 15px;
-    line-height: 1.9;
-    color: var(--ink-soft);
-    margin: 0 0 32px;
-    max-width: 46ch;
-  }
-
-  .btn {
-    font-family: "Zen Kaku Gothic New", sans-serif;
-    font-weight: 700;
-    font-size: 15px;
-    border-radius: 999px;
-    padding: 14px 32px;
-    cursor: pointer;
-    border: 1px solid transparent;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .btn { transition: none; }
-  }
-
-  .btn.primary {
-    background: var(--accent);
-    color: #fdf6e8;
-    box-shadow: 0 8px 20px -8px var(--accent-line);
-  }
-  .btn.primary:hover { transform: translateY(-1px); box-shadow: 0 10px 22px -8px var(--accent-line); }
-
-  .btn.ghost {
-    background: transparent;
-    color: var(--ink-soft);
-    border: 1px solid var(--card-line);
-    margin-top: 8px;
-  }
-  .btn.ghost:hover { border-color: var(--accent); color: var(--accent); }
-
-  .btn:focus-visible {
-    outline: 2px solid var(--focus);
-    outline-offset: 2px;
-  }
-
-  .quiz-head {
+    box-shadow: 0 14px 32px -18px var(--shadow), 0 2px 0 var(--card-line);
+    padding: 26px 28px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 28px;
-  }
-
-  .qcount {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 13px;
-    color: var(--muted);
-    white-space: nowrap;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .progress {
-    flex: 1;
-    height: 6px;
-    background: var(--paper-deep);
-    border-radius: 999px;
-    overflow: hidden;
-    border: 1px solid var(--card-line);
-  }
-
-  .progress-fill {
-    height: 100%;
-    width: 12.5%;
-    background: var(--accent);
-    border-radius: 999px;
-    transition: width 0.35s ease;
+    gap: 20px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
   @media (prefers-reduced-motion: reduce) {
-    .progress-fill { transition: none; }
+    .file-body { transition: none; }
   }
 
-  .question {
+  .file-card:hover .file-body {
+    transform: translateX(4px);
+    box-shadow: 0 18px 36px -16px var(--shadow), 0 2px 0 var(--accent-line);
+  }
+
+  .file-card:focus-visible .file-body {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
+
+  .file-info h2 {
     font-family: "Shippori Mincho", serif;
     font-weight: 600;
-    font-size: clamp(19px, 4vw, 23px);
-    line-height: 1.6;
-    margin: 0 0 26px;
-    text-wrap: balance;
+    font-size: 19px;
+    margin: 0 0 8px;
   }
 
-  .options {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .option {
-    display: flex;
-    align-items: baseline;
-    gap: 14px;
-    text-align: left;
-    width: 100%;
-    background: var(--paper);
-    border: 1px solid var(--card-line);
-    border-radius: 10px;
-    padding: 15px 18px;
-    font-family: "Zen Kaku Gothic New", sans-serif;
-    font-size: 14.5px;
-    line-height: 1.6;
-    color: var(--ink);
-    cursor: pointer;
-    transition: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .option { transition: none; }
-  }
-
-  .option:hover {
-    border-color: var(--accent);
-    transform: translateX(2px);
-  }
-
-  .option:focus-visible {
-    outline: 2px solid var(--focus);
-    outline-offset: 2px;
-  }
-
-  .option-mark {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 12px;
-    color: var(--accent);
-    border: 1px solid var(--accent-line);
-    border-radius: 50%;
-    width: 22px;
-    height: 22px;
-    flex: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* result screen */
-  .result {
-    text-align: left;
-  }
-
-  .stamp-wrap {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 8px;
-  }
-
-  .stamp {
-    width: 150px;
-    height: 150px;
-    opacity: 0;
-    transform: scale(2.2) rotate(-16deg);
-  }
-
-  .stamp.show {
-    animation: stampDown 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .stamp.show { animation: none; opacity: 1; transform: scale(1) rotate(-6deg); }
-  }
-
-  @keyframes stampDown {
-    0%   { opacity: 0; transform: scale(2.2) rotate(-16deg); }
-    55%  { opacity: 1; transform: scale(0.92) rotate(-4deg); }
-    75%  { transform: scale(1.05) rotate(-8deg); }
-    100% { opacity: 1; transform: scale(1) rotate(-6deg); }
-  }
-
-  .result .eyebrow { text-align: center; }
-
-  .result-name {
-    text-align: center;
-    font-size: clamp(26px, 6vw, 34px);
-    margin-bottom: 6px;
-  }
-
-  .result-motto {
-    text-align: center;
+  .file-info p {
+    font-size: 13.5px;
+    line-height: 1.7;
     color: var(--ink-soft);
-    font-size: 14px;
-    margin: 0 0 30px;
-    letter-spacing: 0.03em;
+    margin: 0;
+    max-width: 40ch;
   }
 
-  .field {
-    border-top: 1px dashed var(--card-line);
-    padding: 16px 0;
-  }
-
-  .field:last-of-type { border-bottom: 1px dashed var(--card-line); }
-
-  .field-label {
-    display: inline-block;
+  .file-meta {
     font-family: "JetBrains Mono", monospace;
     font-size: 11px;
-    letter-spacing: 0.12em;
     color: var(--muted);
-    background: var(--paper);
-    border: 1px solid var(--card-line);
-    border-radius: 4px;
-    padding: 3px 8px;
-    margin-bottom: 10px;
-  }
-
-  .field p {
-    margin: 0;
-    font-size: 14.5px;
-    line-height: 1.9;
-    color: var(--ink);
-  }
-
-  .traits {
-    margin: 0;
-    padding: 0;
-    list-style: none;
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    letter-spacing: 0.04em;
   }
 
-  .traits li {
-    font-size: 14.5px;
-    line-height: 1.7;
-    padding-left: 18px;
-    position: relative;
-  }
-
-  .traits li::before {
-    content: "・";
-    position: absolute;
-    left: 0;
+  .arrow {
+    flex: none;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 20px;
     color: var(--accent);
   }
 
-  .field.accent-field {
-    background: var(--accent-soft);
-    border-radius: 8px;
-    padding: 16px 16px;
-    border-top: none;
-    margin-top: 8px;
+  .placeholder {
+    border: 1px dashed var(--card-line);
+    border-radius: 4px 14px 14px 14px;
+    padding: 26px 28px;
+    margin-left: 0;
+    color: var(--muted);
+    font-size: 13px;
+    text-align: center;
   }
-  .field.accent-field:last-of-type { border-bottom: none; }
 
-  .result-actions {
-    display: flex;
-    justify-content: center;
-    margin-top: 28px;
+  footer {
+    margin-top: 48px;
+    text-align: center;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
   }
 
   @media (max-width: 480px) {
-    .file-body { padding: 34px 22px 30px; }
-    .tab { margin-left: 14px; font-size: 11px; padding: 7px 14px 8px; }
+    .file-body { flex-direction: column; align-items: flex-start; padding: 22px 22px; }
+    .arrow { display: none; }
   }
 </style>
-
+</head>
+<body>
 <div class="page">
-  <div class="file">
-    <div class="tab">職場タイプ診断ファイル</div>
-    <div class="file-body">
+  <header>
+    <p class="eyebrow">Diagnosis Files</p>
+    <h1>診断ファイル室</h1>
+    <p class="lead">気になる診断を選んで、ファイルを開いてください。8つほどの質問に直感で答えるだけで、あなたに近いタイプがわかります。</p>
+  </header>
 
-      <section class="screen intro" id="screen-intro">
-        <p class="eyebrow">Personality File</p>
-        <h1>あなたの「職場タイプ」を診断します</h1>
-        <p class="lead">全8問、直感で選んでください。所要時間は1〜2分。仕事中のふるまいから、6タイプの中からあなたに一番近いものを診断します。</p>
-        <button class="btn primary" id="start-btn" type="button">診断をはじめる</button>
-      </section>
+  <div class="shelf">
+    <a class="file-card" href="./workplace-type/">
+      <div class="tab">FILE 01 — 職場タイプ診断</div>
+      <div class="file-body">
+        <div class="file-info">
+          <h2>職場タイプ診断</h2>
+          <p>仕事中のふるまいから、司令塔・参謀・発明家など6タイプの中からあなたの働き方スタイルを診断します。</p>
+          <div class="file-meta">全8問 ・ 所要時間1〜2分</div>
+        </div>
+        <div class="arrow">→</div>
+      </div>
+    </a>
 
-      <section class="screen quiz" id="screen-quiz" hidden>
-        <div class="quiz-head">
-          <span class="qcount" id="qcount">Q.1 / 8</span>
-          <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
-        </div>
-        <h2 class="question" id="question-text"></h2>
-        <div class="options" id="options"></div>
-      </section>
-
-      <section class="screen result" id="screen-result" hidden>
-        <div class="stamp-wrap">
-          <svg class="stamp" id="stamp-svg" viewBox="0 0 200 200" role="img" aria-label="診断結果のスタンプ">
-            <defs>
-              <filter id="roughEdge" x="-20%" y="-20%" width="140%" height="140%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="4" result="noise"/>
-                <feDisplacementMap in="SourceGraphic" in2="noise" scale="7"/>
-              </filter>
-            </defs>
-            <g filter="url(#roughEdge)" fill="none" stroke="var(--accent)">
-              <circle cx="100" cy="100" r="88" stroke-width="5"/>
-              <circle cx="100" cy="100" r="76" stroke-width="2.5"/>
-            </g>
-            <text id="stamp-text" x="100" y="100" fill="var(--accent)" font-family="Shippori Mincho, serif" font-weight="700" text-anchor="middle" dominant-baseline="central" filter="url(#roughEdge)"></text>
-          </svg>
-        </div>
-        <p class="eyebrow">診断結果</p>
-        <h1 class="result-name" id="result-name"></h1>
-        <p class="result-motto" id="result-motto"></p>
-
-        <div class="field">
-          <span class="field-label">特徴</span>
-          <ul class="traits" id="result-traits"></ul>
-        </div>
-        <div class="field">
-          <span class="field-label">周りからはこう見られている</span>
-          <p id="result-seen"></p>
-        </div>
-        <div class="field">
-          <span class="field-label">ちょっと注意</span>
-          <p id="result-caution"></p>
-        </div>
-        <div class="field accent-field">
-          <span class="field-label">相性がいいタイプ</span>
-          <p id="result-match"></p>
-        </div>
-
-        <div class="result-actions">
-          <button class="btn ghost" id="retry-btn" type="button">もう一度診断する</button>
-        </div>
-      </section>
-
+    <div class="placeholder">
+      次のファイルを準備中です
     </div>
   </div>
+
+  <footer>診断ファイル室</footer>
 </div>
-
-<script>
-  const TYPES = {
-    commander: {
-      name: "司令塔タイプ",
-      stamp: "指揮官",
-      motto: "迷ったら、まず決める。",
-      traits: [
-        "ゴールが見えると誰よりも早く動き出す",
-        "「とりあえずやってみよう」より「まず決めよう」",
-        "責任を引き受けることに抵抗がない"
-      ],
-      seen: "「頼れる」「話が早い」と思われています。",
-      caution: "決めるスピードが速すぎて、周りが置いてけぼりになっているかも。",
-      match: "縁の下の力持ちタイプ — 決めたことを、丁寧に支えてくれる相手です。"
-    },
-    planner: {
-      name: "参謀タイプ",
-      stamp: "参謀",
-      motto: "備えあれば、憂いなし。",
-      traits: [
-        "最悪のケースを先に想定しておく",
-        "勢いより、根拠を大事にする",
-        "余裕を持って動きたいタイプ"
-      ],
-      seen: "「安心できる」「抜け漏れがない」と思われています。",
-      caution: "慎重になりすぎて、動き出すタイミングを逃しがち。",
-      match: "発明家タイプ — あなたに足りない勢いを補ってくれる相手です。"
-    },
-    inventor: {
-      name: "発明家タイプ",
-      stamp: "発明家",
-      motto: "とりあえず、やってみよう。",
-      traits: [
-        "思いついたら、まず試したくなる",
-        "ルーティンより新しいことに惹かれる",
-        "「それ、面白いかも」が口癖"
-      ],
-      seen: "「発想が自由」「刺激をくれる」と思われています。",
-      caution: "思いつきが多すぎて、周りが追いつけていないかも。",
-      match: "匠タイプ — あなたのアイデアを、形にして仕上げてくれる相手です。"
-    },
-    support: {
-      name: "縁の下の力持ちタイプ",
-      stamp: "調整役",
-      motto: "誰かの「助かった」が、一番うれしい。",
-      traits: [
-        "自分より先に、周りの状況が目に入る",
-        "目立たない仕事ほど丁寧にやりたくなる",
-        "頼まれる前に気づいて動いていることが多い"
-      ],
-      seen: "「気が利く」「いてくれると安心」と思われています。",
-      caution: "自分の仕事は後回しになりがち。たまには周りに頼っていい。",
-      match: "司令塔タイプ — あなたの支えが、一番活きる相手です。"
-    },
-    mood: {
-      name: "ムードメーカータイプ",
-      stamp: "潤滑油",
-      motto: "場の空気は、自分でつくれる。",
-      traits: [
-        "その場の空気を読んで、自然と調整している",
-        "誰かが浮いていると、つい気になって声をかける",
-        "真面目な話も、笑いを挟んで和ませるのが得意"
-      ],
-      seen: "「話しやすい」「あの人がいると場が和む」と思われています。",
-      caution: "場を和ませることに気を使いすぎて、本音は後回しにしがち。",
-      match: "参謀タイプ — あなたの明るさが、張り詰めた空気を緩めます。"
-    },
-    craftsman: {
-      name: "匠タイプ",
-      stamp: "匠",
-      motto: "速さより、確かさを。",
-      traits: [
-        "一度決めたやり方を、地道に磨き続ける",
-        "派手さより精度と再現性を大事にする",
-        "任された仕事は最後まで丁寧にやり切る"
-      ],
-      seen: "「安定感がある」「任せて安心」と思われています。",
-      caution: "こだわりが強すぎて、時間がかかりすぎることがある。",
-      match: "発明家タイプ — あなたの仕事に、新しい風を持ち込んでくれる相手です。"
-    }
-  };
-
-  const QUESTIONS = [
-    {
-      text: "大型プロジェクトが始まった。最初の行動は?",
-      options: [
-        { label: "誰が何に困りそうか、先に周りを見ておく", type: "support" },
-        { label: "「よろしくね」とチームに声をかけて空気を温める", type: "mood" },
-        { label: "ゴールと役割分担を決めて、みんなに共有する", type: "commander" },
-        { label: "起こりうるリスクを先に洗い出しておく", type: "planner" }
-      ]
-    },
-    {
-      text: "会議で意見が対立している。あなたは?",
-      options: [
-        { label: "誰も出していない第三の案を投げてみる", type: "inventor" },
-        { label: "議事録を淡々と取って、事実を整理する", type: "craftsman" },
-        { label: "場を仕切って、結論を決めにいく", type: "commander" },
-        { label: "両方の意見のいいところを拾って場を和ませる", type: "mood" }
-      ]
-    },
-    {
-      text: "締め切り前日、あなたの状態は?",
-      options: [
-        { label: "計画通り、すでに8割終わっている", type: "craftsman" },
-        { label: "最悪のケースに備えて、バッファを残してある", type: "planner" },
-        { label: "周りの進捗が心配で、声をかけて回っている", type: "support" },
-        { label: "土壇場で一気に集中して仕上げるタイプ", type: "inventor" }
-      ]
-    },
-    {
-      text: "新人が入ってきた。あなたは?",
-      options: [
-        { label: "雑談から入って、話しやすい空気を作る", type: "mood" },
-        { label: "困っていそうなタイミングでさりげなく助ける", type: "support" },
-        { label: "仕事の全体像とルールを一通り教える", type: "commander" },
-        { label: "細かいコツやショートカットをそっと教える", type: "craftsman" }
-      ]
-    },
-    {
-      text: "突然、想定外のトラブルが発生した。まず何をする?",
-      options: [
-        { label: "関係者に指示を出して、体制を立て直す", type: "commander" },
-        { label: "影響範囲を確認して、最悪の事態を避ける手を打つ", type: "planner" },
-        { label: "とにかく手を動かして、その場で解決策を考える", type: "inventor" },
-        { label: "動揺している人がいないか、周りをフォローする", type: "support" }
-      ]
-    },
-    {
-      text: "ランチタイム、あなたの過ごし方は?",
-      options: [
-        { label: "みんなでワイワイ、場を盛り上げる役", type: "mood" },
-        { label: "誰か誘えていない人がいないか、さりげなく気にする", type: "support" },
-        { label: "いつもの店で、いつもの席で落ち着いて過ごす", type: "craftsman" },
-        { label: "一人でゆっくり、次のアイデアを考えている", type: "inventor" }
-      ]
-    },
-    {
-      text: "上司から急な無茶振り(明日までにこれやって)が来た。あなたは?",
-      options: [
-        { label: "現実的に間に合うか、優先順位を整理してから答える", type: "planner" },
-        { label: "「それは厳しいので、ここまでにします」とはっきり交渉する", type: "commander" },
-        { label: "「わかりました」とすぐ引き受けて、やり方は後で考える", type: "inventor" },
-        { label: "一人で抱え込まず、周りに手伝ってもらえないか相談する", type: "support" }
-      ]
-    },
-    {
-      text: "週末、ふと仕事のことを考えるとしたら?",
-      options: [
-        { label: "来週のスケジュールと段取りを頭の中で組み立てている", type: "planner" },
-        { label: "今週やり残したタスクを、静かに片付けている", type: "craftsman" },
-        { label: "チームの誰かを気にかけて、連絡しようか迷っている", type: "mood" },
-        { label: "新しい企画のアイデアが勝手に浮かんでくる", type: "inventor" }
-      ]
-    }
-  ];
-
-  const screenIntro = document.getElementById("screen-intro");
-  const screenQuiz = document.getElementById("screen-quiz");
-  const screenResult = document.getElementById("screen-result");
-  const qcount = document.getElementById("qcount");
-  const progressFill = document.getElementById("progress-fill");
-  const questionText = document.getElementById("question-text");
-  const optionsEl = document.getElementById("options");
-
-  let current = 0;
-  const scores = Object.fromEntries(Object.keys(TYPES).map(k => [k, 0]));
-  const typeOrder = Object.keys(TYPES);
-
-  document.getElementById("start-btn").addEventListener("click", () => {
-    screenIntro.hidden = true;
-    screenQuiz.hidden = false;
-    renderQuestion();
-  });
-
-  document.getElementById("retry-btn").addEventListener("click", () => {
-    current = 0;
-    typeOrder.forEach(k => (scores[k] = 0));
-    screenResult.hidden = true;
-    screenQuiz.hidden = false;
-    document.getElementById("stamp-svg").classList.remove("show");
-    renderQuestion();
-  });
-
-  function renderQuestion() {
-    const q = QUESTIONS[current];
-    qcount.textContent = `Q.${current + 1} / ${QUESTIONS.length}`;
-    progressFill.style.width = `${((current + 1) / QUESTIONS.length) * 100}%`;
-    questionText.textContent = q.text;
-    optionsEl.innerHTML = "";
-    const marks = ["A", "B", "C", "D"];
-    q.options.forEach((opt, i) => {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "option";
-      btn.innerHTML = `<span class="option-mark">${marks[i]}</span><span>${opt.label}</span>`;
-      btn.addEventListener("click", () => selectOption(opt.type));
-      optionsEl.appendChild(btn);
-    });
-  }
-
-  function selectOption(type) {
-    scores[type] += 1;
-    current += 1;
-    if (current < QUESTIONS.length) {
-      renderQuestion();
-    } else {
-      showResult();
-    }
-  }
-
-  function showResult() {
-    let winner = typeOrder[0];
-    typeOrder.forEach(k => {
-      if (scores[k] > scores[winner]) winner = k;
-    });
-    const t = TYPES[winner];
-
-    document.getElementById("result-name").textContent = t.name;
-    document.getElementById("result-motto").textContent = t.motto;
-    document.getElementById("result-seen").textContent = t.seen;
-    document.getElementById("result-caution").textContent = t.caution;
-    document.getElementById("result-match").textContent = t.match;
-
-    const traitsEl = document.getElementById("result-traits");
-    traitsEl.innerHTML = "";
-    t.traits.forEach(tr => {
-      const li = document.createElement("li");
-      li.textContent = tr;
-      traitsEl.appendChild(li);
-    });
-
-    const stampText = document.getElementById("stamp-text");
-    stampText.textContent = "";
-    const chars = t.stamp.split("");
-    const fontSize = chars.length <= 1 ? 64 : chars.length === 2 ? 42 : 30;
-    stampText.setAttribute("font-size", fontSize);
-    const lineHeight = fontSize * 1.05;
-    const totalHeight = lineHeight * (chars.length - 1);
-    chars.forEach((ch, i) => {
-      const tspan = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
-      tspan.setAttribute("x", "100");
-      tspan.setAttribute("y", 100 - totalHeight / 2 + i * lineHeight);
-      tspan.textContent = ch;
-      stampText.appendChild(tspan);
-    });
-
-    screenQuiz.hidden = true;
-    screenResult.hidden = false;
-    const stampSvg = document.getElementById("stamp-svg");
-    void stampSvg.offsetWidth;
-    stampSvg.classList.add("show");
-  }
-</script>
+</body>
+</html>
