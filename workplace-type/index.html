@@ -424,6 +424,18 @@
     max-width: 100%;
   }
 
+  /* 楽天/A8.netの広告コードは色をインラインstyleで固定してくるため、
+     ダークモードでも読めるようテーマの色で強制的に上書きする */
+  .ad-embed, .ad-embed * {
+    color: var(--ink) !important;
+    background: transparent !important;
+    border-color: var(--card-line) !important;
+  }
+  .ad-embed a {
+    color: var(--accent) !important;
+    text-decoration: underline;
+  }
+
   .result-actions {
     display: flex;
     justify-content: center;
