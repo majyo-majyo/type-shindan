@@ -762,7 +762,7 @@
     stampSvg.classList.add("show");
 
     document.getElementById("share-btn").onclick = () => {
-      const shareText = `私は「${t.name}」でした!あなたの職場タイプは?`;
+      const shareText = `私は「${t.name}」でした!あなたの職場タイプは?\n#職場タイプ診断`;
       const shareUrl = "https://majyo-majyo.github.io/type-shindan/workplace-type/";
       const intent = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
       window.open(intent, "_blank", "noopener,noreferrer");
