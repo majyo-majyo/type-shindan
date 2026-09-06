@@ -404,6 +404,26 @@
   }
   .field.accent-field:last-of-type { border-bottom: none; }
 
+  .ad-field {
+    border-top: 1px dashed var(--card-line);
+  }
+
+  .pr-label {
+    background: var(--paper-deep);
+    color: var(--muted);
+  }
+
+  .ad-embed {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    padding-top: 4px;
+  }
+
+  .ad-embed table {
+    max-width: 100%;
+  }
+
   .result-actions {
     display: flex;
     justify-content: center;
@@ -495,6 +515,11 @@
           <p id="result-match"></p>
         </div>
 
+        <div class="field ad-field" id="result-ad-field" hidden>
+          <span class="field-label pr-label">PR ー おすすめの一品</span>
+          <div id="result-ad" class="ad-embed"></div>
+        </div>
+
         <div class="result-actions">
           <button class="btn share" id="share-btn" type="button">
             <svg class="share-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
@@ -534,7 +559,8 @@
       ],
       seen: "「安心できる」「抜け漏れがない」と思われています。",
       caution: "慎重になりすぎて、動き出すタイミングを逃しがち。",
-      match: "発明家タイプ — あなたに足りない勢いを補ってくれる相手です。"
+      match: "発明家タイプ — あなたに足りない勢いを補ってくれる相手です。",
+      ad: `<table cellpadding="0" cellspacing="0" border="0" style=" border:1px solid #ccc; width:300px;"><tbody><tr style="border-style:none;"><td style="vertical-align:top; border-style:none; padding:10px; width:44px;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00qflz4.2bo11866.g00qflz4.2bo127f7%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fjacajaca%252Fhu-nb019%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fjacajaca%252Fi%252F10001504%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow"><img style="max-width: initial;" border="0" alt="" src="https://thumbnail.image.rakuten.co.jp/@0_mall/jacajaca/cabinet/nb/019-re/hu-nb019.jpg?_ex=64x64"></a></td><td style="font-size:12px; vertical-align:middle; border-style:none; padding:10px;"><p style="padding:0; margin:0;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00qflz4.2bo11866.g00qflz4.2bo127f7%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fjacajaca%252Fhu-nb019%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fjacajaca%252Fi%252F10001504%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow">＜期間限定レッド＞【楽天1位】システム手帳 ミニ6穴 20mm リング M6 本革 栃木レザー 6穴 カバー メンズ レディース ビジネス ペンホルダー カードポケット 日本製 HUKURO フクロ</a></p><p style="color:#666; margin-top:5px; line-height:1.5;">価格:<span style="font-size:14px; color:#C00; font-weight:bold;">19800円</span><br><span style="font-size:10px; font-weight:normal;">(2026/9/6 14:13時点)</span><br><span style="font-weight:bold;">感想(33件)</span></p></td></tr></tbody></table><img border="0" width="1" height="1" src="https://www17.a8.net/0.gif?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT" alt="">`
     },
     inventor: {
       name: "発明家タイプ",
@@ -731,6 +757,16 @@
     document.getElementById("result-seen").textContent = t.seen;
     document.getElementById("result-caution").textContent = t.caution;
     document.getElementById("result-match").textContent = t.match;
+
+    const adField = document.getElementById("result-ad-field");
+    const adEl = document.getElementById("result-ad");
+    if (t.ad) {
+      adEl.innerHTML = t.ad;
+      adField.hidden = false;
+    } else {
+      adEl.innerHTML = "";
+      adField.hidden = true;
+    }
 
     const traitsEl = document.getElementById("result-traits");
     traitsEl.innerHTML = "";
