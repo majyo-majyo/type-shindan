@@ -407,7 +407,26 @@
   .result-actions {
     display: flex;
     justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
     margin-top: 28px;
+  }
+
+  .btn.share {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: var(--card);
+    box-shadow: 0 8px 20px -8px var(--shadow);
+  }
+  .btn.share:hover { transform: translateY(-1px); }
+
+  .share-icon {
+    width: 15px;
+    height: 15px;
+    fill: currentColor;
+    flex: none;
   }
 
   @media (max-width: 480px) {
@@ -477,6 +496,10 @@
         </div>
 
         <div class="result-actions">
+          <button class="btn share" id="share-btn" type="button">
+            <svg class="share-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            Xでシェア
+          </button>
           <button class="btn ghost" id="retry-btn" type="button">もう一度診断する</button>
         </div>
       </section>
@@ -737,6 +760,13 @@
     const stampSvg = document.getElementById("stamp-svg");
     void stampSvg.offsetWidth;
     stampSvg.classList.add("show");
+
+    document.getElementById("share-btn").onclick = () => {
+      const shareText = `私は「${t.name}」でした!あなたの職場タイプは?`;
+      const shareUrl = "https://majyo-majyo.github.io/type-shindan/workplace-type/";
+      const intent = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+      window.open(intent, "_blank", "noopener,noreferrer");
+    };
   }
 </script>
 </body>
