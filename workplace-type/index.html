@@ -528,7 +528,7 @@
         </div>
 
         <div class="field ad-field" id="result-ad-field" hidden>
-          <span class="field-label pr-label">PR ー おすすめの一品</span>
+          <span class="field-label pr-label" id="pr-label">PR ー おすすめの一品</span>
           <div id="result-ad" class="ad-embed"></div>
         </div>
 
@@ -777,8 +777,10 @@
 
     const adField = document.getElementById("result-ad-field");
     const adEl = document.getElementById("result-ad");
+    const prLabel = document.getElementById("pr-label");
     if (t.ad) {
       adEl.innerHTML = t.ad;
+      prLabel.textContent = `PR ー ${t.name}のあなたにおすすめの一品`;
       adField.hidden = false;
     } else {
       adEl.innerHTML = "";
