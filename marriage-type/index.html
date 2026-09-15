@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>結婚スタイル診断 | 診断ファイル室</title>
+<meta name="description" content="8つの質問に答えると、相棒・自由・守護者など6タイプの中からあなたが求める結婚生活のスタイルを診断します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+
+<style>
+  :root {
+    --paper: #e7dcbd;
+    --paper-deep: #d5c496;
+    --card: #f7f1df;
+    --card-line: #c8b688;
+    --ink: #2c241a;
+    --ink-soft: #6b5c40;
+    --muted: #8a7a56;
+    --accent: #a3341f;
+    --accent-soft: rgba(163, 52, 31, 0.1);
+    --accent-line: rgba(163, 52, 31, 0.35);
+    --shadow: rgba(44, 36, 26, 0.18);
+    --focus: #1c5f7a;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #18150f;
+      --paper-deep: #100e0a;
+      --card: #221d15;
+      --card-line: #493e29;
+      --ink: #ede2c8;
+      --ink-soft: #b6a582;
+      --muted: #8c7c5b;
+      --accent: #e2725a;
+      --accent-soft: rgba(226, 114, 90, 0.14);
+      --accent-line: rgba(226, 114, 90, 0.4);
+      --shadow: rgba(0, 0, 0, 0.45);
+      --focus: #6fb8d6;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper: #18150f;
+    --paper-deep: #100e0a;
+    --card: #221d15;
+    --card-line: #493e29;
+    --ink: #ede2c8;
+    --ink-soft: #b6a582;
+    --muted: #8c7c5b;
+    --accent: #e2725a;
+    --accent-soft: rgba(226, 114, 90, 0.14);
+    --accent-line: rgba(226, 114, 90, 0.4);
+    --shadow: rgba(0, 0, 0, 0.45);
+    --focus: #6fb8d6;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 27px, var(--card-line) 27.5px, transparent 28px),
+      var(--paper);
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 48px 20px 64px;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 640px;
+  }
+
+  .file {
+    position: relative;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    margin: 0 0 14px 4px;
+  }
+  .back-link:hover { color: var(--accent); }
+  .back-link:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  .tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--paper-deep);
+    color: var(--ink-soft);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    padding: 8px 18px 10px;
+    border-radius: 8px 8px 0 0;
+    margin-left: 28px;
+    border: 1px solid var(--card-line);
+    border-bottom: none;
+  }
+
+  .tab::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+  }
+
+  .file-body {
+    background: var(--card);
+    border: 1px solid var(--card-line);
+    border-radius: 4px 14px 14px 14px;
+    box-shadow: 0 18px 40px -20px var(--shadow), 0 2px 0 var(--card-line);
+    padding: 44px 40px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .file-body::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: repeating-linear-gradient(90deg, var(--accent) 0 10px, transparent 10px 20px);
+    opacity: 0.5;
+  }
+
+  .screen[hidden] { display: none; }
+
+  .eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin: 0 0 14px;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-family: "Shippori Mincho", "Hiragino Mincho ProN", serif;
+    font-weight: 600;
+    font-size: clamp(24px, 5vw, 32px);
+    line-height: 1.4;
+    margin: 0 0 18px;
+    text-wrap: balance;
+  }
+
+  .lead {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--ink-soft);
+    margin: 0 0 32px;
+    max-width: 46ch;
+  }
+
+  .btn {
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: 999px;
+    padding: 14px 32px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn { transition: none; }
+  }
+
+  .btn.primary {
+    background: var(--accent);
+    color: #fdf6e8;
+    box-shadow: 0 8px 20px -8px var(--accent-line);
+  }
+  .btn.primary:hover { transform: translateY(-1px); box-shadow: 0 10px 22px -8px var(--accent-line); }
+
+  .btn.ghost {
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1px solid var(--card-line);
+    margin-top: 8px;
+  }
+  .btn.ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  .btn:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .quiz-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .qcount {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    color: var(--muted);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .progress {
+    flex: 1;
+    height: 6px;
+    background: var(--paper-deep);
+    border-radius: 999px;
+    overflow: hidden;
+    border: 1px solid var(--card-line);
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 12.5%;
+    background: var(--accent);
+    border-radius: 999px;
+    transition: width 0.35s ease;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .progress-fill { transition: none; }
+  }
+
+  .question {
+    font-family: "Shippori Mincho", serif;
+    font-weight: 600;
+    font-size: clamp(19px, 4vw, 23px);
+    line-height: 1.6;
+    margin: 0 0 26px;
+    text-wrap: balance;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    text-align: left;
+    width: 100%;
+    background: var(--paper);
+    border: 1px solid var(--card-line);
+    border-radius: 10px;
+    padding: 15px 18px;
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .option { transition: none; }
+  }
+
+  .option:hover {
+    border-color: var(--accent);
+    transform: translateX(2px);
+  }
+
+  .option:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .option-mark {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--accent);
+    border: 1px solid var(--accent-line);
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* result screen */
+  .result {
+    text-align: left;
+  }
+
+  .stamp-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+
+  .stamp {
+    width: 150px;
+    height: 150px;
+    opacity: 0;
+    transform: scale(2.2) rotate(-16deg);
+  }
+
+  .stamp.show {
+    animation: stampDown 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .stamp.show { animation: none; opacity: 1; transform: scale(1) rotate(-6deg); }
+  }
+
+  @keyframes stampDown {
+    0%   { opacity: 0; transform: scale(2.2) rotate(-16deg); }
+    55%  { opacity: 1; transform: scale(0.92) rotate(-4deg); }
+    75%  { transform: scale(1.05) rotate(-8deg); }
+    100% { opacity: 1; transform: scale(1) rotate(-6deg); }
+  }
+
+  .result .eyebrow { text-align: center; }
+
+  .result-name {
+    text-align: center;
+    font-size: clamp(26px, 6vw, 34px);
+    margin-bottom: 6px;
+  }
+
+  .result-motto {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin: 0 0 30px;
+    letter-spacing: 0.03em;
+  }
+
+  .field {
+    border-top: 1px dashed var(--card-line);
+    padding: 16px 0;
+  }
+
+  .field:last-of-type { border-bottom: 1px dashed var(--card-line); }
+
+  .field-label {
+    display: inline-block;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    background: var(--paper);
+    border: 1px solid var(--card-line);
+    border-radius: 4px;
+    padding: 3px 8px;
+    margin-bottom: 10px;
+  }
+
+  .field p {
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.9;
+    color: var(--ink);
+  }
+
+  .traits {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .traits li {
+    font-size: 14.5px;
+    line-height: 1.7;
+    padding-left: 18px;
+    position: relative;
+  }
+
+  .traits li::before {
+    content: "・";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  .field.accent-field {
+    background: var(--accent-soft);
+    border-radius: 8px;
+    padding: 16px 16px;
+    border-top: none;
+    margin-top: 8px;
+  }
+  .field.accent-field:last-of-type { border-bottom: none; }
+
+  .ad-field {
+    border-top: 1px dashed var(--card-line);
+  }
+
+  .pr-label {
+    background: var(--paper-deep);
+    color: var(--muted);
+  }
+
+  .ad-embed {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    padding-top: 4px;
+  }
+
+  .ad-embed table {
+    max-width: 100%;
+  }
+
+  /* 楽天/A8.netの広告コードは色をインラインstyleで固定してくるため、
+     ダークモードでも読めるようテーマの色で強制的に上書きする */
+  .ad-embed, .ad-embed * {
+    color: var(--ink) !important;
+    background: transparent !important;
+    border-color: var(--card-line) !important;
+  }
+  .ad-embed a {
+    color: var(--accent) !important;
+    text-decoration: underline;
+  }
+
+  .result-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+  }
+
+  .btn.share {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: var(--card);
+    box-shadow: 0 8px 20px -8px var(--shadow);
+  }
+  .btn.share:hover { transform: translateY(-1px); }
+
+  .share-icon {
+    width: 15px;
+    height: 15px;
+    fill: currentColor;
+    flex: none;
+  }
+
+  @media (max-width: 480px) {
+    .file-body { padding: 34px 22px 30px; }
+    .tab { margin-left: 14px; font-size: 11px; padding: 7px 14px 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <a class="back-link" href="../">← 診断ファイル室</a>
+  <div class="file">
+    <div class="tab">結婚スタイル診断ファイル</div>
+    <div class="file-body">
+
+      <section class="screen intro" id="screen-intro">
+        <p class="eyebrow">Personality File</p>
+        <h1>あなたが求める「結婚スタイル」を診断します</h1>
+        <p class="lead">全8問、直感で選んでください。所要時間は1〜2分。結婚生活の具体的な場面から、6タイプの中からあなたに一番近いものを診断します。</p>
+        <button class="btn primary" id="start-btn" type="button">診断をはじめる</button>
+      </section>
+
+      <section class="screen quiz" id="screen-quiz" hidden>
+        <div class="quiz-head">
+          <span class="qcount" id="qcount">Q.1 / 8</span>
+          <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
+        </div>
+        <h2 class="question" id="question-text"></h2>
+        <div class="options" id="options"></div>
+      </section>
+
+      <section class="screen result" id="screen-result" hidden>
+        <div class="stamp-wrap">
+          <svg class="stamp" id="stamp-svg" viewBox="0 0 200 200" role="img" aria-label="診断結果のスタンプ">
+            <defs>
+              <filter id="roughEdge" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="4" result="noise"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="7"/>
+              </filter>
+            </defs>
+            <g filter="url(#roughEdge)" fill="none" stroke="var(--accent)">
+              <circle cx="100" cy="100" r="88" stroke-width="5"/>
+              <circle cx="100" cy="100" r="76" stroke-width="2.5"/>
+            </g>
+            <text id="stamp-text" x="100" y="100" fill="var(--accent)" font-family="Shippori Mincho, serif" font-weight="700" text-anchor="middle" dominant-baseline="central" filter="url(#roughEdge)"></text>
+          </svg>
+        </div>
+        <p class="eyebrow">診断結果</p>
+        <h1 class="result-name" id="result-name"></h1>
+        <p class="result-motto" id="result-motto"></p>
+
+        <div class="field">
+          <span class="field-label">特徴</span>
+          <ul class="traits" id="result-traits"></ul>
+        </div>
+        <div class="field">
+          <span class="field-label">周りからはこう見られている</span>
+          <p id="result-seen"></p>
+        </div>
+        <div class="field">
+          <span class="field-label">ちょっと注意</span>
+          <p id="result-caution"></p>
+        </div>
+        <div class="field accent-field">
+          <span class="field-label">相性がいいタイプ</span>
+          <p id="result-match"></p>
+        </div>
+
+        <div class="field ad-field" id="result-ad-field" hidden>
+          <span class="field-label pr-label">PR ー おすすめの一品</span>
+          <div id="result-ad" class="ad-embed"></div>
+        </div>
+
+        <div class="result-actions">
+          <button class="btn share" id="share-btn" type="button">
+            <svg class="share-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            Xでシェア
+          </button>
+          <button class="btn ghost" id="retry-btn" type="button">もう一度診断する</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  const TYPES = {
+    partner: {
+      name: "相棒型",
+      stamp: "相棒",
+      motto: "二人で決めて、二人で歩く。",
+      traits: [
+        "大事なことは二人で相談してから決めたい",
+        "家事も役割も、状況に応じて柔軟に分け合いたい",
+        "「一緒に乗り越えた」実感を大事にする"
+      ],
+      seen: "「息が合っている」「対等な関係」と思われています。",
+      caution: "何でも二人で決めようとして、決断が遅くなりがち。",
+      match: "堅実型 — 現実的な判断で、二人の話し合いを前に進めてくれる相手です。",
+      ad: `<table cellpadding="0" cellspacing="0" border="0" style=" border:1px solid #ccc; width:300px;"><tbody><tr style="border-style:none;"><td style="vertical-align:top; border-style:none; padding:10px; width:44px;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00tlg54.2bo11272.g00tlg54.2bo12e8a%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fshoppress%252Fjdh280cpair%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fshoppress%252Fi%252F10000230%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow"><img style="max-width: initial;" border="0" alt="" src="https://thumbnail.image.rakuten.co.jp/@0_mall/shoppress/cabinet/thermos/renewal/jdh280cpair_01fix.jpg?_ex=64x64"></a></td><td style="font-size:12px; vertical-align:middle; border-style:none; padding:10px;"><p style="padding:0; margin:0;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00tlg54.2bo11272.g00tlg54.2bo12e8a%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fshoppress%252Fjdh280cpair%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fshoppress%252Fi%252F10000230%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow">名入れ タンブラー サーモス THERMOS ペア 結婚祝い プレゼント 名入れ無料 JDH-280C 280ml 真空断熱 保温 保冷 ステンレス 2個セット 名前刻印 名前入り ペアセット 記念日 新婚 カップル ペアギフト 食器セット ギフトセット おしゃれ かわいい 贈り物 即日発送 ザワウ</a></p><p style="color:#666; margin-top:5px; line-height:1.5;">価格:<span style="font-size:14px; color:#C00; font-weight:bold;">5900円</span><br><span style="font-size:10px; font-weight:normal;">(2026/9/15 10:42時点)</span><br><span style="font-weight:bold;">感想(123件)</span></p></td></tr></tbody></table><img border="0" width="1" height="1" src="https://www11.a8.net/0.gif?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT" alt="">`
+    },
+    free: {
+      name: "自由型",
+      stamp: "自由",
+      motto: "一緒にいても、それぞれの時間を。",
+      traits: [
+        "趣味や友人関係は結婚後も大事にしたい",
+        "干渉されるより、信頼して任せてもらう方が心地いい",
+        "べったりより、ちょうどいい距離感を保ちたい"
+      ],
+      seen: "「マイペース」「束縛しない人」と思われています。",
+      caution: "自由を優先しすぎて、パートナーが寂しさを感じることがある。",
+      match: "寄り添い型 — あなたの自由を尊重しつつ、そばにいてくれる相手です。",
+      ad: `<table cellpadding="0" cellspacing="0" border="0" style=" border:1px solid #ccc; width:300px;"><tbody><tr style="border-style:none;"><td style="vertical-align:top; border-style:none; padding:10px; width:44px;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00s0p34.2bo11719.g00s0p34.2bo1272a%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fauc-risecreation%252Fr0499%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fauc-risecreation%252Fi%252F10005122%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow"><img style="max-width: initial;" border="0" alt="" src="https://thumbnail.image.rakuten.co.jp/@0_mall/auc-risecreation/cabinet/product/top/r0499_01a.jpg?_ex=64x64"></a></td><td style="font-size:12px; vertical-align:middle; border-style:none; padding:10px;"><p style="padding:0; margin:0;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00s0p34.2bo11719.g00s0p34.2bo1272a%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fauc-risecreation%252Fr0499%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fauc-risecreation%252Fi%252F10005122%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow">【100枚限定★40％OFFクーポン 9/20 23:59迄】 トラベルポーチ 吊り下げ 洗面用具 旅行 ポーチ 洗面 吊り下げ 取り外し メッシュ ポーチ コスメポーチ セット おしゃれ メイク 化粧品 便利グッズ 仕切り トラベルグッズ 旅行グッズ お風呂 大容量 スキンケア</a></p><p style="color:#666; margin-top:5px; line-height:1.5;">価格:<span style="font-size:14px; color:#C00; font-weight:bold;">2980円</span><br><span style="font-size:10px; font-weight:normal;">(2026/9/15 10:46時点)</span><br><span style="font-weight:bold;">感想(433件)</span></p></td></tr></tbody></table><img border="0" width="1" height="1" src="https://www19.a8.net/0.gif?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT" alt="">`
+    },
+    guardian: {
+      name: "守護者型",
+      stamp: "守護者",
+      motto: "大切な人は、自分が守る。",
+      traits: [
+        "家族の生活を支える責任を、進んで引き受けたい",
+        "弱音より、頼れる存在でいたい気持ちが強い",
+        "困った時こそ動く、いざという時に強いタイプ"
+      ],
+      seen: "「頼りになる」「安心して任せられる」と思われています。",
+      caution: "一人で背負い込みすぎて、パートナーに甘えるのが苦手。",
+      match: "自由型 — あなたの頑張りに、程よい距離感で寄り添ってくれる相手です。",
+      ad: `<table cellpadding="0" cellspacing="0" border="0" style=" border:1px solid #ccc; width:300px;"><tbody><tr style="border-style:none;"><td style="vertical-align:top; border-style:none; padding:10px; width:44px;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00tp3g4.2bo11701.g00tp3g4.2bo12888%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fazest1%252F4961099711160%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fazest1%252Fi%252F10000022%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow"><img style="max-width: initial;" border="0" alt="" src="https://thumbnail.image.rakuten.co.jp/@0_mall/azest1/cabinet/compass1785557520.jpg?_ex=64x64"></a></td><td style="font-size:12px; vertical-align:middle; border-style:none; padding:10px;"><p style="padding:0; margin:0;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00tp3g4.2bo11701.g00tp3g4.2bo12888%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fazest1%252F4961099711160%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fazest1%252Fi%252F10000022%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow">スヌーピー 家計簿 簡単スッキリ A5サイズ 行列 EFK-818-470 日付なしタイプ 日本ホールマーク 手帳 かわいい キャラクター ダイアリー</a></p><p style="color:#666; margin-top:5px; line-height:1.5;">価格:<span style="font-size:14px; color:#C00; font-weight:bold;">1030円〜</span><br><span style="font-size:10px; font-weight:normal;">(2026/9/15 10:51時点)</span><br><span style="font-weight:bold;">感想(79件)</span></p></td></tr></tbody></table><img border="0" width="1" height="1" src="https://www19.a8.net/0.gif?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT" alt="">`
+    },
+    close: {
+      name: "寄り添い型",
+      stamp: "寄添",
+      motto: "そばにいることが、一番の安心。",
+      traits: [
+        "気持ちを言葉や態度でこまめに確認し合いたい",
+        "小さな変化にもすぐ気づいて、声をかけたくなる",
+        "一緒に過ごす時間そのものが、何よりの幸せ"
+      ],
+      seen: "「愛情深い」「一緒にいて安心する」と思われています。",
+      caution: "距離が近すぎて、相手の自由な時間を奪ってしまうことがある。",
+      match: "守護者型 — あなたの気持ちに、どっしり構えて応えてくれる相手です。",
+      ad: `<table cellpadding="0" cellspacing="0" border="0" style=" border:1px solid #ccc; width:300px;"><tbody><tr style="border-style:none;"><td style="vertical-align:top; border-style:none; padding:10px; width:44px;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00u3124.2bo1176d.g00u3124.2bo122d6%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fsalua-eyemaskstore%252F10000000%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fsalua-eyemaskstore%252Fi%252F10000000%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow"><img style="max-width: initial;" border="0" alt="" src="https://thumbnail.image.rakuten.co.jp/@0_mall/salua-eyemaskstore/cabinet/10438207/10438210/imgrc0149270956.jpg?_ex=64x64"></a></td><td style="font-size:12px; vertical-align:middle; border-style:none; padding:10px;"><p style="padding:0; margin:0;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00u3124.2bo1176d.g00u3124.2bo122d6%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fsalua-eyemaskstore%252F10000000%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fsalua-eyemaskstore%252Fi%252F10000000%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow">＼ランキング1位／アイマスク 充電式 ホットアイマスク 繰り返し使える アイピロー ホットアイピロー リラックス ギフト かわいい おしゃれ USB シルク 安眠 睡眠 快眠 グッズ 誕生日 プレゼント 健康 目 旅行 トラベル 飛行機 夜行バス 女性 母の日 父の日 敬老の日</a></p><p style="color:#666; margin-top:5px; line-height:1.5;">価格:<span style="font-size:14px; color:#C00; font-weight:bold;">4280円</span><br><span style="font-size:10px; font-weight:normal;">(2026/9/15 10:52時点)</span><br><span style="font-weight:bold;">感想(2725件)</span></p></td></tr></tbody></table><img border="0" width="1" height="1" src="https://www11.a8.net/0.gif?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT" alt="">`
+    },
+    natural: {
+      name: "自然体型",
+      stamp: "自然体",
+      motto: "頑張りすぎず、ふたりらしく。",
+      traits: [
+        "「こうあるべき」にとらわれず、無理のない形を選びたい",
+        "記念日やイベントより、なんでもない日常を大事にする",
+        "完璧じゃなくても、ふたりが心地よければそれでいい"
+      ],
+      seen: "「一緒にいて疲れない」「肩の力が抜ける」と思われています。",
+      caution: "マイペースすぎて、大事な話し合いを後回しにしがち。",
+      match: "堅実型 — 必要な場面では、しっかり現実を見てくれる相手です。",
+      ad: `<table cellpadding="0" cellspacing="0" border="0" style=" border:1px solid #ccc; width:300px;"><tbody><tr style="border-style:none;"><td style="vertical-align:top; border-style:none; padding:10px; width:44px;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00upg44.2bo112fe.g00upg44.2bo121b8%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fred-jpn%252F1718520101%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fred-jpn%252Fi%252F10000027%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow"><img style="max-width: initial;" border="0" alt="" src="https://thumbnail.image.rakuten.co.jp/@0_mall/red-jpn/cabinet/item/thumb/thumb_new2/imgrc0105426278.jpg?_ex=64x64"></a></td><td style="font-size:12px; vertical-align:middle; border-style:none; padding:10px;"><p style="padding:0; margin:0;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00upg44.2bo112fe.g00upg44.2bo121b8%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fred-jpn%252F1718520101%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fred-jpn%252Fi%252F10000027%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow">【大泉洋さんCM公開中】リカバリーウェア ReD ぐっすりパジャマ 上下セット 男女兼用 メンズ レディース 長袖プルオーバー 血行促進 疲労回復 敬老の日 リカバリーパジャマ 誕生日 プレゼント ギフト 一般医療機器 敬老の日</a></p><p style="color:#666; margin-top:5px; line-height:1.5;">価格:<span style="font-size:14px; color:#C00; font-weight:bold;">7700円〜</span><br><span style="font-size:10px; font-weight:normal;">(2026/9/15 10:53時点)</span><br><span style="font-weight:bold;">感想(3481件)</span></p></td></tr></tbody></table><img border="0" width="1" height="1" src="https://www19.a8.net/0.gif?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT" alt="">`
+    },
+    steady: {
+      name: "堅実型",
+      stamp: "堅実",
+      motto: "愛情は、日々の積み重ねで示す。",
+      traits: [
+        "お金や将来設計は、早めに二人で話しておきたい",
+        "ロマンスより、暮らしの安定を大事にする",
+        "約束や役割は、きちんと守りたいタイプ"
+      ],
+      seen: "「しっかりしている」「先を考えている」と思われています。",
+      caution: "現実を優先しすぎて、ロマンチックな瞬間を軽視しがち。",
+      match: "自然体型 — 肩の力を抜くことを、そっと教えてくれる相手です。",
+      ad: `<table cellpadding="0" cellspacing="0" border="0" style=" border:1px solid #ccc; width:300px;"><tbody><tr style="border-style:none;"><td style="vertical-align:top; border-style:none; padding:10px; width:44px;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00q0724.2bo11c45.g00q0724.2bo12179%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fbook%252F16730896%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fbook%252Fi%252F20353032%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow"><img style="max-width: initial;" border="0" alt="" src="https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/7765/9784299017765_1_2.jpg?_ex=64x64"></a></td><td style="font-size:12px; vertical-align:middle; border-style:none; padding:10px;"><p style="padding:0; margin:0;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00q0724.2bo11c45.g00q0724.2bo12179%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fbook%252F16730896%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fbook%252Fi%252F20353032%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow">お金がどんどん増える! あなたにぴったりの投資法が見つかる! マンガと図解 はじめての資産運用 [ 頼藤 太希 ]</a></p><p style="color:#666; margin-top:5px; line-height:1.5;">価格:<span style="font-size:14px; color:#C00; font-weight:bold;">1320円</span><br><span style="font-size:10px; font-weight:normal;">(2026/9/15 10:56時点)</span><br><span style="font-weight:bold;">感想(0件)</span></p></td></tr></tbody></table><img border="0" width="1" height="1" src="https://www11.a8.net/0.gif?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT" alt="">`
+    }
+  };
+
+  const QUESTIONS = [
+    {
+      text: "将来の生活費について、どう考えたい?",
+      options: [
+        { label: "収入も支出も、二人で管理して一緒に決めたい", type: "partner" },
+        { label: "自分が主に家計を支えられるようになりたい", type: "guardian" },
+        { label: "かっちり決めすぎず、その時々で無理なく", type: "natural" },
+        { label: "早いうちから貯蓄・計画をしっかり立てたい", type: "steady" }
+      ]
+    },
+    {
+      text: "家事や役割分担について、理想は?",
+      options: [
+        { label: "得意なことをその都度、二人で相談して分ける", type: "partner" },
+        { label: "相手に細かく口出しせず、それぞれのやり方に任せる", type: "free" },
+        { label: "一緒に台所に立つなど、なるべく一緒にやりたい", type: "close" },
+        { label: "曜日や担当をあらかじめ決めて、きっちり回したい", type: "steady" }
+      ]
+    },
+    {
+      text: "休日の過ごし方、理想は?",
+      options: [
+        { label: "一日中一緒にいて、たくさん話したい", type: "close" },
+        { label: "それぞれ好きなことをして、夜に合流する", type: "free" },
+        { label: "予定を決めすぎず、その日の気分で過ごす", type: "natural" },
+        { label: "家族のための用事や準備を率先してやる", type: "guardian" }
+      ]
+    },
+    {
+      text: "パートナーが元気ない時、あなたは?",
+      options: [
+        { label: "すぐに気づいて、そばで話を聞く", type: "close" },
+        { label: "「任せて」と言って、代わりに動く", type: "guardian" },
+        { label: "そっとしておいて、聞かれたら応える", type: "natural" },
+        { label: "何かできることはないか、一緒に考える", type: "partner" }
+      ]
+    },
+    {
+      text: "結婚後の友人関係・趣味について",
+      options: [
+        { label: "結婚前と変わらず、自分の時間は大事にしたい", type: "free" },
+        { label: "パートナーと共有できる趣味を増やしていきたい", type: "partner" },
+        { label: "大事にしつつも、家庭を優先する場面は割り切る", type: "steady" },
+        { label: "特にルールを決めず、自然な範囲で続ける", type: "natural" }
+      ]
+    },
+    {
+      text: "将来の住まいや暮らし方について",
+      options: [
+        { label: "自分が中心になって決めていきたい", type: "guardian" },
+        { label: "ライフプランを踏まえて、早めに計画したい", type: "steady" },
+        { label: "二人で何度も話し合って納得のいく形にしたい", type: "partner" },
+        { label: "縁やタイミングに任せる部分があってもいい", type: "natural" }
+      ]
+    },
+    {
+      text: "意見が食い違った時、あなたは?",
+      options: [
+        { label: "とことん話し合って、二人で納得できる答えを探す", type: "partner" },
+        { label: "相手の気持ちを優先して、まず寄り添う", type: "close" },
+        { label: "感情より、現実的にどちらが合理的か考える", type: "steady" },
+        { label: "無理に一致させず、それぞれの考えを尊重する", type: "free" }
+      ]
+    },
+    {
+      text: "結婚生活で一番大事にしたいことは?",
+      options: [
+        { label: "大切な人を支え、守れる存在でいること", type: "guardian" },
+        { label: "無理せず、ふたりらしくいられること", type: "natural" },
+        { label: "気持ちが通じ合っている実感", type: "close" },
+        { label: "安定した、安心できる暮らし", type: "steady" }
+      ]
+    }
+  ];
+
+  const screenIntro = document.getElementById("screen-intro");
+  const screenQuiz = document.getElementById("screen-quiz");
+  const screenResult = document.getElementById("screen-result");
+  const qcount = document.getElementById("qcount");
+  const progressFill = document.getElementById("progress-fill");
+  const questionText = document.getElementById("question-text");
+  const optionsEl = document.getElementById("options");
+
+  let current = 0;
+  const scores = Object.fromEntries(Object.keys(TYPES).map(k => [k, 0]));
+  const typeOrder = Object.keys(TYPES);
+
+  document.getElementById("start-btn").addEventListener("click", () => {
+    screenIntro.hidden = true;
+    screenQuiz.hidden = false;
+    renderQuestion();
+  });
+
+  document.getElementById("retry-btn").addEventListener("click", () => {
+    current = 0;
+    typeOrder.forEach(k => (scores[k] = 0));
+    screenResult.hidden = true;
+    screenQuiz.hidden = false;
+    document.getElementById("stamp-svg").classList.remove("show");
+    renderQuestion();
+  });
+
+  function renderQuestion() {
+    const q = QUESTIONS[current];
+    qcount.textContent = `Q.${current + 1} / ${QUESTIONS.length}`;
+    progressFill.style.width = `${((current + 1) / QUESTIONS.length) * 100}%`;
+    questionText.textContent = q.text;
+    optionsEl.innerHTML = "";
+    const marks = ["A", "B", "C", "D"];
+    q.options.forEach((opt, i) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "option";
+      btn.innerHTML = `<span class="option-mark">${marks[i]}</span><span>${opt.label}</span>`;
+      btn.addEventListener("click", () => selectOption(opt.type));
+      optionsEl.appendChild(btn);
+    });
+  }
+
+  function selectOption(type) {
+    scores[type] += 1;
+    current += 1;
+    if (current < QUESTIONS.length) {
+      renderQuestion();
+    } else {
+      showResult();
+    }
+  }
+
+  function showResult() {
+    let winner = typeOrder[0];
+    typeOrder.forEach(k => {
+      if (scores[k] > scores[winner]) winner = k;
+    });
+    const t = TYPES[winner];
+
+    document.getElementById("result-name").textContent = t.name;
+    document.getElementById("result-motto").textContent = t.motto;
+    document.getElementById("result-seen").textContent = t.seen;
+    document.getElementById("result-caution").textContent = t.caution;
+    document.getElementById("result-match").textContent = t.match;
+
+    const adField = document.getElementById("result-ad-field");
+    const adEl = document.getElementById("result-ad");
+    if (t.ad) {
+      adEl.innerHTML = t.ad;
+      adField.hidden = false;
+    } else {
+      adEl.innerHTML = "";
+      adField.hidden = true;
+    }
+
+    const traitsEl = document.getElementById("result-traits");
+    traitsEl.innerHTML = "";
+    t.traits.forEach(tr => {
+      const li = document.createElement("li");
+      li.textContent = tr;
+      traitsEl.appendChild(li);
+    });
+
+    const stampText = document.getElementById("stamp-text");
+    stampText.textContent = "";
+    const chars = t.stamp.split("");
+    const fontSize = chars.length <= 1 ? 64 : chars.length === 2 ? 42 : 30;
+    stampText.setAttribute("font-size", fontSize);
+    const lineHeight = fontSize * 1.05;
+    const totalHeight = lineHeight * (chars.length - 1);
+    chars.forEach((ch, i) => {
+      const tspan = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
+      tspan.setAttribute("x", "100");
+      tspan.setAttribute("y", 100 - totalHeight / 2 + i * lineHeight);
+      tspan.textContent = ch;
+      stampText.appendChild(tspan);
+    });
+
+    screenQuiz.hidden = true;
+    screenResult.hidden = false;
+    const stampSvg = document.getElementById("stamp-svg");
+    void stampSvg.offsetWidth;
+    stampSvg.classList.add("show");
+
+    document.getElementById("share-btn").onclick = () => {
+      const shareText = `私は「${t.name}」でした!あなたが求める結婚スタイルは?\n#結婚スタイル診断`;
+      const shareUrl = "https://majyo-majyo.github.io/type-shindan/marriage-type/";
+      const intent = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+      window.open(intent, "_blank", "noopener,noreferrer");
+    };
+  }
+</script>
+</body>
+</html>
