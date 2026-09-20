@@ -1,0 +1,368 @@
+﻿<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>16の性格タイプ診断 | 診断ファイル室</title>
+<meta name="description" content="はい・いいえの12問に答えると、16タイプの中からあなたの性格タイプがわかります。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root {
+    --paper: #e7dcbd; --paper-deep: #d5c496; --card: #f7f1df; --card-line: #c8b688;
+    --ink: #2c241a; --ink-soft: #6b5c40; --muted: #8a7a56;
+    --accent: #a3341f; --accent-soft: rgba(163, 52, 31, 0.1); --accent-line: rgba(163, 52, 31, 0.35);
+    --shadow: rgba(44, 36, 26, 0.18); --focus: #1c5f7a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #18150f; --paper-deep: #100e0a; --card: #221d15; --card-line: #493e29;
+      --ink: #ede2c8; --ink-soft: #b6a582; --muted: #8c7c5b;
+      --accent: #e2725a; --accent-soft: rgba(226, 114, 90, 0.14); --accent-line: rgba(226, 114, 90, 0.4);
+      --shadow: rgba(0, 0, 0, 0.45); --focus: #6fb8d6;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #18150f; --paper-deep: #100e0a; --card: #221d15; --card-line: #493e29;
+    --ink: #ede2c8; --ink-soft: #b6a582; --muted: #8c7c5b;
+    --accent: #e2725a; --accent-soft: rgba(226, 114, 90, 0.14); --accent-line: rgba(226, 114, 90, 0.4);
+    --shadow: rgba(0, 0, 0, 0.45); --focus: #6fb8d6;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh;
+    background: repeating-linear-gradient(0deg, transparent, transparent 27px, var(--card-line) 27.5px, transparent 28px), var(--paper);
+    background-attachment: fixed; color: var(--ink);
+    font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
+    display: flex; justify-content: center; padding: 40px 20px 64px;
+  }
+  .page { width: 100%; max-width: 640px; }
+  .back-link { display: inline-block; margin-bottom: 20px; color: var(--ink-soft); text-decoration: none; font-size: 13px; }
+  .tab { display: inline-flex; align-items: center; gap: 8px; background: var(--paper-deep); color: var(--ink-soft);
+    font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 0.12em; padding: 8px 18px 10px;
+    border-radius: 8px 8px 0 0; margin-left: 14px; border: 1px solid var(--card-line); border-bottom: none; }
+  .file-body { background: var(--card); border: 1px solid var(--card-line); border-radius: 4px 14px 14px 14px;
+    box-shadow: 0 14px 32px -18px var(--shadow), 0 2px 0 var(--card-line); padding: 34px 30px; }
+  .eyebrow { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 0.18em; color: var(--accent);
+    margin: 0 0 14px; text-transform: uppercase; }
+  h1 { font-family: "Shippori Mincho", serif; font-weight: 600; font-size: clamp(24px, 5vw, 30px); line-height: 1.4; margin: 0 0 14px; }
+  .lead { font-size: 14px; line-height: 1.8; color: var(--ink-soft); margin: 0 0 24px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 28px;
+    border-radius: 999px; border: none; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 700; }
+  .btn.primary { background: var(--accent); color: #fff5ec; }
+  .btn.ghost { background: transparent; color: var(--ink-soft); border: 1px solid var(--card-line); }
+  .quiz-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+  .qcount { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--muted); }
+  .progress { flex: 1; height: 4px; background: var(--paper-deep); border-radius: 4px; margin-left: 14px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.3s ease; }
+  .question { font-family: "Shippori Mincho", serif; font-size: 19px; line-height: 1.6; margin: 0 0 26px; }
+  .yn-options { display: flex; gap: 16px; }
+  .yn-btn { flex: 1; padding: 20px; border-radius: 12px; border: 1px solid var(--card-line); background: var(--paper);
+    color: var(--ink); font-family: "Shippori Mincho", serif; font-size: 18px; font-weight: 600; cursor: pointer;
+    transition: all 0.15s ease; }
+  .yn-btn:hover { border-color: var(--accent-line); background: var(--accent-soft); }
+  .stamp-wrap { text-align: center; margin: 0 0 8px; display: flex; align-items: center; justify-content: center; gap: 18px; }
+  .stamp { width: 120px; height: 120px; }
+  .type-icon { width: 108px; height: 108px; flex: none; border-radius: 50%; object-fit: cover;
+    border: 3px solid var(--type-color, var(--accent)); box-shadow: 0 6px 18px -8px var(--shadow); background: var(--card); }
+  .result-name { font-family: "Shippori Mincho", serif; font-weight: 600; font-size: 28px; text-align: center; margin: 4px 0 6px; }
+  .result-code { text-align: center; font-family: "JetBrains Mono", monospace; letter-spacing: 0.2em; color: var(--muted); margin: 0 0 6px; }
+  .result-motto { text-align: center; color: var(--ink-soft); font-size: 14px; margin: 0 0 26px; }
+  .field { border-top: 1px dashed var(--card-line); padding: 16px 0; }
+  .field-label { display: block; font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.08em;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
+  .traits { margin: 0; padding-left: 18px; }
+  .traits li { font-size: 14px; line-height: 1.8; }
+  .field p { margin: 0; font-size: 14px; line-height: 1.8; }
+  .result-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .btn.share { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: var(--card); }
+  .share-icon { width: 15px; height: 15px; fill: currentColor; flex: none; }
+</style>
+</head>
+<body>
+<div class="page">
+  <a class="back-link" href="../">← 診断ファイル室</a>
+  <div class="tab">16の性格タイプ診断ファイル</div>
+  <div class="file-body">
+
+    <section class="screen intro" id="screen-intro">
+      <p class="eyebrow">Personality File</p>
+      <h1>あなたの性格タイプを診断します</h1>
+      <p class="lead">全12問、「はい」か「いいえ」で直感的に答えてください。所要時間は1〜2分。4つの軸から、16タイプの中からあなたに一番近いものを診断します。</p>
+      <button class="btn primary" id="start-btn" type="button">診断をはじめる</button>
+    </section>
+
+    <section class="screen quiz" id="screen-quiz" hidden>
+      <div class="quiz-head">
+        <span class="qcount" id="qcount">Q.1 / 12</span>
+        <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
+      </div>
+      <h2 class="question" id="question-text"></h2>
+      <div class="yn-options">
+        <button class="yn-btn" id="yes-btn" type="button">はい</button>
+        <button class="yn-btn" id="no-btn" type="button">いいえ</button>
+      </div>
+    </section>
+
+    <section class="screen result" id="screen-result" hidden>
+      <div class="stamp-wrap">
+        <img class="type-icon" id="type-icon" src="" alt="タイプのイラスト">
+        <svg class="stamp" id="stamp-svg" viewBox="0 0 200 200" role="img" aria-label="診断結果のスタンプ">
+          <defs>
+            <filter id="roughEdge" x="-20%" y="-20%" width="140%" height="140%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="4" result="noise"/>
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale="7"/>
+            </filter>
+          </defs>
+          <g filter="url(#roughEdge)" fill="none" stroke="var(--accent)">
+            <circle cx="100" cy="100" r="88" stroke-width="5"/>
+            <circle cx="100" cy="100" r="76" stroke-width="2.5"/>
+          </g>
+          <text id="stamp-text" x="100" y="100" fill="var(--accent)" font-family="Shippori Mincho, serif" font-weight="700" text-anchor="middle" dominant-baseline="central" filter="url(#roughEdge)"></text>
+        </svg>
+      </div>
+      <p class="eyebrow" style="text-align:center;">診断結果</p>
+      <h1 class="result-name" id="result-name"></h1>
+      <p class="result-code" id="result-code"></p>
+      <p class="result-motto" id="result-motto"></p>
+
+      <div class="field">
+        <span class="field-label">特徴</span>
+        <ul class="traits" id="result-traits"></ul>
+      </div>
+      <div class="field">
+        <span class="field-label">周りからはこう見られている</span>
+        <p id="result-seen"></p>
+      </div>
+      <div class="field">
+        <span class="field-label">ちょっと注意</span>
+        <p id="result-caution"></p>
+      </div>
+      <div class="field accent-field">
+        <span class="field-label">相性がいいタイプ</span>
+        <p id="result-match"></p>
+      </div>
+      <div class="field">
+        <span class="field-label">少し歩み寄りが必要なタイプ</span>
+        <p id="result-weak"></p>
+      </div>
+
+      <div class="field ad-field" id="result-ad-field" hidden>
+        <span class="field-label pr-label" id="pr-label">PR ー おすすめの一品</span>
+        <div id="result-ad" class="ad-embed"></div>
+      </div>
+
+      <div class="result-actions">
+        <button class="btn share" id="share-btn" type="button">
+          <svg class="share-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          Xでシェア
+        </button>
+        <button class="btn ghost" id="retry-btn" type="button">もう一度診断する</button>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+  const QUESTIONS = [
+    { text: "初対面の人が多い場所でも、自分から話しかける方だ", yes: "E", no: "I" },
+    { text: "一人の時間より、誰かと一緒にいる時間の方が元気が出る", yes: "E", no: "I" },
+    { text: "考える前に、まず口に出すことが多い", yes: "E", no: "I" },
+    { text: "具体的な事実やデータを重視する方だ", yes: "S", no: "N" },
+    { text: "将来の可能性より、今ある現実を大事にする", yes: "S", no: "N" },
+    { text: "新しいアイデアより、実績のあるやり方を選ぶ", yes: "S", no: "N" },
+    { text: "判断するとき、感情より論理を優先する", yes: "T", no: "F" },
+    { text: "人と意見が対立しても、正しいと思うことは言う", yes: "T", no: "F" },
+    { text: "相手の気持ちより、物事の筋道を大事にする", yes: "T", no: "F" },
+    { text: "予定はきっちり決めておきたい方だ", yes: "J", no: "P" },
+    { text: "締め切りの前に、余裕を持って終わらせる方だ", yes: "J", no: "P" },
+    { text: "計画通りに進まないと落ち着かない", yes: "J", no: "P" }
+  ];
+
+  const TYPES = {
+    ISTJ: { name: "堅実家", stamp: "堅実", motto: "着実に、積み上げる。",
+      traits: ["決めたことは最後までやり抜く", "計画通りに物事を進めるのが得意"],
+      seen: "「信頼できる」「几帳面」と思われています。",
+      caution: "予定外の変化に、ストレスを感じやすいかも。",
+      match: "ENFP 発信家 — あなたに新しい風を運んでくれる相手です。",
+      weak: "ENTP アイデアマン — 話がどんどん広がっていくので、ペースを合わせるのに少しコツがいる相手です。" },
+    ISFJ: { name: "献身家", stamp: "献身", motto: "気づいたら、支えている。",
+      traits: ["周りの変化によく気がつく", "頼まれると断れないタイプ"],
+      seen: "「優しい」「気が利く」と思われています。",
+      caution: "自分のことは後回しになりがち。",
+      match: "ESTP 挑戦者 — あなたに新しい景色を見せてくれる相手です。",
+      weak: "ENTP アイデアマン — 思いつきで動かれると、気持ちが追いつかないことがある相手です。" },
+    INFJ: { name: "理想家", stamp: "理想", motto: "静かに、でも本気で。",
+      traits: ["一人の時間でじっくり考えるのが好き", "人の気持ちに敏感"],
+      seen: "「芯がある」「深い」と思われています。",
+      caution: "理想と現実のギャップに悩みやすい。",
+      match: "ENTP アイデアマン — あなたの理想に、面白い視点を足してくれる相手です。",
+      weak: "ESTP 挑戦者 — じっくり考えたい場面で、勢いよく進まれると戸惑うことがある相手です。" },
+    INTJ: { name: "戦略家", stamp: "戦略", motto: "一人で、組み立てる。",
+      traits: ["長期的な計画を立てるのが得意", "効率の悪いことが苦手"],
+      seen: "「頭がいい」「クール」と思われています。",
+      caution: "人に頼るのが少し苦手。",
+      match: "ENFP 発信家 — あなたの計画に、あたたかさを足してくれる相手です。",
+      weak: "ESFP 盛り上げ役 — 計画より勢い重視のペースに、少し戸惑うことがある相手です。" },
+    ISTP: { name: "職人肌", stamp: "職人", motto: "手を動かしながら、考える。",
+      traits: ["仕組みを理解するのが好き", "無駄な言葉より行動で示す"],
+      seen: "「クール」「頼れる」と思われています。",
+      caution: "気持ちを言葉にするのが苦手なことも。",
+      match: "ESFJ 世話役 — あなたの静けさに、温かさを添えてくれる相手です。",
+      weak: "ENFJ 導き手 — 距離を一気に詰められると、少し窮屈に感じることがある相手です。" },
+    ISFP: { name: "芸術家", stamp: "芸術", motto: "自分の感性を、大事に。",
+      traits: ["美しいものに敏感", "自分のペースを大事にする"],
+      seen: "「センスがいい」「穏やか」と思われています。",
+      caution: "自己主張が控えめになりがち。",
+      match: "ENFJ 導き手 — あなたの個性を、そっと後押ししてくれる相手です。",
+      weak: "ENTJ 統率者 — 強く引っ張られると、自分のペースを乱されやすい相手です。" },
+    INFP: { name: "夢想家", stamp: "夢想", motto: "心の中に、譲れない物語がある。",
+      traits: ["自分の価値観を大事にする", "空想や物語が好き"],
+      seen: "「優しい」「独特」と思われています。",
+      caution: "現実的な締め切りが苦手なことも。",
+      match: "ENTJ 統率者 — あなたの理想を、形にする力を貸してくれる相手です。",
+      weak: "ESTJ まとめ役 — 効率重視の進め方に、少し息苦しさを感じることがある相手です。" },
+    INTP: { name: "探求家", stamp: "探求", motto: "「なぜ？」を、突き詰める。",
+      traits: ["論理的に考えるのが好き", "知的好奇心が強い"],
+      seen: "「博識」「マイペース」と思われています。",
+      caution: "考えすぎて行動が遅れることも。",
+      match: "ESFJ 世話役 — あなたの探求を、生活面から支えてくれる相手です。",
+      weak: "ESTJ まとめ役 — 結論を急がれると、まだ考えたいのにと感じることがある相手です。" },
+    ESTP: { name: "挑戦者", stamp: "挑戦", motto: "まず動いて、体で学ぶ。",
+      traits: ["リスクを恐れず飛び込む", "その場の空気を読むのが得意"],
+      seen: "「行動力がある」「面白い」と思われています。",
+      caution: "先のことを考えずに動きすぎることも。",
+      match: "ISFJ 献身家 — あなたの勢いを、支えてくれる相手です。",
+      weak: "INFJ 理想家 — じっくり派のペースに、もどかしさを感じることがある相手です。" },
+    ESFP: { name: "盛り上げ役", stamp: "盛上", motto: "その場を、楽しくする。",
+      traits: ["人を楽しませるのが好き", "今この瞬間を大事にする"],
+      seen: "「明るい」「一緒にいて楽しい」と思われています。",
+      caution: "計画性より勢いを優先しがち。",
+      match: "ISTJ 堅実家 — あなたの勢いを、地に足つけて支えてくれる相手です。",
+      weak: "INTJ 戦略家 — 計画をきっちり求められると、少し息苦しく感じることがある相手です。" },
+    ENFP: { name: "発信家", stamp: "発信", motto: "思いついたら、もう話している。",
+      traits: ["新しいアイデアにワクワクする", "人とのつながりを大事にする"],
+      seen: "「エネルギッシュ」「発想が自由」と思われています。",
+      caution: "一つのことを最後までやり切るのが苦手なことも。",
+      match: "INTJ 戦略家 — あなたのアイデアを、形にしてくれる相手です。",
+      weak: "ISTJ 堅実家 — 決まった手順を崩されると、戸惑いやすい相手です。" },
+    ENTP: { name: "アイデアマン", stamp: "発想", motto: "議論しながら、ひらめく。",
+      traits: ["新しい視点を見つけるのが得意", "議論そのものを楽しむ"],
+      seen: "「頭の回転が速い」「刺激的」と思われています。",
+      caution: "詰めが甘くなることもある。",
+      match: "INFJ 理想家 — あなたのひらめきに、深みを与えてくれる相手です。",
+      weak: "ISFJ 献身家 — 議論を楽しむつもりが、相手を傷つけてしまうことがあるかも。" },
+    ESTJ: { name: "まとめ役", stamp: "統率", motto: "段取りを組んで、皆を動かす。",
+      traits: ["物事をてきぱき進めるのが得意", "責任感が強い"],
+      seen: "「頼れるリーダー」「はっきりしている」と思われています。",
+      caution: "効率を優先しすぎて、周りが置いていかれることも。",
+      match: "ISFP 芸術家 — あなたのペースに、柔らかさを加えてくれる相手です。",
+      weak: "INFP 夢想家 — 締め切りより気持ちを優先されると、もどかしく感じることがある相手です。" },
+    ESFJ: { name: "世話役", stamp: "世話", motto: "みんなが心地よいように。",
+      traits: ["周りの調和を大事にする", "気配りが自然にできる"],
+      seen: "「面倒見がいい」「あたたかい」と思われています。",
+      caution: "自分の気持ちを後回しにしがち。",
+      match: "ISTP 職人肌 — あなたの気配りに、静かな安心感を返してくれる相手です。",
+      weak: "INTP 探求家 — 気持ちより理屈で返されると、少し寂しく感じることがある相手です。" },
+    ENFJ: { name: "導き手", stamp: "導き", motto: "人の可能性を、引き出したい。",
+      traits: ["人の成長を見るのが嬉しい", "場をまとめるのが得意"],
+      seen: "「頼りになる」「面倒見がいい」と思われています。",
+      caution: "人に尽くしすぎて、自分が疲れることも。",
+      match: "ISFP 芸術家 — あなたの導きに、素直に応えてくれる相手です。",
+      weak: "ISTP 職人肌 — 距離を詰めようとすると、そっと引かれてしまうことがある相手です。" },
+    ENTJ: { name: "統率者", stamp: "統率", motto: "目標に向かって、皆を引っ張る。",
+      traits: ["大きな目標を描くのが得意", "決断力がある"],
+      seen: "「頼れる」「カリスマ性がある」と思われています。",
+      caution: "周りのペースを置き去りにしがち。",
+      match: "INFP 夢想家 — あなたの目標に、心をこめてくれる相手です。",
+      weak: "ISFP 芸術家 — マイペースな進め方に、もどかしさを感じることがある相手です。" }
+  };
+
+  const TYPE_COLORS = {
+    ISTJ: "#a3341f", ISFJ: "#d98ca6", INFJ: "#6b4e9e", INTJ: "#2c3e6b",
+    ISTP: "#6b7280", ISFP: "#a78bd6", INFP: "#7fc4d9", INTP: "#2f6b4f",
+    ESTP: "#e07a2b", ESFP: "#e8b800", ENFP: "#e0654f", ENTP: "#1fa5a0",
+    ESTJ: "#7a1f2b", ESFJ: "#d9748e", ENFJ: "#b8912b", ENTJ: "#a0122a"
+  };
+
+  let current = 0;
+  let scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+
+  const introScreen = document.getElementById("screen-intro");
+  const quizScreen = document.getElementById("screen-quiz");
+  const resultScreen = document.getElementById("screen-result");
+
+  document.getElementById("start-btn").addEventListener("click", () => {
+    introScreen.hidden = true;
+    quizScreen.hidden = false;
+    renderQuestion();
+  });
+
+  function renderQuestion() {
+    const q = QUESTIONS[current];
+    document.getElementById("qcount").textContent = `Q.${current + 1} / ${QUESTIONS.length}`;
+    document.getElementById("progress-fill").style.width = `${(current / QUESTIONS.length) * 100}%`;
+    document.getElementById("question-text").textContent = q.text;
+  }
+
+  function answer(letter) {
+    scores[letter] += 1;
+    current += 1;
+    if (current < QUESTIONS.length) {
+      renderQuestion();
+    } else {
+      showResult();
+    }
+  }
+
+  document.getElementById("yes-btn").addEventListener("click", () => answer(QUESTIONS[current].yes));
+  document.getElementById("no-btn").addEventListener("click", () => answer(QUESTIONS[current].no));
+
+  function showResult() {
+    const code = (scores.E > scores.I ? "E" : "I")
+      + (scores.S > scores.N ? "S" : "N")
+      + (scores.T > scores.F ? "T" : "F")
+      + (scores.J > scores.P ? "J" : "P");
+    const t = TYPES[code];
+
+    document.getElementById("stamp-text").textContent = t.stamp;
+    const iconEl = document.getElementById("type-icon");
+    iconEl.src = `icons/${code.toLowerCase()}.jpg`;
+    iconEl.alt = `${t.name}のイラスト`;
+    iconEl.style.setProperty("--type-color", TYPE_COLORS[code]);
+    document.getElementById("result-name").textContent = t.name;
+    document.getElementById("result-code").textContent = code;
+    document.getElementById("result-motto").textContent = t.motto;
+    document.getElementById("result-traits").innerHTML = t.traits.map(x => `<li>${x}</li>`).join("");
+    document.getElementById("result-seen").textContent = t.seen;
+    document.getElementById("result-caution").textContent = t.caution;
+    document.getElementById("result-match").textContent = t.match;
+    document.getElementById("result-weak").textContent = t.weak;
+
+    const adField = document.getElementById("result-ad-field");
+    const adEl = document.getElementById("result-ad");
+    const prLabel = document.getElementById("pr-label");
+    if (t.ad) {
+      adEl.innerHTML = t.ad;
+      prLabel.textContent = `PR ー ${t.name}のあなたにおすすめの一品`;
+      adField.hidden = false;
+    } else {
+      adEl.innerHTML = "";
+      adField.hidden = true;
+    }
+
+    document.getElementById("share-btn").onclick = () => {
+      const text = `【16の性格タイプ診断】私は「${t.name}（${code}）」でした！\n${t.motto}\n`;
+      const url = location.href.split("?")[0];
+      window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, "_blank");
+    };
+    document.getElementById("retry-btn").onclick = () => location.reload();
+
+    quizScreen.hidden = true;
+    resultScreen.hidden = false;
+  }
+</script>
+</body>
+</html>
