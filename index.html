@@ -4,56 +4,58 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>診断ファイル室</title>
-<meta name="description" content="8つの質問で職場タイプがわかる診断など、いろいろなタイプ診断をまとめたポータルサイトです。">
+<meta name="description" content="8〜12個の質問で自分のタイプがわかる診断など、いろいろなタイプ診断をまとめたポータルサイトです。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
 <style>
   :root {
-    --paper: #e7dcbd;
-    --paper-deep: #d5c496;
-    --card: #f7f1df;
-    --card-line: #c8b688;
-    --ink: #2c241a;
-    --ink-soft: #6b5c40;
-    --muted: #8a7a56;
-    --accent: #a3341f;
-    --accent-soft: rgba(163, 52, 31, 0.1);
-    --accent-line: rgba(163, 52, 31, 0.35);
-    --shadow: rgba(44, 36, 26, 0.18);
-    --focus: #1c5f7a;
+    --bg1: #fff0f6;
+    --bg2: #eef5ff;
+    --bg3: #fffbe8;
+    --card: #ffffff;
+    --ink: #322f4a;
+    --ink-soft: #6f6b8c;
+    --muted: #9a96b5;
+    --shadow: rgba(90, 70, 140, 0.16);
+    --focus: #6c5ce7;
+
+    --c1: #ff8fab;   /* FILE01 職場 */
+    --c1-soft: #ffe3ec;
+    --c2: #ff9f6b;   /* FILE02 結婚 */
+    --c2-soft: #ffead9;
+    --c3: #7c83fd;   /* FILE03 16タイプ */
+    --c3-soft: #e6e6ff;
+    --c4: #2ec4b6;   /* FILE04 金運 */
+    --c4-soft: #d9f7f2;
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --paper: #18150f;
-      --paper-deep: #100e0a;
-      --card: #221d15;
-      --card-line: #493e29;
-      --ink: #ede2c8;
-      --ink-soft: #b6a582;
-      --muted: #8c7c5b;
-      --accent: #e2725a;
-      --accent-soft: rgba(226, 114, 90, 0.14);
-      --accent-line: rgba(226, 114, 90, 0.4);
+      --bg1: #2a2138;
+      --bg2: #1f2438;
+      --bg3: #2a2820;
+      --card: #262233;
+      --ink: #f1eefb;
+      --ink-soft: #bdb6da;
+      --muted: #8c85ab;
       --shadow: rgba(0, 0, 0, 0.45);
-      --focus: #6fb8d6;
+      --focus: #b8b2ff;
+
+      --c1: #ff8fab; --c1-soft: rgba(255, 143, 171, 0.16);
+      --c2: #ff9f6b; --c2-soft: rgba(255, 159, 107, 0.16);
+      --c3: #9ca0ff; --c3-soft: rgba(156, 160, 255, 0.16);
+      --c4: #4fd8c9; --c4-soft: rgba(79, 216, 201, 0.16);
     }
   }
-
   :root[data-theme="dark"] {
-    --paper: #18150f;
-    --paper-deep: #100e0a;
-    --card: #221d15;
-    --card-line: #493e29;
-    --ink: #ede2c8;
-    --ink-soft: #b6a582;
-    --muted: #8c7c5b;
-    --accent: #e2725a;
-    --accent-soft: rgba(226, 114, 90, 0.14);
-    --accent-line: rgba(226, 114, 90, 0.4);
-    --shadow: rgba(0, 0, 0, 0.45);
-    --focus: #6fb8d6;
+    --bg1: #2a2138; --bg2: #1f2438; --bg3: #2a2820;
+    --card: #262233; --ink: #f1eefb; --ink-soft: #bdb6da; --muted: #8c85ab;
+    --shadow: rgba(0, 0, 0, 0.45); --focus: #b8b2ff;
+    --c1: #ff8fab; --c1-soft: rgba(255, 143, 171, 0.16);
+    --c2: #ff9f6b; --c2-soft: rgba(255, 159, 107, 0.16);
+    --c3: #9ca0ff; --c3-soft: rgba(156, 160, 255, 0.16);
+    --c4: #4fd8c9; --c4-soft: rgba(79, 216, 201, 0.16);
   }
 
   * { box-sizing: border-box; }
@@ -62,8 +64,10 @@
     margin: 0;
     min-height: 100vh;
     background:
-      repeating-linear-gradient(0deg, transparent, transparent 27px, var(--card-line) 27.5px, transparent 28px),
-      var(--paper);
+      radial-gradient(60vw 60vw at 8% -10%, var(--bg1), transparent 60%),
+      radial-gradient(60vw 60vw at 100% 0%, var(--bg2), transparent 55%),
+      radial-gradient(70vw 70vw at 50% 120%, var(--bg3), transparent 60%),
+      #fffdf9;
     background-attachment: fixed;
     color: var(--ink);
     font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
@@ -71,29 +75,31 @@
     justify-content: center;
     padding: 56px 20px 64px;
   }
-
-  .page {
-    width: 100%;
-    max-width: 720px;
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body { background-color: #201c2c; }
   }
+  :root[data-theme="dark"] body { background-color: #201c2c; }
 
-  header {
-    margin-bottom: 40px;
-    text-align: center;
-  }
+  .page { width: 100%; max-width: 720px; }
+
+  header { margin-bottom: 44px; text-align: center; }
 
   .eyebrow {
-    font-family: "JetBrains Mono", monospace;
+    display: inline-block;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
     font-size: 12px;
-    letter-spacing: 0.18em;
-    color: var(--accent);
-    margin: 0 0 14px;
-    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #fff;
+    background: linear-gradient(120deg, #ff8fab, #7c83fd);
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin: 0 0 16px;
   }
 
   h1 {
-    font-family: "Shippori Mincho", "Hiragino Mincho ProN", serif;
-    font-weight: 600;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 800;
     font-size: clamp(28px, 6vw, 38px);
     line-height: 1.4;
     margin: 0 0 14px;
@@ -111,72 +117,76 @@
   .shelf {
     display: flex;
     flex-direction: column;
-    gap: 22px;
+    gap: 18px;
   }
 
   .file-card {
     display: block;
     text-decoration: none;
     color: inherit;
-    position: relative;
-  }
-
-  .tab {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--paper-deep);
-    color: var(--ink-soft);
-    font-family: "JetBrains Mono", monospace;
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    padding: 8px 18px 10px;
-    border-radius: 8px 8px 0 0;
-    margin-left: 28px;
-    border: 1px solid var(--card-line);
-    border-bottom: none;
-  }
-
-  .tab::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    display: inline-block;
   }
 
   .file-body {
     background: var(--card);
-    border: 1px solid var(--card-line);
-    border-radius: 4px 14px 14px 14px;
-    box-shadow: 0 14px 32px -18px var(--shadow), 0 2px 0 var(--card-line);
-    padding: 26px 28px;
+    border-radius: 22px;
+    box-shadow: 0 16px 34px -18px var(--shadow);
+    padding: 18px 22px 20px;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    border: 2px solid transparent;
+  }
+  @media (prefers-reduced-motion: reduce) { .file-body { transition: none; } }
+
+  .file-card:nth-child(1) .file-body { border-color: var(--c1-soft); }
+  .file-card:nth-child(2) .file-body { border-color: var(--c2-soft); }
+  .file-card:nth-child(3) .file-body { border-color: var(--c3-soft); }
+  .file-card:nth-child(4) .file-body { border-color: var(--c4-soft); }
+
+  .file-card:hover .file-body { transform: translateY(-3px); box-shadow: 0 22px 40px -16px var(--shadow); }
+  .file-card:nth-child(1):hover .file-body { border-color: var(--c1); }
+  .file-card:nth-child(2):hover .file-body { border-color: var(--c2); }
+  .file-card:nth-child(3):hover .file-body { border-color: var(--c3); }
+  .file-card:nth-child(4):hover .file-body { border-color: var(--c4); }
+
+  .file-card:focus-visible .file-body { outline: 3px solid var(--focus); outline-offset: 3px; }
+
+  .file-tag {
+    display: inline-block;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin: 0 0 10px;
+  }
+
+  .file-row {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .file-body { transition: none; }
+    gap: 16px;
   }
 
-  .file-card:hover .file-body {
-    transform: translateX(4px);
-    box-shadow: 0 18px 36px -16px var(--shadow), 0 2px 0 var(--accent-line);
+  .badge {
+    flex: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
   }
+  .file-card:nth-child(1) .badge { background: linear-gradient(135deg, var(--c1), #ffb3c6); }
+  .file-card:nth-child(2) .badge { background: linear-gradient(135deg, var(--c2), #ffc79a); }
+  .file-card:nth-child(3) .badge { background: linear-gradient(135deg, var(--c3), #a6abff); }
+  .file-card:nth-child(4) .badge { background: linear-gradient(135deg, var(--c4), #7fe3d6); }
 
-  .file-card:focus-visible .file-body {
-    outline: 2px solid var(--focus);
-    outline-offset: 3px;
-  }
+  .file-info { flex: 1; min-width: 0; }
 
   .file-info h2 {
-    font-family: "Shippori Mincho", serif;
-    font-weight: 600;
-    font-size: 19px;
-    margin: 0 0 8px;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    margin: 0 0 6px;
   }
 
   .file-info p {
@@ -184,94 +194,113 @@
     line-height: 1.7;
     color: var(--ink-soft);
     margin: 0;
-    max-width: 40ch;
   }
 
   .file-meta {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 11px;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 500;
+    font-size: 11.5px;
     color: var(--muted);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 10px;
-    letter-spacing: 0.04em;
+    margin-top: 8px;
   }
 
   .arrow {
     flex: none;
-    font-family: "JetBrains Mono", monospace;
     font-size: 20px;
-    color: var(--accent);
+    color: var(--muted);
   }
 
   .placeholder {
-    border: 1px dashed var(--card-line);
-    border-radius: 4px 14px 14px 14px;
-    padding: 26px 28px;
-    margin-left: 0;
+    border: 2px dashed #e6e1f5;
+    border-radius: 22px;
+    padding: 22px 24px;
     color: var(--muted);
     font-size: 13px;
     text-align: center;
+    font-family: "M PLUS Rounded 1c", sans-serif;
   }
 
   footer {
     margin-top: 48px;
     text-align: center;
-    font-family: "JetBrains Mono", monospace;
+    font-family: "M PLUS Rounded 1c", sans-serif;
     font-size: 11px;
     color: var(--muted);
     letter-spacing: 0.05em;
   }
 
   @media (max-width: 480px) {
-    .file-body { flex-direction: column; align-items: flex-start; padding: 22px 22px; }
-    .arrow { display: none; }
+    .file-body { padding: 18px 18px; gap: 14px; }
+    .badge { width: 46px; height: 46px; font-size: 13px; }
   }
 </style>
 </head>
 <body>
 <div class="page">
   <header>
-    <p class="eyebrow">Diagnosis Files</p>
+    <p class="eyebrow">DIAGNOSIS FILES</p>
     <h1>診断ファイル室</h1>
-    <p class="lead">気になる診断を選んで、ファイルを開いてください。8つほどの質問に直感で答えるだけで、あなたに近いタイプがわかります。</p>
+    <p class="lead">気になる診断を選んでみてください。8〜12個くらいの質問に直感で答えるだけで、あなたに近いタイプがわかります。</p>
   </header>
 
   <div class="shelf">
     <a class="file-card" href="./workplace-type/">
-      <div class="tab">FILE 01 — 職場タイプ診断</div>
       <div class="file-body">
-        <div class="file-info">
-          <h2>職場タイプ診断</h2>
-          <p>仕事中のふるまいから、司令塔・参謀・発明家など6タイプの中からあなたの働き方スタイルを診断します。</p>
-          <div class="file-meta">全8問 ・ 所要時間1〜2分</div>
+        <p class="file-tag">FILE 01</p>
+        <div class="file-row">
+          <div class="badge" aria-hidden="true">💼</div>
+          <div class="file-info">
+            <h2>職場タイプ診断</h2>
+            <p>仕事中のふるまいから、司令塔・参謀・発明家など6タイプの中からあなたの働き方スタイルを診断します。</p>
+            <div class="file-meta">全8問・1〜2分</div>
+          </div>
+          <div class="arrow">→</div>
         </div>
-        <div class="arrow">→</div>
       </div>
     </a>
 
     <a class="file-card" href="./marriage-type/">
-      <div class="tab">FILE 02 — 結婚スタイル診断</div>
       <div class="file-body">
-        <div class="file-info">
-          <h2>結婚スタイル診断</h2>
-          <p>結婚生活の具体的な場面から、相棒・自由・守護者など6タイプの中からあなたが求める結婚スタイルを診断します。</p>
-          <div class="file-meta">全8問 ・ 所要時間1〜2分</div>
+        <p class="file-tag">FILE 02</p>
+        <div class="file-row">
+          <div class="badge" aria-hidden="true">💍</div>
+          <div class="file-info">
+            <h2>結婚スタイル診断</h2>
+            <p>結婚生活の具体的な場面から、相棒・自由・守護者など6タイプの中からあなたが求める結婚スタイルを診断します。</p>
+            <div class="file-meta">全8問・1〜2分</div>
+          </div>
+          <div class="arrow">→</div>
         </div>
-        <div class="arrow">→</div>
       </div>
     </a>
 
     <a class="file-card" href="./personality16-type/">
-      <div class="tab">FILE 03 — 16の性格タイプ診断</div>
       <div class="file-body">
-        <div class="file-info">
-          <h2>16の性格タイプ診断</h2>
-          <p>「はい」か「いいえ」で答える12問から、4つの軸で分かれる16タイプの中からあなたの性格タイプを診断します。</p>
-          <div class="file-meta">全12問 ・ 所要時間1〜2分</div>
+        <p class="file-tag">FILE 03</p>
+        <div class="file-row">
+          <div class="badge" aria-hidden="true">🧩</div>
+          <div class="file-info">
+            <h2>16の性格タイプ診断</h2>
+            <p>「はい」か「いいえ」で答える12問から、4つの軸で分かれる16タイプの中からあなたの性格タイプを診断します。</p>
+            <div class="file-meta">全12問・1〜2分</div>
+          </div>
+          <div class="arrow">→</div>
         </div>
-        <div class="arrow">→</div>
+      </div>
+    </a>
+
+    <a class="file-card" href="./money-type/">
+      <div class="file-body">
+        <p class="file-tag">FILE 04</p>
+        <div class="file-row">
+          <div class="badge" aria-hidden="true">💰</div>
+          <div class="file-info">
+            <h2>金運タイプ診断</h2>
+            <p>お金の使い方の具体的な場面から、こつこつ貯蓄家・資産を育てる人など6タイプの中からあなたの金運タイプを診断します。</p>
+            <div class="file-meta">全8問・1〜2分</div>
+          </div>
+          <div class="arrow">→</div>
+        </div>
       </div>
     </a>
 
@@ -282,5 +311,11 @@
 
   <footer>診断ファイル室</footer>
 </div>
+<script src="//statics.8me.jp/a8link/a8linkmgr.js"></script>
+<script>
+  a8linkmgr({
+    "config_id": "LhtpnTdaxffKA3LjyJlh"
+  });
+</script>
 </body>
 </html>

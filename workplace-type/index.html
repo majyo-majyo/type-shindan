@@ -7,54 +7,43 @@
 <meta name="description" content="8つの質問に答えると、司令塔・参謀・発明家など6タイプの中からあなたの働き方スタイルを診断します。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
 
 <style>
   :root {
-    --paper: #e7dcbd;
-    --paper-deep: #d5c496;
-    --card: #f7f1df;
-    --card-line: #c8b688;
-    --ink: #2c241a;
-    --ink-soft: #6b5c40;
-    --muted: #8a7a56;
-    --accent: #a3341f;
-    --accent-soft: rgba(163, 52, 31, 0.1);
-    --accent-line: rgba(163, 52, 31, 0.35);
-    --shadow: rgba(44, 36, 26, 0.18);
-    --focus: #1c5f7a;
+    --bg1: #ffe3ec;
+    --bg2: #eef5ff;
+    --bg3: #fffbe8;
+    --paper: #fdf7f2;
+    --paper-deep: #ffe3ec;
+    --card: #ffffff;
+    --card-line: #ffd3e0;
+    --ink: #322f4a;
+    --ink-soft: #6f6b8c;
+    --muted: #9a96b5;
+    --accent: #ff8fab;
+    --accent-soft: rgba(255, 143, 171, 0.14);
+    --accent-line: rgba(255, 143, 171, 0.4);
+    --shadow: rgba(90, 70, 140, 0.16);
+    --focus: #6c5ce7;
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --paper: #18150f;
-      --paper-deep: #100e0a;
-      --card: #221d15;
-      --card-line: #493e29;
-      --ink: #ede2c8;
-      --ink-soft: #b6a582;
-      --muted: #8c7c5b;
-      --accent: #e2725a;
-      --accent-soft: rgba(226, 114, 90, 0.14);
-      --accent-line: rgba(226, 114, 90, 0.4);
-      --shadow: rgba(0, 0, 0, 0.45);
-      --focus: #6fb8d6;
+      --bg1: #2a2138; --bg2: #1f2438; --bg3: #2a2820;
+      --paper: #201c2c; --paper-deep: #262233; --card: #262233; --card-line: #3c3650;
+      --ink: #f1eefb; --ink-soft: #bdb6da; --muted: #8c85ab;
+      --accent: #ff8fab; --accent-soft: rgba(255, 143, 171, 0.16); --accent-line: rgba(255, 143, 171, 0.4);
+      --shadow: rgba(0, 0, 0, 0.45); --focus: #b8b2ff;
     }
   }
 
   :root[data-theme="dark"] {
-    --paper: #18150f;
-    --paper-deep: #100e0a;
-    --card: #221d15;
-    --card-line: #493e29;
-    --ink: #ede2c8;
-    --ink-soft: #b6a582;
-    --muted: #8c7c5b;
-    --accent: #e2725a;
-    --accent-soft: rgba(226, 114, 90, 0.14);
-    --accent-line: rgba(226, 114, 90, 0.4);
-    --shadow: rgba(0, 0, 0, 0.45);
-    --focus: #6fb8d6;
+    --bg1: #2a2138; --bg2: #1f2438; --bg3: #2a2820;
+    --paper: #201c2c; --paper-deep: #262233; --card: #262233; --card-line: #3c3650;
+    --ink: #f1eefb; --ink-soft: #bdb6da; --muted: #8c85ab;
+    --accent: #ff8fab; --accent-soft: rgba(255, 143, 171, 0.16); --accent-line: rgba(255, 143, 171, 0.4);
+    --shadow: rgba(0, 0, 0, 0.45); --focus: #b8b2ff;
   }
 
   * { box-sizing: border-box; }
@@ -63,8 +52,10 @@
     margin: 0;
     min-height: 100vh;
     background:
-      repeating-linear-gradient(0deg, transparent, transparent 27px, var(--card-line) 27.5px, transparent 28px),
-      var(--paper);
+      radial-gradient(60vw 60vw at 8% -10%, var(--bg1), transparent 60%),
+      radial-gradient(60vw 60vw at 100% 0%, var(--bg2), transparent 55%),
+      radial-gradient(70vw 70vw at 50% 120%, var(--bg3), transparent 60%),
+      #fffdf9;
     background-attachment: fixed;
     color: var(--ink);
     font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
@@ -72,6 +63,10 @@
     justify-content: center;
     padding: 48px 20px 64px;
   }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body { background-color: #201c2c; }
+  }
+  :root[data-theme="dark"] body { background-color: #201c2c; }
 
   .page {
     width: 100%;
@@ -98,61 +93,41 @@
   .tab {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    background: var(--paper-deep);
-    color: var(--ink-soft);
-    font-family: "JetBrains Mono", monospace;
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    padding: 8px 18px 10px;
-    border-radius: 8px 8px 0 0;
-    margin-left: 28px;
-    border: 1px solid var(--card-line);
-    border-bottom: none;
-  }
-
-  .tab::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    display: inline-block;
+    gap: 6px;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin-left: 4px;
   }
 
   .file-body {
     background: var(--card);
-    border: 1px solid var(--card-line);
-    border-radius: 4px 14px 14px 14px;
-    box-shadow: 0 18px 40px -20px var(--shadow), 0 2px 0 var(--card-line);
-    padding: 44px 40px 40px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .file-body::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: repeating-linear-gradient(90deg, var(--accent) 0 10px, transparent 10px 20px);
-    opacity: 0.5;
+    border: 2px solid var(--card-line);
+    border-radius: 22px;
+    box-shadow: 0 16px 34px -18px var(--shadow);
+    padding: 40px 36px 36px;
   }
 
   .screen[hidden] { display: none; }
 
   .eyebrow {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 12px;
-    letter-spacing: 0.18em;
-    color: var(--accent);
-    margin: 0 0 14px;
-    text-transform: uppercase;
+    display: inline-block;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: #fff;
+    background: linear-gradient(120deg, var(--accent), #a6abff);
+    padding: 5px 14px;
+    border-radius: 999px;
+    margin: 0 0 16px;
   }
 
   h1 {
-    font-family: "Shippori Mincho", "Hiragino Mincho ProN", serif;
-    font-weight: 600;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 800;
     font-size: clamp(24px, 5vw, 32px);
     line-height: 1.4;
     margin: 0 0 18px;
@@ -210,7 +185,8 @@
   }
 
   .qcount {
-    font-family: "JetBrains Mono", monospace;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
     font-size: 13px;
     color: var(--muted);
     white-space: nowrap;
@@ -238,9 +214,9 @@
   }
 
   .question {
-    font-family: "Shippori Mincho", serif;
-    font-weight: 600;
-    font-size: clamp(19px, 4vw, 23px);
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
+    font-size: clamp(18px, 4vw, 21px);
     line-height: 1.6;
     margin: 0 0 26px;
     text-wrap: balance;
@@ -259,8 +235,8 @@
     text-align: left;
     width: 100%;
     background: var(--paper);
-    border: 1px solid var(--card-line);
-    border-radius: 10px;
+    border: 2px solid var(--card-line);
+    border-radius: 16px;
     padding: 15px 18px;
     font-family: "Zen Kaku Gothic New", sans-serif;
     font-size: 14.5px;
@@ -284,10 +260,11 @@
   }
 
   .option-mark {
-    font-family: "JetBrains Mono", monospace;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
     font-size: 12px;
-    color: var(--accent);
-    border: 1px solid var(--accent-line);
+    color: #fff;
+    background: var(--accent);
     border-radius: 50%;
     width: 22px;
     height: 22px;
@@ -354,14 +331,14 @@
 
   .field-label {
     display: inline-block;
-    font-family: "JetBrains Mono", monospace;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
     font-size: 11px;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.06em;
     color: var(--muted);
     background: var(--paper);
-    border: 1px solid var(--card-line);
-    border-radius: 4px;
-    padding: 3px 8px;
+    border-radius: 999px;
+    padding: 4px 12px;
     margin-bottom: 10px;
   }
 
@@ -462,8 +439,7 @@
   }
 
   @media (max-width: 480px) {
-    .file-body { padding: 34px 22px 30px; }
-    .tab { margin-left: 14px; font-size: 11px; padding: 7px 14px 8px; }
+    .file-body { padding: 28px 20px 26px; }
   }
 </style>
 </head>
@@ -494,16 +470,13 @@
         <div class="stamp-wrap">
           <svg class="stamp" id="stamp-svg" viewBox="0 0 200 200" role="img" aria-label="診断結果のスタンプ">
             <defs>
-              <filter id="roughEdge" x="-20%" y="-20%" width="140%" height="140%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="4" result="noise"/>
-                <feDisplacementMap in="SourceGraphic" in2="noise" scale="7"/>
-              </filter>
+              <linearGradient id="stampGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="var(--accent)"/>
+                <stop offset="100%" stop-color="#a6abff"/>
+              </linearGradient>
             </defs>
-            <g filter="url(#roughEdge)" fill="none" stroke="var(--accent)">
-              <circle cx="100" cy="100" r="88" stroke-width="5"/>
-              <circle cx="100" cy="100" r="76" stroke-width="2.5"/>
-            </g>
-            <text id="stamp-text" x="100" y="100" fill="var(--accent)" font-family="Shippori Mincho, serif" font-weight="700" text-anchor="middle" dominant-baseline="central" filter="url(#roughEdge)"></text>
+            <circle cx="100" cy="100" r="88" fill="url(#stampGrad)"/>
+            <text id="stamp-text" x="100" y="100" fill="#fff" font-family="M PLUS Rounded 1c, sans-serif" font-weight="800" text-anchor="middle" dominant-baseline="central"></text>
           </svg>
         </div>
         <p class="eyebrow">診断結果</p>

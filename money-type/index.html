@@ -1,0 +1,791 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>金運タイプ診断 | 診断ファイル室</title>
+<meta name="description" content="8つの質問に答えると、こつこつ貯蓄家・資産を育てる人など6タイプの中からあなたのお金の使い方タイプを診断します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+
+<style>
+  :root {
+    --bg1: #d9f7f2;
+    --bg2: #eef5ff;
+    --bg3: #fffbe8;
+    --paper: #f3fdfb;
+    --paper-deep: #d9f7f2;
+    --card: #ffffff;
+    --card-line: #bdf0e6;
+    --ink: #322f4a;
+    --ink-soft: #6f6b8c;
+    --muted: #9a96b5;
+    --accent: #2ec4b6;
+    --accent-soft: rgba(46, 196, 182, 0.14);
+    --accent-line: rgba(46, 196, 182, 0.4);
+    --shadow: rgba(90, 70, 140, 0.16);
+    --focus: #6c5ce7;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg1: #2a2138; --bg2: #1f2438; --bg3: #2a2820;
+      --paper: #201c2c; --paper-deep: #262233; --card: #262233; --card-line: #3c3650;
+      --ink: #f1eefb; --ink-soft: #bdb6da; --muted: #8c85ab;
+      --accent: #4fd8c9; --accent-soft: rgba(79, 216, 201, 0.16); --accent-line: rgba(79, 216, 201, 0.4);
+      --shadow: rgba(0, 0, 0, 0.45); --focus: #b8b2ff;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg1: #2a2138; --bg2: #1f2438; --bg3: #2a2820;
+    --paper: #201c2c; --paper-deep: #262233; --card: #262233; --card-line: #3c3650;
+    --ink: #f1eefb; --ink-soft: #bdb6da; --muted: #8c85ab;
+    --accent: #4fd8c9; --accent-soft: rgba(79, 216, 201, 0.16); --accent-line: rgba(79, 216, 201, 0.4);
+    --shadow: rgba(0, 0, 0, 0.45); --focus: #b8b2ff;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+      radial-gradient(60vw 60vw at 8% -10%, var(--bg1), transparent 60%),
+      radial-gradient(60vw 60vw at 100% 0%, var(--bg2), transparent 55%),
+      radial-gradient(70vw 70vw at 50% 120%, var(--bg3), transparent 60%),
+      #fffdf9;
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 48px 20px 64px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body { background-color: #201c2c; }
+  }
+  :root[data-theme="dark"] body { background-color: #201c2c; }
+
+  .page {
+    width: 100%;
+    max-width: 640px;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    margin: 0 0 14px 4px;
+  }
+  .back-link:hover { color: var(--accent); }
+  .back-link:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  .tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin-left: 4px;
+  }
+
+  .file-body {
+    background: var(--card);
+    border: 2px solid var(--card-line);
+    border-radius: 22px;
+    box-shadow: 0 16px 34px -18px var(--shadow);
+    padding: 40px 36px 36px;
+  }
+
+  .screen[hidden] { display: none; }
+
+  .eyebrow {
+    display: inline-block;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: #fff;
+    background: linear-gradient(120deg, var(--accent), #7fe3d6);
+    padding: 5px 14px;
+    border-radius: 999px;
+    margin: 0 0 16px;
+  }
+
+  h1 {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 800;
+    font-size: clamp(24px, 5vw, 32px);
+    line-height: 1.4;
+    margin: 0 0 18px;
+    text-wrap: balance;
+  }
+
+  .lead {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--ink-soft);
+    margin: 0 0 32px;
+    max-width: 46ch;
+  }
+
+  .btn {
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: 999px;
+    padding: 14px 32px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn { transition: none; }
+  }
+
+  .btn.primary {
+    background: var(--accent);
+    color: #fdf6e8;
+    box-shadow: 0 8px 20px -8px var(--accent-line);
+  }
+  .btn.primary:hover { transform: translateY(-1px); box-shadow: 0 10px 22px -8px var(--accent-line); }
+
+  .btn.ghost {
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1px solid var(--card-line);
+    margin-top: 8px;
+  }
+  .btn.ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  .btn:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .quiz-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .qcount {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--muted);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .progress {
+    flex: 1;
+    height: 6px;
+    background: var(--paper-deep);
+    border-radius: 999px;
+    overflow: hidden;
+    border: 1px solid var(--card-line);
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 12.5%;
+    background: var(--accent);
+    border-radius: 999px;
+    transition: width 0.35s ease;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .progress-fill { transition: none; }
+  }
+
+  .question {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
+    font-size: clamp(18px, 4vw, 21px);
+    line-height: 1.6;
+    margin: 0 0 26px;
+    text-wrap: balance;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    text-align: left;
+    width: 100%;
+    background: var(--paper);
+    border: 2px solid var(--card-line);
+    border-radius: 16px;
+    padding: 15px 18px;
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .option { transition: none; }
+  }
+
+  .option:hover {
+    border-color: var(--accent);
+    transform: translateX(2px);
+  }
+
+  .option:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .option-mark {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    color: #fff;
+    background: var(--accent);
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* result screen */
+  .result {
+    text-align: left;
+  }
+
+  .stamp-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+
+  .stamp {
+    width: 150px;
+    height: 150px;
+    opacity: 0;
+    transform: scale(2.2) rotate(-16deg);
+  }
+
+  .stamp.show {
+    animation: stampDown 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .stamp.show { animation: none; opacity: 1; transform: scale(1) rotate(-6deg); }
+  }
+
+  @keyframes stampDown {
+    0%   { opacity: 0; transform: scale(2.2) rotate(-16deg); }
+    55%  { opacity: 1; transform: scale(0.92) rotate(-4deg); }
+    75%  { transform: scale(1.05) rotate(-8deg); }
+    100% { opacity: 1; transform: scale(1) rotate(-6deg); }
+  }
+
+  .result .eyebrow { text-align: center; }
+
+  .result-name {
+    text-align: center;
+    font-size: clamp(26px, 6vw, 34px);
+    margin-bottom: 6px;
+  }
+
+  .result-motto {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin: 0 0 30px;
+    letter-spacing: 0.03em;
+  }
+
+  .field {
+    border-top: 1px dashed var(--card-line);
+    padding: 16px 0;
+  }
+
+  .field:last-of-type { border-bottom: 1px dashed var(--card-line); }
+
+  .field-label {
+    display: inline-block;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    background: var(--paper);
+    border-radius: 999px;
+    padding: 4px 12px;
+    margin-bottom: 10px;
+  }
+
+  .field p {
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.9;
+    color: var(--ink);
+  }
+
+  .traits {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .traits li {
+    font-size: 14.5px;
+    line-height: 1.7;
+    padding-left: 18px;
+    position: relative;
+  }
+
+  .traits li::before {
+    content: "・";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  .field.accent-field {
+    background: var(--accent-soft);
+    border-radius: 8px;
+    padding: 16px 16px;
+    border-top: none;
+    margin-top: 8px;
+  }
+  .field.accent-field:last-of-type { border-bottom: none; }
+
+  .ad-field {
+    border-top: 1px dashed var(--card-line);
+  }
+
+  .pr-label {
+    background: var(--paper-deep);
+    color: var(--muted);
+  }
+
+  .ad-embed {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    padding-top: 4px;
+  }
+
+  .ad-embed table {
+    max-width: 100%;
+  }
+
+  /* 楽天/A8.netの広告コードは色をインラインstyleで固定してくるため、
+     ダークモードでも読めるようテーマの色で強制的に上書きする */
+  .ad-embed, .ad-embed * {
+    color: var(--ink) !important;
+    background: transparent !important;
+    border-color: var(--card-line) !important;
+  }
+  .ad-embed a {
+    color: var(--accent) !important;
+    text-decoration: underline;
+  }
+
+  .result-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+  }
+
+  .btn.share {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: var(--card);
+    box-shadow: 0 8px 20px -8px var(--shadow);
+  }
+  .btn.share:hover { transform: translateY(-1px); }
+
+  .share-icon {
+    width: 15px;
+    height: 15px;
+    fill: currentColor;
+    flex: none;
+  }
+
+  @media (max-width: 480px) {
+    .file-body { padding: 28px 20px 26px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <a class="back-link" href="../">← 診断ファイル室</a>
+  <div class="file">
+    <div class="tab">金運タイプ診断ファイル</div>
+    <div class="file-body">
+
+      <section class="screen intro" id="screen-intro">
+        <p class="eyebrow">Money File</p>
+        <h1>あなたの「金運タイプ」を診断します</h1>
+        <p class="lead">全8問、直感で選んでください。所要時間は1〜2分。お金の使い方から、6タイプの中からあなたに一番近いものを診断します。</p>
+        <button class="btn primary" id="start-btn" type="button">診断をはじめる</button>
+      </section>
+
+      <section class="screen quiz" id="screen-quiz" hidden>
+        <div class="quiz-head">
+          <span class="qcount" id="qcount">Q.1 / 8</span>
+          <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
+        </div>
+        <h2 class="question" id="question-text"></h2>
+        <div class="options" id="options"></div>
+      </section>
+
+      <section class="screen result" id="screen-result" hidden>
+        <div class="stamp-wrap">
+          <svg class="stamp" id="stamp-svg" viewBox="0 0 200 200" role="img" aria-label="診断結果のスタンプ">
+            <defs>
+              <linearGradient id="stampGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="var(--accent)"/>
+                <stop offset="100%" stop-color="#7fe3d6"/>
+              </linearGradient>
+            </defs>
+            <circle cx="100" cy="100" r="88" fill="url(#stampGrad)"/>
+            <text id="stamp-text" x="100" y="100" fill="#fff" font-family="M PLUS Rounded 1c, sans-serif" font-weight="800" text-anchor="middle" dominant-baseline="central"></text>
+          </svg>
+        </div>
+        <p class="eyebrow">診断結果</p>
+        <h1 class="result-name" id="result-name"></h1>
+        <p class="result-motto" id="result-motto"></p>
+
+        <div class="field">
+          <span class="field-label">特徴</span>
+          <ul class="traits" id="result-traits"></ul>
+        </div>
+        <div class="field">
+          <span class="field-label">周りからはこう見られている</span>
+          <p id="result-seen"></p>
+        </div>
+        <div class="field">
+          <span class="field-label">ちょっと注意</span>
+          <p id="result-caution"></p>
+        </div>
+        <div class="field accent-field">
+          <span class="field-label">相性がいいタイプ</span>
+          <p id="result-match"></p>
+        </div>
+
+        <div class="field ad-field" id="result-ad-field" hidden>
+          <span class="field-label pr-label" id="pr-label">PR ー おすすめの一品</span>
+          <div id="result-ad" class="ad-embed"></div>
+        </div>
+
+        <div class="result-actions">
+          <button class="btn share" id="share-btn" type="button">
+            <svg class="share-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            Xでシェア
+          </button>
+          <button class="btn ghost" id="retry-btn" type="button">もう一度診断する</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  const TYPES = {
+    save: {
+      name: "こつこつ貯蓄家",
+      stamp: "貯蓄",
+      motto: "増えていく通帳が、一番の安心。",
+      traits: [
+        "収入が増えても、生活水準はあまり変えない",
+        "「まず貯金」が真っ先に浮かぶ",
+        "大きな買い物の前に必ず貯蓄額を確認する"
+      ],
+      seen: "「しっかりしている」「将来を考えている」と思われています。",
+      caution: "貯めることが目的になって、使うタイミングを逃しがちかも。",
+      match: "資産を育てる人 — 貯めたお金を、一緒に増やす方向へ導いてくれる相手です。"
+    },
+    invest: {
+      name: "資産を育てる人",
+      stamp: "投資",
+      motto: "お金にも、働いてもらう。",
+      traits: [
+        "お金は「使う」より「働かせる」ものだと思っている",
+        "将来の資産推移をつい計算してしまう",
+        "リスクよりリターンに目が向きやすい"
+      ],
+      seen: "「先を見ている」「頭がいい」と思われています。",
+      caution: "増やすことに夢中で、今を楽しむのが後回しになりがち。",
+      match: "こつこつ貯蓄家 — あなたの計画に、堅実な土台を足してくれる相手です。"
+    },
+    experience: {
+      name: "思い出コレクター",
+      stamp: "体験",
+      motto: "モノより、忘れない時間を。",
+      traits: [
+        "モノより体験・旅行にお金を使いたい",
+        "「これは一生の思い出になる」に弱い",
+        "高くても、心が動くなら払う"
+      ],
+      seen: "「人生を楽しんでいる」「行動力がある」と思われています。",
+      caution: "気づいたら貯金が増えていない、なんてことも。",
+      match: "やりくり上手 — 楽しい体験を、上手にコスパよく実現してくれる相手です。"
+    },
+    thrifty: {
+      name: "やりくり上手",
+      stamp: "節約",
+      motto: "賢く選べば、満足度は同じ。",
+      traits: [
+        "セールやポイントは絶対チェックする",
+        "同じものなら、1円でも安く買いたい",
+        "工夫して満足度を落とさず節約するのが得意"
+      ],
+      seen: "「しっかり者」「頼れる」と思われています。",
+      caution: "節約が目的化して、選ぶのに時間がかかりすぎることも。",
+      match: "気分で動く人 — あなたに「たまにはいいじゃん」を教えてくれる相手です。"
+    },
+    impulse: {
+      name: "気分で動く人",
+      stamp: "衝動",
+      motto: "欲しいと思った今が、買い時。",
+      traits: [
+        "欲しいと思ったら、すぐ手に入れたい",
+        "衝動買いを後悔することもあるが、また繰り返す",
+        "「今を楽しむ」が一番大事"
+      ],
+      seen: "「一緒にいて楽しい」「思い切りがいい」と思われています。",
+      caution: "気づいたら財布が軽い、ということが起きやすいかも。",
+      match: "やりくり上手 — 楽しみながら、無理のない使い方を教えてくれる相手です。"
+    },
+    selfinvest: {
+      name: "自分に投資する人",
+      stamp: "自己投資",
+      motto: "未来の自分への、先行投資。",
+      traits: [
+        "スキルアップや学びにはお金を惜しまない",
+        "「これは将来役に立つ」に投資したくなる",
+        "見た目より中身、モノより経験の質にこだわる"
+      ],
+      seen: "「向上心がある」「自分を大事にしている」と思われています。",
+      caution: "自己投資が多すぎて、他の支出とのバランスを崩しがち。",
+      match: "思い出コレクター — あなたの成長を、一緒に楽しんでくれる相手です。"
+    }
+  };
+
+  const QUESTIONS = [
+    {
+      text: "臨時収入（ボーナス・当選金）が入ったら？",
+      options: [
+        { label: "迷わず貯金・積立にまわす", type: "save" },
+        { label: "投資信託や株にまわしてみる", type: "invest" },
+        { label: "前から気になっていた旅行や体験に使う", type: "experience" },
+        { label: "その日の気分で、パーッと好きなものを買う", type: "impulse" }
+      ]
+    },
+    {
+      text: "買い物で一番「良かった」と思うのは？",
+      options: [
+        { label: "セールでお得に買えたとき", type: "thrifty" },
+        { label: "気に入った高品質なものを長く使えているとき", type: "selfinvest" },
+        { label: "値段より「今欲しい」で即決できたとき", type: "impulse" },
+        { label: "資産として価値が上がったとき", type: "invest" }
+      ]
+    },
+    {
+      text: "家計簿やお金の管理は？",
+      options: [
+        { label: "毎月きっちり記録して、貯蓄額を確認している", type: "save" },
+        { label: "ポイントやセール情報はこまめにチェックしている", type: "thrifty" },
+        { label: "大まかにしか把握していない、気にしすぎない", type: "impulse" },
+        { label: "資産（投資・貯金）の推移をアプリで管理している", type: "invest" }
+      ]
+    },
+    {
+      text: "友人との食事、支払いのスタンスは？",
+      options: [
+        { label: "良い店なら多少高くても払う、経験としての価値を重視", type: "experience" },
+        { label: "割り勘やコスパの良い店を選びがち", type: "thrifty" },
+        { label: "スキルアップに繋がる集まりなら惜しまず出す", type: "selfinvest" },
+        { label: "その場のノリで気前よく奢ることもある", type: "impulse" }
+      ]
+    },
+    {
+      text: "欲しいものがあるとき、まず調べるのは？",
+      options: [
+        { label: "口コミや品質、長く使えるかどうか", type: "selfinvest" },
+        { label: "最安値やクーポン、ポイント還元", type: "thrifty" },
+        { label: "将来的に価値が上がりそうか", type: "invest" },
+        { label: "実際に使ったときのワクワク感", type: "experience" }
+      ]
+    },
+    {
+      text: "将来のお金について、一番気になるのは？",
+      options: [
+        { label: "老後や万一に備えて、どれだけ貯まっているか", type: "save" },
+        { label: "資産をどう増やしていくか", type: "invest" },
+        { label: "やりたいことにちゃんとお金を使えているか", type: "experience" },
+        { label: "特に不安はなく、今を楽しめればいい", type: "impulse" }
+      ]
+    },
+    {
+      text: "セール情報を見つけたら？",
+      options: [
+        { label: "すぐチェックして計画的に買う準備をする", type: "thrifty" },
+        { label: "本当に必要か考えてから決める", type: "save" },
+        { label: "気になったらすぐポチる", type: "impulse" },
+        { label: "セールより投資商品の方が気になる", type: "invest" }
+      ]
+    },
+    {
+      text: "お金を使って一番満たされるのは？",
+      options: [
+        { label: "通帳や資産の数字が増えていくとき", type: "save" },
+        { label: "新しいスキルや資格、自分の成長に繋がったとき", type: "selfinvest" },
+        { label: "忘れられない思い出ができたとき", type: "experience" },
+        { label: "賢く安く買えたとき", type: "thrifty" }
+      ]
+    }
+  ];
+
+  const screenIntro = document.getElementById("screen-intro");
+  const screenQuiz = document.getElementById("screen-quiz");
+  const screenResult = document.getElementById("screen-result");
+  const qcount = document.getElementById("qcount");
+  const progressFill = document.getElementById("progress-fill");
+  const questionText = document.getElementById("question-text");
+  const optionsEl = document.getElementById("options");
+
+  let current = 0;
+  const scores = Object.fromEntries(Object.keys(TYPES).map(k => [k, 0]));
+  const typeOrder = Object.keys(TYPES);
+
+  document.getElementById("start-btn").addEventListener("click", () => {
+    screenIntro.hidden = true;
+    screenQuiz.hidden = false;
+    renderQuestion();
+  });
+
+  document.getElementById("retry-btn").addEventListener("click", () => {
+    current = 0;
+    typeOrder.forEach(k => (scores[k] = 0));
+    screenResult.hidden = true;
+    screenQuiz.hidden = false;
+    document.getElementById("stamp-svg").classList.remove("show");
+    renderQuestion();
+  });
+
+  function renderQuestion() {
+    const q = QUESTIONS[current];
+    qcount.textContent = `Q.${current + 1} / ${QUESTIONS.length}`;
+    progressFill.style.width = `${((current + 1) / QUESTIONS.length) * 100}%`;
+    questionText.textContent = q.text;
+    optionsEl.innerHTML = "";
+    const marks = ["A", "B", "C", "D"];
+    q.options.forEach((opt, i) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "option";
+      btn.innerHTML = `<span class="option-mark">${marks[i]}</span><span>${opt.label}</span>`;
+      btn.addEventListener("click", () => selectOption(opt.type));
+      optionsEl.appendChild(btn);
+    });
+  }
+
+  function selectOption(type) {
+    scores[type] += 1;
+    current += 1;
+    if (current < QUESTIONS.length) {
+      renderQuestion();
+    } else {
+      showResult();
+    }
+  }
+
+  function showResult() {
+    let winner = typeOrder[0];
+    typeOrder.forEach(k => {
+      if (scores[k] > scores[winner]) winner = k;
+    });
+    const t = TYPES[winner];
+
+    document.getElementById("result-name").textContent = t.name;
+    document.getElementById("result-motto").textContent = t.motto;
+    document.getElementById("result-seen").textContent = t.seen;
+    document.getElementById("result-caution").textContent = t.caution;
+    document.getElementById("result-match").textContent = t.match;
+
+    const adField = document.getElementById("result-ad-field");
+    const adEl = document.getElementById("result-ad");
+    const prLabel = document.getElementById("pr-label");
+    if (t.ad) {
+      adEl.innerHTML = t.ad;
+      prLabel.textContent = `PR ー ${t.name}のあなたにおすすめの一品`;
+      adField.hidden = false;
+    } else {
+      adEl.innerHTML = "";
+      adField.hidden = true;
+    }
+
+    const traitsEl = document.getElementById("result-traits");
+    traitsEl.innerHTML = "";
+    t.traits.forEach(tr => {
+      const li = document.createElement("li");
+      li.textContent = tr;
+      traitsEl.appendChild(li);
+    });
+
+    const stampText = document.getElementById("stamp-text");
+    stampText.textContent = "";
+    const chars = t.stamp.split("");
+    const fontSize = chars.length <= 1 ? 64 : chars.length === 2 ? 42 : chars.length === 3 ? 30 : 24;
+    stampText.setAttribute("font-size", fontSize);
+    const lineHeight = fontSize * 1.05;
+    const totalHeight = lineHeight * (chars.length - 1);
+    chars.forEach((ch, i) => {
+      const tspan = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
+      tspan.setAttribute("x", "100");
+      tspan.setAttribute("y", 100 - totalHeight / 2 + i * lineHeight);
+      tspan.textContent = ch;
+      stampText.appendChild(tspan);
+    });
+
+    screenQuiz.hidden = true;
+    screenResult.hidden = false;
+    const stampSvg = document.getElementById("stamp-svg");
+    void stampSvg.offsetWidth;
+    stampSvg.classList.add("show");
+
+    document.getElementById("share-btn").onclick = () => {
+      const shareText = `私は「${t.name}」でした！あなたの金運タイプは？\n#金運タイプ診断`;
+      const shareUrl = location.href.split("?")[0];
+      const intent = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+      window.open(intent, "_blank", "noopener,noreferrer");
+    };
+  }
+</script>
+</body>
+</html>
