@@ -71,6 +71,9 @@
     color: var(--ink); font-family: "M PLUS Rounded 1c", sans-serif; font-size: 17px; font-weight: 700; cursor: pointer;
     transition: all 0.15s ease; }
   .yn-btn:hover { border-color: var(--accent-line); background: var(--accent-soft); }
+  .yn-btn.selected { border-color: var(--accent); background: var(--accent-soft); }
+  .back-btn { margin-top: 18px; padding: 10px 20px; font-size: 13px; }
+  .back-btn[hidden] { display: none; }
   .stamp-wrap { text-align: center; margin: 0 0 8px; display: flex; align-items: center; justify-content: center; gap: 18px; }
   .stamp { width: 90px; height: 90px; }
   .type-icon { width: 108px; height: 108px; flex: none; border-radius: 50%; object-fit: cover;
@@ -113,6 +116,7 @@
         <button class="yn-btn" id="yes-btn" type="button">はい</button>
         <button class="yn-btn" id="no-btn" type="button">いいえ</button>
       </div>
+      <button class="btn ghost back-btn" id="back-btn" type="button" hidden>← 前の質問に戻る</button>
     </section>
 
     <section class="screen result" id="screen-result" hidden>
@@ -296,10 +300,14 @@
 
   let current = 0;
   let scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+  const answers = new Array(QUESTIONS.length).fill(null);
 
   const introScreen = document.getElementById("screen-intro");
   const quizScreen = document.getElementById("screen-quiz");
   const resultScreen = document.getElementById("screen-result");
+  const backBtn = document.getElementById("back-btn");
+  const yesBtn = document.getElementById("yes-btn");
+  const noBtn = document.getElementById("no-btn");
 
   document.getElementById("start-btn").addEventListener("click", () => {
     introScreen.hidden = true;
@@ -312,10 +320,17 @@
     document.getElementById("qcount").textContent = `Q.${current + 1} / ${QUESTIONS.length}`;
     document.getElementById("progress-fill").style.width = `${(current / QUESTIONS.length) * 100}%`;
     document.getElementById("question-text").textContent = q.text;
+    yesBtn.classList.toggle("selected", answers[current] === q.yes);
+    noBtn.classList.toggle("selected", answers[current] === q.no);
+    backBtn.hidden = current === 0;
   }
 
   function answer(letter) {
+    if (answers[current] != null) {
+      scores[answers[current]] -= 1;
+    }
     scores[letter] += 1;
+    answers[current] = letter;
     current += 1;
     if (current < QUESTIONS.length) {
       renderQuestion();
@@ -326,6 +341,12 @@
 
   document.getElementById("yes-btn").addEventListener("click", () => answer(QUESTIONS[current].yes));
   document.getElementById("no-btn").addEventListener("click", () => answer(QUESTIONS[current].no));
+  backBtn.addEventListener("click", () => {
+    if (current > 0) {
+      current -= 1;
+      renderQuestion();
+    }
+  });
 
   function showResult() {
     const code = (scores.E > scores.I ? "E" : "I")

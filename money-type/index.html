@@ -255,6 +255,17 @@
     outline-offset: 2px;
   }
 
+  .option.selected {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .back-btn {
+    margin-top: 18px;
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+
   .option-mark {
     font-family: "M PLUS Rounded 1c", sans-serif;
     font-weight: 700;
@@ -460,6 +471,7 @@
         </div>
         <h2 class="question" id="question-text"></h2>
         <div class="options" id="options"></div>
+        <button class="btn ghost back-btn" id="back-btn" type="button" hidden>← 前の質問に戻る</button>
       </section>
 
       <section class="screen result" id="screen-result" hidden>
@@ -523,11 +535,13 @@
       traits: [
         "収入が増えても、生活水準はあまり変えない",
         "「まず貯金」が真っ先に浮かぶ",
-        "大きな買い物の前に必ず貯蓄額を確認する"
+        "大きな買い物の前に必ず貯蓄額を確認する",
+        "自動積立やつみたてNISAなど、仕組み化が得意"
       ],
       seen: "「しっかりしている」「将来を考えている」と思われています。",
-      caution: "貯めることが目的になって、使うタイミングを逃しがちかも。",
-      match: "資産を育てる人 — 貯めたお金を、一緒に増やす方向へ導いてくれる相手です。"
+      caution: "貯めることが目的になって、使うタイミングを逃しがちかも。たまには「今のための出費」も、自分に許可してあげると良さそうです。",
+      match: "資産を育てる人 — 貯めたお金を、一緒に増やす方向へ導いてくれる相手です。",
+      ad: `<table cellpadding="0" cellspacing="0" border="0" style=" border:1px solid #ccc; width:300px;"><tbody><tr style="border-style:none;"><td style="vertical-align:top; border-style:none; padding:10px; width:44px;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00tqhx4.2bo11413.g00tqhx4.2bo1201e%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fsmallword%252Flt0174%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fsmallword%252Fi%252F10000794%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow"><img style="max-width: initial;" border="0" alt="" src="https://thumbnail.image.rakuten.co.jp/@0_mall/smallword/cabinet/12466259/imgrc0116258865.jpg?_ex=64x64"></a></td><td style="font-size:12px; vertical-align:middle; border-style:none; padding:10px;"><p style="padding:0; margin:0;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00tqhx4.2bo11413.g00tqhx4.2bo1201e%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fsmallword%252Flt0174%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fsmallword%252Fi%252F10000794%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow">＼楽天1位5冠／貯金手帳 お札 貯金箱 お金仕分け 紙幣管理ファイルバインダー 手帳型 家計簿 透明リフィル付き ダイヤルロック PUレザー 高品質 コンパクト 100ポケット 記念紙幣管理 家計管理 貯金手帳 ソーシャルギフト対応</a></p><p style="color:#666; margin-top:5px; line-height:1.5;">価格:<span style="font-size:14px; color:#C00; font-weight:bold;">850円〜</span><br><span style="font-size:10px; font-weight:normal;">(2026/9/23 17:04時点)</span><br><span style="font-weight:bold;">感想(313件)</span></p></td></tr></tbody></table><img border="0" width="1" height="1" src="https://www14.a8.net/0.gif?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT" alt="">`
     },
     invest: {
       name: "資産を育てる人",
@@ -536,11 +550,13 @@
       traits: [
         "お金は「使う」より「働かせる」ものだと思っている",
         "将来の資産推移をつい計算してしまう",
-        "リスクよりリターンに目が向きやすい"
+        "リスクよりリターンに目が向きやすい",
+        "情報収集や勉強を怠らない"
       ],
       seen: "「先を見ている」「頭がいい」と思われています。",
-      caution: "増やすことに夢中で、今を楽しむのが後回しになりがち。",
-      match: "こつこつ貯蓄家 — あなたの計画に、堅実な土台を足してくれる相手です。"
+      caution: "増やすことに夢中で、今を楽しむのが後回しになりがち。資産が増えても生活の満足度まで比例するとは限らないので、たまに立ち止まって振り返るのがおすすめです。",
+      match: "こつこつ貯蓄家 — あなたの計画に、堅実な土台を足してくれる相手です。",
+      ad: `<table cellpadding="0" cellspacing="0" border="0" style=" border:1px solid #ccc; width:300px;"><tbody><tr style="border-style:none;"><td style="vertical-align:top; border-style:none; padding:10px; width:44px;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00q0724.2bo11c45.g00q0724.2bo12179%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fbook%252F18750505%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fbook%252Fi%252F22051425%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow"><img style="max-width: initial;" border="0" alt="" src="https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/4809/9784776214809_1_7.jpg?_ex=64x64"></a></td><td style="font-size:12px; vertical-align:middle; border-style:none; padding:10px;"><p style="padding:0; margin:0;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00q0724.2bo11c45.g00q0724.2bo12179%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fbook%252F18750505%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fbook%252Fi%252F22051425%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow">働きながら1億貯めるAI株式投資の全手順 [ 上岡　正明 ]</a></p><p style="color:#666; margin-top:5px; line-height:1.5;">価格:<span style="font-size:14px; color:#C00; font-weight:bold;">2420円</span><br><span style="font-size:10px; font-weight:normal;">(2026/9/23 17:14時点)</span><br><span style="font-weight:bold;">感想(2件)</span></p></td></tr></tbody></table><img border="0" width="1" height="1" src="https://www14.a8.net/0.gif?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT" alt="">`
     },
     experience: {
       name: "思い出コレクター",
@@ -549,11 +565,13 @@
       traits: [
         "モノより体験・旅行にお金を使いたい",
         "「これは一生の思い出になる」に弱い",
-        "高くても、心が動くなら払う"
+        "高くても、心が動くなら払う",
+        "SNS映えより、自分の記憶に残るかどうかを大事にする"
       ],
       seen: "「人生を楽しんでいる」「行動力がある」と思われています。",
-      caution: "気づいたら貯金が増えていない、なんてことも。",
-      match: "やりくり上手 — 楽しい体験を、上手にコスパよく実現してくれる相手です。"
+      caution: "気づいたら貯金が増えていない、なんてことも。「体験専用の予算」を先に決めておくと、罪悪感なく楽しめます。",
+      match: "やりくり上手 — 楽しい体験を、上手にコスパよく実現してくれる相手です。",
+      ad: `<table cellpadding="0" cellspacing="0" border="0" style=" border:1px solid #ccc; width:300px;"><tbody><tr style="border-style:none;"><td style="vertical-align:top; border-style:none; padding:10px; width:44px;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00u9314.2bo111fd.g00u9314.2bo12da9%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fgracevally%252Fgrace-x1%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fgracevally%252Fi%252F10000003%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow"><img style="max-width: initial;" border="0" alt="" src="https://thumbnail.image.rakuten.co.jp/@0_mall/gracevally/cabinet/09355687/09355695/12855263/x1-2026front-60.jpg?_ex=64x64"></a></td><td style="font-size:12px; vertical-align:middle; border-style:none; padding:10px;"><p style="padding:0; margin:0;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00u9314.2bo111fd.g00u9314.2bo12da9%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fgracevally%252Fgrace-x1%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fgracevally%252Fi%252F10000003%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow">楽天ランキング1位＼81%OFF＆P2倍で2,174円！／2024年間MVP ワイヤレスイヤホン bluetoothイヤホン 残量表示 Bluetooth6.0 ENC ノイズキャンセリング 自動ペアリング 36H連続再生 Type‐C急速充電 IPX7防水 AAC対応 マイク内蔵 iPhone/Android 旅行</a></p><p style="color:#666; margin-top:5px; line-height:1.5;">価格:<span style="font-size:14px; color:#C00; font-weight:bold;">2780円</span><br><span style="font-size:10px; font-weight:normal;">(2026/9/23 17:17時点)</span><br><span style="font-weight:bold;">感想(50038件)</span></p></td></tr></tbody></table><img border="0" width="1" height="1" src="https://www15.a8.net/0.gif?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT" alt="">`
     },
     thrifty: {
       name: "やりくり上手",
@@ -562,11 +580,13 @@
       traits: [
         "セールやポイントは絶対チェックする",
         "同じものなら、1円でも安く買いたい",
-        "工夫して満足度を落とさず節約するのが得意"
+        "工夫して満足度を落とさず節約するのが得意",
+        "レシートやクーポンをきちんと管理している"
       ],
       seen: "「しっかり者」「頼れる」と思われています。",
-      caution: "節約が目的化して、選ぶのに時間がかかりすぎることも。",
-      match: "気分で動く人 — あなたに「たまにはいいじゃん」を教えてくれる相手です。"
+      caution: "節約が目的化して、選ぶのに時間がかかりすぎることも。安さだけでなく「本当に必要か」も時々見直すと、もっと効率的になります。",
+      match: "気分で動く人 — あなたに「たまにはいいじゃん」を教えてくれる相手です。",
+      ad: `<table cellpadding="0" cellspacing="0" border="0" style=" border:1px solid #ccc; width:300px;"><tbody><tr style="border-style:none;"><td style="vertical-align:top; border-style:none; padding:10px; width:44px;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00qpj94.2bo11a18.g00qpj94.2bo12f66%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fauc-brainsewing%252Fkiru170n%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fauc-brainsewing%252Fi%252F10000956%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow"><img style="max-width: initial;" border="0" alt="" src="https://thumbnail.image.rakuten.co.jp/@0_mall/auc-brainsewing/cabinet/kr/kiru000n/kiru000n_1r.jpg?_ex=64x64"></a></td><td style="font-size:12px; vertical-align:middle; border-style:none; padding:10px;"><p style="padding:0; margin:0;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00qpj94.2bo11a18.g00qpj94.2bo12f66%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fauc-brainsewing%252Fkiru170n%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fauc-brainsewing%252Fi%252F10000956%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow">《ラストスパート☆10％offクーポン》着るビーズクッション 4サイズ 特大 大きい 服 ビーズクッション 人をダメにするクッション〈商標登録〉補充できる エコ 暖房 節約 電気代 器具 日本製 おうち時間[2603ss-20]</a></p><p style="color:#666; margin-top:5px; line-height:1.5;">価格:<span style="font-size:14px; color:#C00; font-weight:bold;">5800円〜</span><br><span style="font-size:10px; font-weight:normal;">(2026/9/23 17:24時点)</span><br><span style="font-weight:bold;">感想(20件)</span></p></td></tr></tbody></table><img border="0" width="1" height="1" src="https://www15.a8.net/0.gif?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT" alt="">`
     },
     impulse: {
       name: "気分で動く人",
@@ -575,11 +595,13 @@
       traits: [
         "欲しいと思ったら、すぐ手に入れたい",
         "衝動買いを後悔することもあるが、また繰り返す",
-        "「今を楽しむ」が一番大事"
+        "「今を楽しむ」が一番大事",
+        "計画よりも、その場のワクワクを優先する"
       ],
       seen: "「一緒にいて楽しい」「思い切りがいい」と思われています。",
-      caution: "気づいたら財布が軽い、ということが起きやすいかも。",
-      match: "やりくり上手 — 楽しみながら、無理のない使い方を教えてくれる相手です。"
+      caution: "気づいたら財布が軽い、ということが起きやすいかも。買う前に一晩置いてみるだけでも、後悔の数はぐっと減るはずです。",
+      match: "やりくり上手 — 楽しみながら、無理のない使い方を教えてくれる相手です。",
+      ad: `<table cellpadding="0" cellspacing="0" border="0" style=" border:1px solid #ccc; width:300px;"><tbody><tr style="border-style:none;"><td style="vertical-align:top; border-style:none; padding:10px; width:44px;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00qb0l4.2bo11622.g00qb0l4.2bo12048%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Froomy%252Fwin20oct27h03%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Froomy%252Fi%252F10015766%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow"><img style="max-width: initial;" border="0" alt="" src="https://thumbnail.image.rakuten.co.jp/@0_mall/roomy/cabinet/500cart_all/500cart_11g/p10n-4/win2006-nx014-1_gt01.jpg?_ex=64x64"></a></td><td style="font-size:12px; vertical-align:middle; border-style:none; padding:10px;"><p style="padding:0; margin:0;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00qb0l4.2bo11622.g00qb0l4.2bo12048%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Froomy%252Fwin20oct27h03%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Froomy%252Fi%252F10015766%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow">●楽天1位●【2大特典付き＋30レシピ付】レコルト 豆乳メーカー 全自動 豆乳機 スープメーカー 自動調理 ポタージュメーカー ミキサー ブレンダー 保温 スープ 豆乳 おかゆ おから お粥 離乳食 自動調理器 スムージー 味噌汁 豆乳マシン RSY-2［ recolte 自動調理ポット ］</a></p><p style="color:#666; margin-top:5px; line-height:1.5;">価格:<span style="font-size:14px; color:#C00; font-weight:bold;">13200円</span><br><span style="font-size:10px; font-weight:normal;">(2026/9/23 17:26時点)</span><br><span style="font-weight:bold;">感想(21570件)</span></p></td></tr></tbody></table><img border="0" width="1" height="1" src="https://www15.a8.net/0.gif?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT" alt="">`
     },
     selfinvest: {
       name: "自分に投資する人",
@@ -588,11 +610,13 @@
       traits: [
         "スキルアップや学びにはお金を惜しまない",
         "「これは将来役に立つ」に投資したくなる",
-        "見た目より中身、モノより経験の質にこだわる"
+        "見た目より中身、モノより経験の質にこだわる",
+        "資格やセミナーなど、形に残るものを選びがち"
       ],
       seen: "「向上心がある」「自分を大事にしている」と思われています。",
-      caution: "自己投資が多すぎて、他の支出とのバランスを崩しがち。",
-      match: "思い出コレクター — あなたの成長を、一緒に楽しんでくれる相手です。"
+      caution: "自己投資が多すぎて、他の支出とのバランスを崩しがち。「今すぐ元が取れるか」より「本当に必要か」で選ぶと、失敗が減ります。",
+      match: "思い出コレクター — あなたの成長を、一緒に楽しんでくれる相手です。",
+      ad: `<table cellpadding="0" cellspacing="0" border="0" style=" border:1px solid #ccc; width:300px;"><tbody><tr style="border-style:none;"><td style="vertical-align:top; border-style:none; padding:10px; width:44px;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00uj5x4.2bo1174c.g00uj5x4.2bo126ca%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fbrighte-onlineshop%252Fbrt-fl170%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fbrighte-onlineshop%252Fi%252F10000000%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow"><img style="max-width: initial;" border="0" alt="" src="https://thumbnail.image.rakuten.co.jp/@0_mall/brighte-onlineshop/cabinet/10566429/10575588/10661392/brt-fl170_260919.jpg?_ex=64x64"></a></td><td style="font-size:12px; vertical-align:middle; border-style:none; padding:10px;"><p style="padding:0; margin:0;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00uj5x4.2bo1174c.g00uj5x4.2bo126ca%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fbrighte-onlineshop%252Fbrt-fl170%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fbrighte-onlineshop%252Fi%252F10000000%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow">＜今なら19,800円相当！＞ ラヴィットで紹介 【イベント開催中】 ELEKI LIFT 【公式】美顔器 リフトアップ ブライト エレキリフト / Brighte 美顔器 | ems 美容 美容家電 角質汚れ フェイスライン エイジングケア クーポン適応条件あり</a></p><p style="color:#666; margin-top:5px; line-height:1.5;">価格:<span style="font-size:14px; color:#C00; font-weight:bold;">58000円</span><br><span style="font-size:10px; font-weight:normal;">(2026/9/23 17:35時点)</span><br><span style="font-weight:bold;">感想(720件)</span></p></td></tr></tbody></table><img border="0" width="1" height="1" src="https://www15.a8.net/0.gif?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT" alt="">`
     }
   };
 
@@ -678,10 +702,12 @@
   const progressFill = document.getElementById("progress-fill");
   const questionText = document.getElementById("question-text");
   const optionsEl = document.getElementById("options");
+  const backBtn = document.getElementById("back-btn");
 
   let current = 0;
   const scores = Object.fromEntries(Object.keys(TYPES).map(k => [k, 0]));
   const typeOrder = Object.keys(TYPES);
+  const answers = new Array(QUESTIONS.length).fill(null);
 
   document.getElementById("start-btn").addEventListener("click", () => {
     screenIntro.hidden = true;
@@ -692,10 +718,18 @@
   document.getElementById("retry-btn").addEventListener("click", () => {
     current = 0;
     typeOrder.forEach(k => (scores[k] = 0));
+    answers.fill(null);
     screenResult.hidden = true;
     screenQuiz.hidden = false;
     document.getElementById("stamp-svg").classList.remove("show");
     renderQuestion();
+  });
+
+  backBtn.addEventListener("click", () => {
+    if (current > 0) {
+      current -= 1;
+      renderQuestion();
+    }
   });
 
   function renderQuestion() {
@@ -708,15 +742,20 @@
     q.options.forEach((opt, i) => {
       const btn = document.createElement("button");
       btn.type = "button";
-      btn.className = "option";
+      btn.className = "option" + (answers[current] === opt.type ? " selected" : "");
       btn.innerHTML = `<span class="option-mark">${marks[i]}</span><span>${opt.label}</span>`;
       btn.addEventListener("click", () => selectOption(opt.type));
       optionsEl.appendChild(btn);
     });
+    backBtn.hidden = current === 0;
   }
 
   function selectOption(type) {
+    if (answers[current] != null) {
+      scores[answers[current]] -= 1;
+    }
     scores[type] += 1;
+    answers[current] = type;
     current += 1;
     if (current < QUESTIONS.length) {
       renderQuestion();
