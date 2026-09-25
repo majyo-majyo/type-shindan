@@ -65,7 +65,8 @@
   .qcount { font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 700; font-size: 12px; color: var(--muted); }
   .progress { flex: 1; height: 6px; background: var(--paper-deep); border-radius: 999px; margin-left: 14px; overflow: hidden; }
   .progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.3s ease; }
-  .question { font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 700; font-size: 19px; line-height: 1.6; margin: 0 0 26px; }
+  .question { font-family: "M PLUS Rounded 1c", sans-serif; font-weight: 700; font-size: 19px; line-height: 1.6; margin: 0 0 10px; }
+  .hint { font-size: 12.5px; line-height: 1.7; color: var(--muted); margin: 0 0 20px; }
   .yn-options { display: flex; gap: 16px; }
   .yn-btn { flex: 1; padding: 20px; border-radius: 16px; border: 2px solid var(--card-line); background: var(--paper);
     color: var(--ink); font-family: "M PLUS Rounded 1c", sans-serif; font-size: 17px; font-weight: 700; cursor: pointer;
@@ -102,7 +103,7 @@
     <section class="screen intro" id="screen-intro">
       <p class="eyebrow">Personality File</p>
       <h1>あなたの性格タイプを診断します</h1>
-      <p class="lead">全12問、「はい」か「いいえ」で直感的に答えてください。所要時間は1〜2分。4つの軸から、16タイプの中からあなたに一番近いものを診断します。</p>
+      <p class="lead">全12問、「はい」か「いいえ」で直感的に答えてください。迷ったら、近いほうでOKです。所要時間は1〜2分。4つの軸から、16タイプの中からあなたに一番近いものを診断します。</p>
       <button class="btn primary" id="start-btn" type="button">診断をはじめる</button>
     </section>
 
@@ -112,6 +113,7 @@
         <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
       </div>
       <h2 class="question" id="question-text"></h2>
+      <p class="hint">どちらとも言えないときは、「はい」「いいえ」のうち近いほうを選んでください。</p>
       <div class="yn-options">
         <button class="yn-btn" id="yes-btn" type="button">はい</button>
         <button class="yn-btn" id="no-btn" type="button">いいえ</button>

@@ -218,8 +218,15 @@
     font-weight: 700;
     font-size: clamp(18px, 4vw, 21px);
     line-height: 1.6;
-    margin: 0 0 26px;
+    margin: 0 0 10px;
     text-wrap: balance;
+  }
+
+  .hint {
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: var(--muted);
+    margin: 0 0 20px;
   }
 
   .options {
@@ -464,7 +471,7 @@
       <section class="screen intro" id="screen-intro">
         <p class="eyebrow">Personality File</p>
         <h1>あなたの「職場タイプ」を診断します</h1>
-        <p class="lead">全8問、直感で選んでください。所要時間は1〜2分。仕事中のふるまいから、6タイプの中からあなたに一番近いものを診断します。</p>
+        <p class="lead">全8問、直感で選んでください。ぴったりの答えがないときは、いちばん近いものでOKです。所要時間は1〜2分。仕事中のふるまいから、6タイプの中からあなたに一番近いものを診断します。</p>
         <button class="btn primary" id="start-btn" type="button">診断をはじめる</button>
       </section>
 
@@ -474,6 +481,7 @@
           <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
         </div>
         <h2 class="question" id="question-text"></h2>
+        <p class="hint">ぴったりの答えがなくても大丈夫。A〜Dの中で、いちばん近いものを選んでください。</p>
         <div class="options" id="options"></div>
         <button class="btn ghost back-btn" id="back-btn" type="button" hidden>← 前の質問に戻る</button>
       </section>
