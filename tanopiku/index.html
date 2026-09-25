@@ -1,0 +1,872 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>たのピク度診断 | 診断ファイル室</title>
+<meta name="description" content="8つの質問に答えると、あなたの「たのピク度」を0〜100%で診断します。小さなことを楽しめる力は、どのくらい？">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+
+<style>
+  :root {
+    --bg1: #eaf7dc;
+    --bg2: #eef5ff;
+    --bg3: #fff4d6;
+    --paper: #f7fcf0;
+    --paper-deep: #eaf7dc;
+    --card: #ffffff;
+    --card-line: #d3eebd;
+    --ink: #322f4a;
+    --ink-soft: #6f6b8c;
+    --muted: #9a96b5;
+    --accent: #6dbb5a;
+    --accent-soft: rgba(109, 187, 90, 0.14);
+    --accent-line: rgba(109, 187, 90, 0.4);
+    --shadow: rgba(90, 70, 140, 0.16);
+    --focus: #6c5ce7;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg1: #2a2138; --bg2: #1f2438; --bg3: #2a2820;
+      --paper: #201c2c; --paper-deep: #262233; --card: #262233; --card-line: #3c3650;
+      --ink: #f1eefb; --ink-soft: #bdb6da; --muted: #8c85ab;
+      --accent: #8fd67a; --accent-soft: rgba(143, 214, 122, 0.16); --accent-line: rgba(143, 214, 122, 0.4);
+      --shadow: rgba(0, 0, 0, 0.45); --focus: #b8b2ff;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg1: #2a2138; --bg2: #1f2438; --bg3: #2a2820;
+    --paper: #201c2c; --paper-deep: #262233; --card: #262233; --card-line: #3c3650;
+    --ink: #f1eefb; --ink-soft: #bdb6da; --muted: #8c85ab;
+    --accent: #8fd67a; --accent-soft: rgba(143, 214, 122, 0.16); --accent-line: rgba(143, 214, 122, 0.4);
+    --shadow: rgba(0, 0, 0, 0.45); --focus: #b8b2ff;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+      radial-gradient(60vw 60vw at 8% -10%, var(--bg1), transparent 60%),
+      radial-gradient(60vw 60vw at 100% 0%, var(--bg2), transparent 55%),
+      radial-gradient(70vw 70vw at 50% 120%, var(--bg3), transparent 60%),
+      #fffdf9;
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 48px 20px 64px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body { background-color: #201c2c; }
+  }
+  :root[data-theme="dark"] body { background-color: #201c2c; }
+
+  .page {
+    width: 100%;
+    max-width: 640px;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    margin: 0 0 14px 4px;
+  }
+  .back-link:hover { color: var(--accent); }
+  .back-link:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  .tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin-left: 4px;
+  }
+
+  .file-body {
+    background: var(--card);
+    border: 2px solid var(--card-line);
+    border-radius: 22px;
+    box-shadow: 0 16px 34px -18px var(--shadow);
+    padding: 40px 36px 36px;
+  }
+
+  .screen[hidden] { display: none; }
+
+  .eyebrow {
+    display: inline-block;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: #fff;
+    background: linear-gradient(120deg, var(--accent), #b4e08f);
+    padding: 5px 14px;
+    border-radius: 999px;
+    margin: 0 0 16px;
+  }
+
+  h1 {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 800;
+    font-size: clamp(24px, 5vw, 32px);
+    line-height: 1.4;
+    margin: 0 0 18px;
+    text-wrap: balance;
+  }
+
+  .lead {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--ink-soft);
+    margin: 0 0 32px;
+    max-width: 46ch;
+  }
+
+  .btn {
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: 999px;
+    padding: 14px 32px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn { transition: none; }
+  }
+
+  .btn.primary {
+    background: var(--accent);
+    color: #fdf6e8;
+    box-shadow: 0 8px 20px -8px var(--accent-line);
+  }
+  .btn.primary:hover { transform: translateY(-1px); box-shadow: 0 10px 22px -8px var(--accent-line); }
+
+  .btn.ghost {
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1px solid var(--card-line);
+    margin-top: 8px;
+  }
+  .btn.ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  .btn:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .quiz-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .qcount {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--muted);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .progress {
+    flex: 1;
+    height: 6px;
+    background: var(--paper-deep);
+    border-radius: 999px;
+    overflow: hidden;
+    border: 1px solid var(--card-line);
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 12.5%;
+    background: var(--accent);
+    border-radius: 999px;
+    transition: width 0.35s ease;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .progress-fill { transition: none; }
+  }
+
+  .question {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
+    font-size: clamp(18px, 4vw, 21px);
+    line-height: 1.6;
+    margin: 0 0 26px;
+    text-wrap: balance;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    text-align: left;
+    width: 100%;
+    background: var(--paper);
+    border: 2px solid var(--card-line);
+    border-radius: 16px;
+    padding: 15px 18px;
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .option { transition: none; }
+  }
+
+  .option:hover {
+    border-color: var(--accent);
+    transform: translateX(2px);
+  }
+
+  .option:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .option.selected {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .back-btn {
+    margin-top: 18px;
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+
+  .option-mark {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    color: #fff;
+    background: var(--accent);
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* result screen */
+  .result {
+    text-align: left;
+  }
+
+  .stamp-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+
+  .stamp {
+    width: 150px;
+    height: 150px;
+    opacity: 0;
+    transform: scale(2.2) rotate(-16deg);
+  }
+
+  .stamp.show {
+    animation: stampDown 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .stamp.show { animation: none; opacity: 1; transform: scale(1) rotate(-6deg); }
+  }
+
+  @keyframes stampDown {
+    0%   { opacity: 0; transform: scale(2.2) rotate(-16deg); }
+    55%  { opacity: 1; transform: scale(0.92) rotate(-4deg); }
+    75%  { transform: scale(1.05) rotate(-8deg); }
+    100% { opacity: 1; transform: scale(1) rotate(-6deg); }
+  }
+
+  .result .eyebrow { text-align: center; }
+
+  .result-name {
+    text-align: center;
+    font-size: clamp(26px, 6vw, 34px);
+    margin-bottom: 6px;
+  }
+
+  .result-motto {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin: 0 0 30px;
+    letter-spacing: 0.03em;
+  }
+
+  .result-illust {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1024 / 558;
+    object-fit: cover;
+    border-radius: 16px;
+    border: 2px solid var(--card-line);
+    margin: 0 0 28px;
+  }
+  .result-illust[hidden] { display: none; }
+
+  .meter {
+    margin: 0 0 28px;
+  }
+
+  .meter-track {
+    position: relative;
+    height: 10px;
+    background: var(--paper-deep);
+    border: 1px solid var(--card-line);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .meter-fill {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #b4e08f, var(--accent));
+    border-radius: 999px;
+    transition: width 0.9s ease 0.3s;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .meter-fill { transition: none; }
+  }
+
+  .meter-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  .field {
+    border-top: 1px dashed var(--card-line);
+    padding: 16px 0;
+  }
+
+  .field:last-of-type { border-bottom: 1px dashed var(--card-line); }
+
+  .field-label {
+    display: inline-block;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    background: var(--paper);
+    border-radius: 999px;
+    padding: 4px 12px;
+    margin-bottom: 10px;
+  }
+
+  .field p {
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.9;
+    color: var(--ink);
+  }
+
+  .traits {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .traits li {
+    font-size: 14.5px;
+    line-height: 1.7;
+    padding-left: 18px;
+    position: relative;
+  }
+
+  .traits li::before {
+    content: "・";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  .field.accent-field {
+    background: var(--accent-soft);
+    border-radius: 8px;
+    padding: 16px 16px;
+    border-top: none;
+    margin-top: 8px;
+  }
+  .field.accent-field:last-of-type { border-bottom: none; }
+
+  .ad-field {
+    border-top: 1px dashed var(--card-line);
+  }
+
+  .pr-label {
+    background: var(--paper-deep);
+    color: var(--muted);
+  }
+
+  .ad-embed {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    padding-top: 4px;
+  }
+
+  .ad-embed table {
+    max-width: 100%;
+  }
+
+  /* 楽天/A8.netの広告コードは色をインラインstyleで固定してくるため、
+     ダークモードでも読めるようテーマの色で強制的に上書きする */
+  .ad-embed, .ad-embed * {
+    color: var(--ink) !important;
+    background: transparent !important;
+    border-color: var(--card-line) !important;
+  }
+  .ad-embed a {
+    color: var(--accent) !important;
+    text-decoration: underline;
+  }
+
+  .result-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+  }
+
+  .btn.share {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: var(--card);
+    box-shadow: 0 8px 20px -8px var(--shadow);
+  }
+  .btn.share:hover { transform: translateY(-1px); }
+
+  .share-icon {
+    width: 15px;
+    height: 15px;
+    fill: currentColor;
+    flex: none;
+  }
+
+  @media (max-width: 480px) {
+    .file-body { padding: 28px 20px 26px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <a class="back-link" href="../">← 診断ファイル室</a>
+  <div class="file">
+    <div class="tab">たのピク度診断ファイル</div>
+    <div class="file-body">
+
+      <section class="screen intro" id="screen-intro">
+        <p class="eyebrow">Picnic File</p>
+        <h1>あなたの「たのピク度」を診断します</h1>
+        <p class="lead">昆布のおにぎりに、ちょっとぬるいりんご。それでもニコニコ楽しめる？ 全8問、直感で選んでください。あなたの「小さなことを楽しむ力」を0〜100%で診断します。</p>
+        <button class="btn primary" id="start-btn" type="button">診断をはじめる</button>
+      </section>
+
+      <section class="screen quiz" id="screen-quiz" hidden>
+        <div class="quiz-head">
+          <span class="qcount" id="qcount">Q.1 / 8</span>
+          <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
+        </div>
+        <h2 class="question" id="question-text"></h2>
+        <div class="options" id="options"></div>
+        <button class="btn ghost back-btn" id="back-btn" type="button" hidden>← 前の質問に戻る</button>
+      </section>
+
+      <section class="screen result" id="screen-result" hidden>
+        <div class="stamp-wrap">
+          <svg class="stamp" id="stamp-svg" viewBox="0 0 200 200" role="img" aria-label="たのピク度">
+            <defs>
+              <linearGradient id="stampGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="var(--accent)"/>
+                <stop offset="100%" stop-color="#b4e08f"/>
+              </linearGradient>
+            </defs>
+            <circle cx="100" cy="100" r="88" fill="url(#stampGrad)"/>
+            <text x="100" y="66" fill="#fff" font-family="M PLUS Rounded 1c, sans-serif" font-weight="700" font-size="17" text-anchor="middle" dominant-baseline="central">たのピク度</text>
+            <text id="stamp-text" x="100" y="112" fill="#fff" font-family="M PLUS Rounded 1c, sans-serif" font-weight="800" font-size="50" text-anchor="middle" dominant-baseline="central"></text>
+          </svg>
+        </div>
+        <p class="eyebrow">診断結果</p>
+        <h1 class="result-name" id="result-name"></h1>
+        <p class="result-motto" id="result-motto"></p>
+
+        <img class="result-illust" id="result-illust" alt="" hidden>
+
+        <div class="meter" aria-hidden="true">
+          <div class="meter-track"><div class="meter-fill" id="meter-fill"></div></div>
+          <div class="meter-labels"><span>0% しっかり準備派</span><span>100% 元祖たのピク</span></div>
+        </div>
+
+        <div class="field">
+          <span class="field-label">特徴</span>
+          <ul class="traits" id="result-traits"></ul>
+        </div>
+        <div class="field">
+          <span class="field-label">周りからはこう見られている</span>
+          <p id="result-seen"></p>
+        </div>
+        <div class="field">
+          <span class="field-label">ちょっと注意</span>
+          <p id="result-caution"></p>
+        </div>
+        <div class="field accent-field">
+          <span class="field-label">一緒にピクニックに行くなら</span>
+          <p id="result-match"></p>
+        </div>
+
+        <div class="field ad-field" id="result-ad-field" hidden>
+          <span class="field-label pr-label" id="pr-label">PR ー おすすめの一品</span>
+          <div id="result-ad" class="ad-embed"></div>
+        </div>
+
+        <div class="result-actions">
+          <button class="btn share" id="share-btn" type="button">
+            <svg class="share-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            Xでシェア
+          </button>
+          <button class="btn ghost" id="retry-btn" type="button">もう一度診断する</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  // 点数が高いほど「たのピク」。min 以上の段階のうち、一番上に当てはまるものが結果になる
+  const LEVELS = [
+    {
+      min: 85,
+      name: "元祖たのピク",
+      motto: "昆布のおにぎりでも、最高の一日にできる人。",
+      traits: [
+        "準備が足りなくても「まあいっか」と笑える",
+        "道ばたの花や、空の色に気づくのが得意",
+        "予定どおりにいかない時間も、けっこう好き",
+        "あなたがニコニコしていると、まわりの空気もゆるむ"
+      ],
+      seen: "「一緒にいるとホッとする」「機嫌がいい人」と思われています。",
+      caution: "あなたの「まあいっか」を、裏で誰かがフォローしてくれていることも。たまに「いつもありがとう」と伝えると、ピクニックがもっと楽しくなります。",
+      match: "幹事ピク — しっかり準備してくれる人と行けば、あなたの笑顔が一番いきる組み合わせです。",
+      illust: "img/gansou.webp",
+      illustAlt: "おにぎりをほおばる女の人のイラスト",
+      ad: `<table cellpadding="0" cellspacing="0" border="0" style=" border:1px solid #ccc; width:300px;"><tbody><tr style="border-style:none;"><td style="vertical-align:top; border-style:none; padding:10px; width:44px;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00u2h54.2bo112ab.g00u2h54.2bo12286%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Faeon-kyushu%252F2007930019124%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Faeon-kyushu%252Fi%252F10000035%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow"><img style="max-width: initial;" border="0" alt="" src="https://thumbnail.image.rakuten.co.jp/@0_mall/aeon-kyushu/cabinet/item/2007930019124/2007930019124_main01.jpg?_ex=64x64"></a></td><td style="font-size:12px; vertical-align:middle; border-style:none; padding:10px;"><p style="padding:0; margin:0;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00u2h54.2bo112ab.g00u2h54.2bo12286%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Faeon-kyushu%252F2007930019124%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Faeon-kyushu%252Fi%252F10000035%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow">緑健農園 つぼ漬昆布 1.3k&times;2 漬物 つぼ漬け 昆布 ご飯のお供 惣菜 しょうゆ漬け 食品 九州 ご当地 お取り寄せ グルメ 昆布佃煮 おつまみ 伝統保存食 発酵食品 大容量 イオン九州</a></p><p style="color:#666; margin-top:5px; line-height:1.5;">価格:<span style="font-size:14px; color:#C00; font-weight:bold;">5980円</span><br><span style="font-size:10px; font-weight:normal;">(2026/9/25 22:52時点)</span><br><span style="font-weight:bold;">感想(71件)</span></p></td></tr></tbody></table><img border="0" width="1" height="1" src="https://www14.a8.net/0.gif?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT" alt="">`
+    },
+    {
+      min: 65,
+      name: "ゆるピク",
+      motto: "予定がずれても、それも思い出。",
+      traits: [
+        "だいたいの準備はするけれど、細かいことは気にしない",
+        "ハプニングがあると、ちょっと楽しくなってしまう",
+        "「ぬるいね」と笑いながら、ちゃんとおいしく食べる",
+        "頑張りすぎない、ちょうどいいペースを知っている"
+      ],
+      seen: "「おおらか」「一緒にいてラク」と思われています。",
+      caution: "ゆるさが「うっかり」に変わる日も。持ち物だけでも前の晩に玄関に置いておくと、当日の「あっ」がぐっと減ります。",
+      match: "ハーフピク — ほどよく段取りしてくれるので、ゆるさを残したまま安心して楽しめます。",
+      illust: "img/yuru.png",
+      illustAlt: "りんごをかじる女の人のイラスト",
+      ad: `<table cellpadding="0" cellspacing="0" border="0" style=" border:1px solid #ccc; width:300px;"><tbody><tr style="border-style:none;"><td style="vertical-align:top; border-style:none; padding:10px; width:44px;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00s0p34.2bo11719.g00s0p34.2bo1272a%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fauc-risecreation%252Fr0843%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fauc-risecreation%252Fi%252F10005403%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow"><img style="max-width: initial;" border="0" alt="" src="https://thumbnail.image.rakuten.co.jp/@0_mall/auc-risecreation/cabinet/product/top-2/r0843_01c_em.jpg?_ex=64x64"></a></td><td style="font-size:12px; vertical-align:middle; border-style:none; padding:10px;"><p style="padding:0; margin:0;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00s0p34.2bo11719.g00s0p34.2bo1272a%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fauc-risecreation%252Fr0843%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fauc-risecreation%252Fi%252F10005403%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow">保冷バッグ クーラーバッグ クーラーボックス ランチバッグ 保冷 小さめ お弁当 大容量 折りたたみ ミニ コンパクト かわいい カワイイ 可愛い 保冷ポーチ</a></p><p style="color:#666; margin-top:5px; line-height:1.5;">価格:<span style="font-size:14px; color:#C00; font-weight:bold;">1000円〜</span><br><span style="font-size:10px; font-weight:normal;">(2026/9/25 23:11時点)</span><br><span style="font-weight:bold;">感想(434件)</span></p></td></tr></tbody></table><img border="0" width="1" height="1" src="https://www14.a8.net/0.gif?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT" alt="">`
+    },
+    {
+      min: 40,
+      name: "ハーフピク",
+      motto: "段取りも、楽しむことも、いいとこ取り。",
+      traits: [
+        "必要なものはそろえるけれど、完璧までは目指さない",
+        "予定が崩れたら、すぐ次の案を出せる",
+        "しっかり者の顔と、のんびり屋の顔を使い分けられる",
+        "誰とピクニックに行っても、だいたいうまくいく"
+      ],
+      seen: "「バランスがいい」「頼れるけど堅くない」と思われています。",
+      caution: "まわりに合わせるのが上手なぶん、自分が本当はどっちでいたいのか見失いがち。たまには全部人任せの日を作ってみても。",
+      match: "ゆるピク — あなたが少し段取りして、あとは相手の「まあいっか」に乗っかると、ちょうどいい一日になります。",
+      illust: "img/half.webp",
+      illustAlt: "おにぎりを片手に、スマホで天気予報を見る女の人のイラスト",
+      ad: `<table cellpadding="0" cellspacing="0" border="0" style=" border:1px solid #ccc; width:300px;"><tbody><tr style="border-style:none;"><td style="vertical-align:top; border-style:none; padding:10px; width:44px;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00tyy94.2bo11543.g00tyy94.2bo1298a%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fazusa%252Fb16gcq%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fazusa%252Fi%252F10000109%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow"><img style="max-width: initial;" border="0" alt="" src="https://thumbnail.image.rakuten.co.jp/@0_mall/azusa/cabinet/6san/imgrc0171182741.jpg?_ex=64x64"></a></td><td style="font-size:12px; vertical-align:middle; border-style:none; padding:10px;"><p style="padding:0; margin:0;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00tyy94.2bo11543.g00tyy94.2bo1298a%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fazusa%252Fb16gcq%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fazusa%252Fi%252F10000109%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow">期間限定！1,400円～【楽天年間1位！形状記憶特許品】 日傘 折りたたみ傘 完全遮光 JIS認証済 遮熱率59％ 自動開閉 DeliToo 傘 超軽量 わずか240g 折り畳み傘 6本骨 uvカット UPF 50+ 紫外線対策 日焼け対策 メンズ レディース 軽量 晴雨 花粉対策 ギフト</a></p><p style="color:#666; margin-top:5px; line-height:1.5;">価格:<span style="font-size:14px; color:#C00; font-weight:bold;">2980円〜</span><br><span style="font-size:10px; font-weight:normal;">(2026/9/25 22:58時点)</span><br><span style="font-weight:bold;">感想(46371件)</span></p></td></tr></tbody></table><img border="0" width="1" height="1" src="https://www15.a8.net/0.gif?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT" alt="">`
+    },
+    {
+      min: 20,
+      name: "幹事ピク",
+      motto: "準備は完璧。みんなを楽しませる側の人。",
+      traits: [
+        "天気予報と持ち物リストは、前の日に確認済み",
+        "レジャーシートと保冷剤は、忘れたことがない",
+        "みんなが楽しそうにしているのを見るのがうれしい",
+        "困った人がいると、ついさっと手を貸してしまう"
+      ],
+      seen: "「しっかり者」「この人がいれば安心」と思われています。",
+      caution: "準備に全力を出しすぎて、当日のあなたがヘトヘトになっていませんか。ピクニックは、あなたも楽しむためのもの。1つくらい忘れても大丈夫です。",
+      match: "元祖たのピク — あなたの準備を、全力で「楽しい！」に変えてくれる相手です。",
+      illust: "img/kanji.webp",
+      illustAlt: "サンドイッチと水筒の入ったピクニックバスケットを抱える女の人のイラスト",
+      ad: `<table cellpadding="0" cellspacing="0" border="0" style=" border:1px solid #ccc; width:300px;"><tbody><tr style="border-style:none;"><td style="vertical-align:top; border-style:none; padding:10px; width:44px;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00rbd44.2bo11720.g00rbd44.2bo12440%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252F500works%252F92340033%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252F500works%252Fi%252F10007112%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow"><img style="max-width: initial;" border="0" alt="" src="https://thumbnail.image.rakuten.co.jp/@0_mall/500works/cabinet/point3/92340033tmb03_cp.jpg?_ex=64x64"></a></td><td style="font-size:12px; vertical-align:middle; border-style:none; padding:10px;"><p style="padding:0; margin:0;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00rbd44.2bo11720.g00rbd44.2bo12440%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252F500works%252F92340033%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252F500works%252Fi%252F10007112%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow">【公式】 ピクニック バスケット 蓋付き バスケット ランチ バスケット 北欧 洗える かご 収納 蓋付き カゴ 収納ボックス ナチュラル フタ付き カゴバスケット 持ち手 おしゃれ カゴ収納 小物収納 おもちゃ 収納かご ＼着後レビュー★プレゼントキャンペーン中／</a></p><p style="color:#666; margin-top:5px; line-height:1.5;">価格:<span style="font-size:14px; color:#C00; font-weight:bold;">5500円</span><br><span style="font-size:10px; font-weight:normal;">(2026/9/25 22:43時点)</span><br><span style="font-weight:bold;">感想(148件)</span></p></td></tr></tbody></table><img border="0" width="1" height="1" src="https://www14.a8.net/0.gif?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT" alt="">`
+    },
+    {
+      min: 0,
+      name: "プロピク",
+      motto: "レジャーシートの下に、もう1枚敷く人。",
+      traits: [
+        "雨の日用のプランBまで、ちゃんと決めてある",
+        "おにぎりの具は3種類。中身がわかるよう印つき",
+        "待ち合わせの10分前には、場所取りが終わっている",
+        "「段取りが完璧だね」が、最高のほめ言葉"
+      ],
+      seen: "「頼りになりすぎる」「任せておけば間違いない」と思われています。",
+      caution: "完璧じゃないと落ち着かない日は、ちょっと疲れているサインかも。ぬるいりんごを「これはこれで」と食べてみると、新しい楽しさが見つかるかもしれません。",
+      match: "ゆるピク — あなたの準備に甘えつつ、肩の力を抜かせてくれる相手です。",
+      illust: "img/pro.webp",
+      illustAlt: "キャップをかぶり、リュックを背負った女の人のイラスト",
+      ad: `<table cellpadding="0" cellspacing="0" border="0" style=" border:1px solid #ccc; width:300px;"><tbody><tr style="border-style:none;"><td style="vertical-align:top; border-style:none; padding:10px; width:44px;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00s64u4.2bo11484.g00s64u4.2bo12ebe%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fyouplus-r%252Fvi-qpm-sm%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fyouplus-r%252Fi%252F10003879%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow"><img style="max-width: initial;" border="0" alt="" src="https://thumbnail.image.rakuten.co.jp/@0_mall/youplus-r/cabinet/crossmall004/vi-qpm-sm.jpg?_ex=64x64"></a></td><td style="font-size:12px; vertical-align:middle; border-style:none; padding:10px;"><p style="padding:0; margin:0;"><a href="https://rpx.a8.net/svt/ejp?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT&rakuten=y&a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00s64u4.2bo11484.g00s64u4.2bo12ebe%2Fa26090654486_4BC4QQ_4MPE5U_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fyouplus-r%252Fvi-qpm-sm%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fyouplus-r%252Fi%252F10003879%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="nofollow">レジャーシート 厚手 大判 200&times;200 遠足 子供 おしゃれ 洗える クッション ペグ 大きい ピクニックシート 撥水 レジャー シート 家族 運動会 公園 200cm 4人 5人 6人 ペグ穴付き キルティングピクニックマット viaggio+ rv016</a></p><p style="color:#666; margin-top:5px; line-height:1.5;">価格:<span style="font-size:14px; color:#C00; font-weight:bold;">4680円</span><br><span style="font-size:10px; font-weight:normal;">(2026/9/25 22:40時点)</span><br><span style="font-weight:bold;">感想(3032件)</span></p></td></tr></tbody></table><img border="0" width="1" height="1" src="https://www15.a8.net/0.gif?a8mat=4BC4QQ+4MPE5U+2HOM+BWGDT" alt="">`
+    }
+  ];
+
+  // 各選択肢の point は 0〜3（3 が一番たのピク）。並びは毎問わざとバラバラにしている
+  const QUESTIONS = [
+    {
+      text: "ピクニックの日の朝、天気予報は「くもり時々雨」。どうする？",
+      options: [
+        { label: "「晴れたらラッキー」で、とりあえず出発", point: 3 },
+        { label: "雨の日用のプランBに切り替える", point: 0 },
+        { label: "折りたたみ傘を1本入れて出発", point: 2 },
+        { label: "屋根のある公園に行き先を変える", point: 1 }
+      ]
+    },
+    {
+      text: "お弁当のおにぎり、具はどうする？",
+      options: [
+        { label: "前の日に具材を買いそろえておく", point: 1 },
+        { label: "冷蔵庫にあった昆布。それで十分うれしい", point: 3 },
+        { label: "3種類つくって、中身がわかるよう印をつける", point: 0 },
+        { label: "梅と鮭の、定番の2種類", point: 2 }
+      ]
+    },
+    {
+      text: "公園に着いてから、レジャーシートを忘れたことに気づいた",
+      options: [
+        { label: "ハンカチや上着を敷いて、なんとかする", point: 2 },
+        { label: "近くのお店に買いに行く", point: 1 },
+        { label: "そもそも忘れない。持ち物リストがある", point: 0 },
+        { label: "「芝生の上も気持ちいいね」とそのまま座る", point: 3 }
+      ]
+    },
+    {
+      text: "持ってきたりんごが、ちょっとぬるくなっていた",
+      options: [
+        { label: "保冷剤を入れてあるので、ぬるくならない", point: 0 },
+        { label: "外で食べると、ぬるくてもおいしい", point: 3 },
+        { label: "次は保冷バッグを買おうとメモする", point: 1 },
+        { label: "「ぬるいね」と笑いながら食べる", point: 2 }
+      ]
+    },
+    {
+      text: "友だちとの待ち合わせ。あなたは？",
+      options: [
+        { label: "だいたい時間ぴったりに着く", point: 2 },
+        { label: "時間と場所、そのあとの流れまでグループに送っておく", point: 0 },
+        { label: "着いてから「どこにいる？」と電話する", point: 3 },
+        { label: "10分前には着いている", point: 1 }
+      ]
+    },
+    {
+      text: "休みの日に、一番しあわせを感じるのは？",
+      options: [
+        { label: "行きたかったお店を予約して、行けたとき", point: 1 },
+        { label: "ゆっくりお茶をしながら、ぼーっとできたとき", point: 2 },
+        { label: "近所を散歩していて、きれいな花を見つけたとき", point: 3 },
+        { label: "やることリストを全部終わらせたとき", point: 0 }
+      ]
+    },
+    {
+      text: "行きたかったお店が、着いたら閉まっていた",
+      options: [
+        { label: "営業時間は調べてあるので、そうはならない", point: 0 },
+        { label: "スマホですぐ次のお店を探す", point: 1 },
+        { label: "「閉まってたね〜」と笑って、その辺をぶらぶらする", point: 3 },
+        { label: "「また来ようね」と、となりのお店に入る", point: 2 }
+      ]
+    },
+    {
+      text: "誰かに言われて、一番うれしいのは？",
+      options: [
+        { label: "「なんか落ち着く」", point: 2 },
+        { label: "「段取りが完璧だね」", point: 0 },
+        { label: "「いつもありがとう、助かる」", point: 1 },
+        { label: "「一緒にいると楽しい」", point: 3 }
+      ]
+    }
+  ];
+
+  const MAX_POINT = QUESTIONS.length * 3;
+
+  const screenIntro = document.getElementById("screen-intro");
+  const screenQuiz = document.getElementById("screen-quiz");
+  const screenResult = document.getElementById("screen-result");
+  const qcount = document.getElementById("qcount");
+  const progressFill = document.getElementById("progress-fill");
+  const questionText = document.getElementById("question-text");
+  const optionsEl = document.getElementById("options");
+  const backBtn = document.getElementById("back-btn");
+  const meterFill = document.getElementById("meter-fill");
+
+  let current = 0;
+  const answers = new Array(QUESTIONS.length).fill(null);
+
+  document.getElementById("start-btn").addEventListener("click", () => {
+    screenIntro.hidden = true;
+    screenQuiz.hidden = false;
+    renderQuestion();
+  });
+
+  document.getElementById("retry-btn").addEventListener("click", () => {
+    current = 0;
+    answers.fill(null);
+    screenResult.hidden = true;
+    screenQuiz.hidden = false;
+    document.getElementById("stamp-svg").classList.remove("show");
+    meterFill.style.width = "0";
+    renderQuestion();
+  });
+
+  backBtn.addEventListener("click", () => {
+    if (current > 0) {
+      current -= 1;
+      renderQuestion();
+    }
+  });
+
+  function renderQuestion() {
+    const q = QUESTIONS[current];
+    qcount.textContent = `Q.${current + 1} / ${QUESTIONS.length}`;
+    progressFill.style.width = `${((current + 1) / QUESTIONS.length) * 100}%`;
+    questionText.textContent = q.text;
+    optionsEl.innerHTML = "";
+    const marks = ["A", "B", "C", "D"];
+    q.options.forEach((opt, i) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "option" + (answers[current] === i ? " selected" : "");
+      btn.innerHTML = `<span class="option-mark">${marks[i]}</span><span>${opt.label}</span>`;
+      btn.addEventListener("click", () => selectOption(i));
+      optionsEl.appendChild(btn);
+    });
+    backBtn.hidden = current === 0;
+  }
+
+  function selectOption(index) {
+    answers[current] = index;
+    current += 1;
+    if (current < QUESTIONS.length) {
+      renderQuestion();
+    } else {
+      showResult();
+    }
+  }
+
+  function showResult() {
+    const total = answers.reduce((sum, a, i) => sum + QUESTIONS[i].options[a].point, 0);
+    const percent = Math.round((total / MAX_POINT) * 100);
+    const t = LEVELS.find(l => percent >= l.min);
+
+    document.getElementById("result-name").textContent = t.name;
+    document.getElementById("result-motto").textContent = t.motto;
+    document.getElementById("result-seen").textContent = t.seen;
+    document.getElementById("result-caution").textContent = t.caution;
+    document.getElementById("result-match").textContent = t.match;
+    document.getElementById("stamp-text").textContent = `${percent}%`;
+
+    const illustEl = document.getElementById("result-illust");
+    if (t.illust) {
+      illustEl.src = t.illust;
+      illustEl.alt = t.illustAlt;
+      illustEl.hidden = false;
+    } else {
+      illustEl.removeAttribute("src");
+      illustEl.hidden = true;
+    }
+
+    const adField = document.getElementById("result-ad-field");
+    const adEl = document.getElementById("result-ad");
+    const prLabel = document.getElementById("pr-label");
+    if (t.ad) {
+      adEl.innerHTML = t.ad;
+      prLabel.textContent = `PR ー ${t.name}のあなたにおすすめの一品`;
+      adField.hidden = false;
+    } else {
+      adEl.innerHTML = "";
+      adField.hidden = true;
+    }
+
+    const traitsEl = document.getElementById("result-traits");
+    traitsEl.innerHTML = "";
+    t.traits.forEach(tr => {
+      const li = document.createElement("li");
+      li.textContent = tr;
+      traitsEl.appendChild(li);
+    });
+
+    screenQuiz.hidden = true;
+    screenResult.hidden = false;
+    const stampSvg = document.getElementById("stamp-svg");
+    void stampSvg.offsetWidth;
+    stampSvg.classList.add("show");
+    requestAnimationFrame(() => { meterFill.style.width = `${percent}%`; });
+
+    document.getElementById("share-btn").onclick = () => {
+      const shareText = `私のたのピク度は${percent}%「${t.name}」でした！あなたは何%？\n#たのピク度診断 #たのピク`;
+      const shareUrl = location.href.split("?")[0];
+      const intent = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+      window.open(intent, "_blank", "noopener,noreferrer");
+    };
+  }
+</script>
+</body>
+</html>

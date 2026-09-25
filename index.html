@@ -28,6 +28,8 @@
     --c3-soft: #e6e6ff;
     --c4: #2ec4b6;   /* FILE04 金運 */
     --c4-soft: #d9f7f2;
+    --c5: #6dbb5a;   /* FILE05 たのピク */
+    --c5-soft: #eaf7dc;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -46,6 +48,7 @@
       --c2: #ff9f6b; --c2-soft: rgba(255, 159, 107, 0.16);
       --c3: #9ca0ff; --c3-soft: rgba(156, 160, 255, 0.16);
       --c4: #4fd8c9; --c4-soft: rgba(79, 216, 201, 0.16);
+      --c5: #8fd67a; --c5-soft: rgba(143, 214, 122, 0.16);
     }
   }
   :root[data-theme="dark"] {
@@ -56,6 +59,7 @@
     --c2: #ff9f6b; --c2-soft: rgba(255, 159, 107, 0.16);
     --c3: #9ca0ff; --c3-soft: rgba(156, 160, 255, 0.16);
     --c4: #4fd8c9; --c4-soft: rgba(79, 216, 201, 0.16);
+    --c5: #8fd67a; --c5-soft: rgba(143, 214, 122, 0.16);
   }
 
   * { box-sizing: border-box; }
@@ -140,12 +144,14 @@
   .file-card:nth-child(2) .file-body { border-color: var(--c2-soft); }
   .file-card:nth-child(3) .file-body { border-color: var(--c3-soft); }
   .file-card:nth-child(4) .file-body { border-color: var(--c4-soft); }
+  .file-card:nth-child(5) .file-body { border-color: var(--c5-soft); }
 
   .file-card:hover .file-body { transform: translateY(-3px); box-shadow: 0 22px 40px -16px var(--shadow); }
   .file-card:nth-child(1):hover .file-body { border-color: var(--c1); }
   .file-card:nth-child(2):hover .file-body { border-color: var(--c2); }
   .file-card:nth-child(3):hover .file-body { border-color: var(--c3); }
   .file-card:nth-child(4):hover .file-body { border-color: var(--c4); }
+  .file-card:nth-child(5):hover .file-body { border-color: var(--c5); }
 
   .file-card:focus-visible .file-body { outline: 3px solid var(--focus); outline-offset: 3px; }
 
@@ -179,6 +185,7 @@
   .file-card:nth-child(2) .badge { background: linear-gradient(135deg, var(--c2), #ffc79a); }
   .file-card:nth-child(3) .badge { background: linear-gradient(135deg, var(--c3), #a6abff); }
   .file-card:nth-child(4) .badge { background: linear-gradient(135deg, var(--c4), #7fe3d6); }
+  .file-card:nth-child(5) .badge { background: linear-gradient(135deg, var(--c5), #b4e08f); }
 
   .file-info { flex: 1; min-width: 0; }
 
@@ -297,6 +304,21 @@
           <div class="file-info">
             <h2>金運タイプ診断</h2>
             <p>お金の使い方の具体的な場面から、こつこつ貯蓄家・資産を育てる人など6タイプの中からあなたの金運タイプを診断します。</p>
+            <div class="file-meta">全8問・1〜2分</div>
+          </div>
+          <div class="arrow">→</div>
+        </div>
+      </div>
+    </a>
+
+    <a class="file-card" href="./tanopiku/">
+      <div class="file-body">
+        <p class="file-tag">FILE 05</p>
+        <div class="file-row">
+          <div class="badge" aria-hidden="true">🧺</div>
+          <div class="file-info">
+            <h2>たのピク度診断</h2>
+            <p>ピクニックの場面から、小さなことを楽しめる「たのピク度」を0〜100%で診断します。あなたは元祖たのピク？それとも幹事ピク？</p>
             <div class="file-meta">全8問・1〜2分</div>
           </div>
           <div class="arrow">→</div>
