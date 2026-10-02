@@ -1,0 +1,1022 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>推し活タイプ診断 | 診断ファイル室</title>
+<meta name="description" content="8問であなたの推し活スタイルを診断。現場参戦・考察・コレクション・布教・創作・マイペースの6タイプ。結果をXでシェアできます。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+
+<style>
+  :root {
+    --bg1: #d9f7f2;
+    --bg2: #eef5ff;
+    --bg3: #fffbe8;
+    --paper: #f3fdfb;
+    --paper-deep: #d9f7f2;
+    --card: #ffffff;
+    --card-line: #bdf0e6;
+    --ink: #322f4a;
+    --ink-soft: #6f6b8c;
+    --muted: #9a96b5;
+    --accent: #c05d9d;
+    --accent-soft: rgba(192, 93, 157, 0.14);
+    --accent-line: rgba(192, 93, 157, 0.4);
+    --shadow: rgba(90, 70, 140, 0.16);
+    --focus: #6c5ce7;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg1: #2a2138; --bg2: #1f2438; --bg3: #2a2820;
+      --paper: #201c2c; --paper-deep: #262233; --card: #262233; --card-line: #3c3650;
+      --ink: #f1eefb; --ink-soft: #bdb6da; --muted: #8c85ab;
+      --accent: #efa8d5; --accent-soft: rgba(239, 168, 213, 0.16); --accent-line: rgba(239, 168, 213, 0.4);
+      --shadow: rgba(0, 0, 0, 0.45); --focus: #b8b2ff;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg1: #2a2138; --bg2: #1f2438; --bg3: #2a2820;
+    --paper: #201c2c; --paper-deep: #262233; --card: #262233; --card-line: #3c3650;
+    --ink: #f1eefb; --ink-soft: #bdb6da; --muted: #8c85ab;
+    --accent: #efa8d5; --accent-soft: rgba(239, 168, 213, 0.16); --accent-line: rgba(239, 168, 213, 0.4);
+    --shadow: rgba(0, 0, 0, 0.45); --focus: #b8b2ff;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+      radial-gradient(60vw 60vw at 8% -10%, var(--bg1), transparent 60%),
+      radial-gradient(60vw 60vw at 100% 0%, var(--bg2), transparent 55%),
+      radial-gradient(70vw 70vw at 50% 120%, var(--bg3), transparent 60%),
+      #fffdf9;
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 48px 20px 64px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) body { background-color: #201c2c; }
+  }
+  :root[data-theme="dark"] body { background-color: #201c2c; }
+
+  .page {
+    width: 100%;
+    max-width: 640px;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    margin: 0 0 14px 4px;
+  }
+  .back-link:hover { color: var(--accent); }
+  .back-link:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  .tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin-left: 4px;
+  }
+
+  .file-body {
+    background: var(--card);
+    border: 2px solid var(--card-line);
+    border-radius: 22px;
+    box-shadow: 0 16px 34px -18px var(--shadow);
+    padding: 40px 36px 36px;
+  }
+
+  .screen[hidden] { display: none; }
+
+  .eyebrow {
+    display: inline-block;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: #fff;
+    background: linear-gradient(120deg, var(--accent), #f0add8);
+    padding: 5px 14px;
+    border-radius: 999px;
+    margin: 0 0 16px;
+  }
+
+  h1 {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 800;
+    font-size: clamp(24px, 5vw, 32px);
+    line-height: 1.4;
+    margin: 0 0 18px;
+    text-wrap: balance;
+  }
+
+  .lead {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--ink-soft);
+    margin: 0 0 32px;
+    max-width: 46ch;
+  }
+
+  .btn {
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: 999px;
+    padding: 14px 32px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn { transition: none; }
+  }
+
+  .btn.primary {
+    background: var(--accent);
+    color: #fdf6e8;
+    box-shadow: 0 8px 20px -8px var(--accent-line);
+  }
+  .btn.primary:hover { transform: translateY(-1px); box-shadow: 0 10px 22px -8px var(--accent-line); }
+
+  .btn.ghost {
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1px solid var(--card-line);
+    margin-top: 8px;
+  }
+  .btn.ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  .btn:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .quiz-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .qcount {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--muted);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .progress {
+    flex: 1;
+    height: 6px;
+    background: var(--paper-deep);
+    border-radius: 999px;
+    overflow: hidden;
+    border: 1px solid var(--card-line);
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 12.5%;
+    background: var(--accent);
+    border-radius: 999px;
+    transition: width 0.35s ease;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .progress-fill { transition: none; }
+  }
+
+  .question {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
+    font-size: clamp(18px, 4vw, 21px);
+    line-height: 1.6;
+    margin: 0 0 10px;
+    text-wrap: balance;
+  }
+
+  .hint {
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: var(--muted);
+    margin: 0 0 20px;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    text-align: left;
+    width: 100%;
+    background: var(--paper);
+    border: 2px solid var(--card-line);
+    border-radius: 16px;
+    padding: 15px 18px;
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .option { transition: none; }
+  }
+
+  .option:hover {
+    border-color: var(--accent);
+    transform: translateX(2px);
+  }
+
+  .option:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .option.selected {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .back-btn {
+    margin-top: 18px;
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+
+  .option-mark {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    color: #fff;
+    background: var(--accent);
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* result screen */
+  .result {
+    text-align: left;
+  }
+
+  .stamp-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+
+  .stamp {
+    width: 150px;
+    height: 150px;
+    opacity: 0;
+    transform: scale(2.2) rotate(-16deg);
+  }
+
+  .stamp.show {
+    animation: stampDown 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .stamp.show { animation: none; opacity: 1; transform: scale(1) rotate(-6deg); }
+  }
+
+  @keyframes stampDown {
+    0%   { opacity: 0; transform: scale(2.2) rotate(-16deg); }
+    55%  { opacity: 1; transform: scale(0.92) rotate(-4deg); }
+    75%  { transform: scale(1.05) rotate(-8deg); }
+    100% { opacity: 1; transform: scale(1) rotate(-6deg); }
+  }
+
+  .result .eyebrow { text-align: center; }
+
+  .result-name {
+    text-align: center;
+    font-size: clamp(26px, 6vw, 34px);
+    margin-bottom: 6px;
+  }
+
+  .result-motto {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin: 0 0 30px;
+    letter-spacing: 0.03em;
+  }
+
+  .field {
+    border-top: 1px dashed var(--card-line);
+    padding: 16px 0;
+  }
+
+  .field:last-of-type { border-bottom: 1px dashed var(--card-line); }
+
+  .field-label {
+    display: inline-block;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    background: var(--paper);
+    border-radius: 999px;
+    padding: 4px 12px;
+    margin-bottom: 10px;
+  }
+
+  .field p {
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.9;
+    color: var(--ink);
+  }
+
+  .traits {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .traits li {
+    font-size: 14.5px;
+    line-height: 1.7;
+    padding-left: 18px;
+    position: relative;
+  }
+
+  .traits li::before {
+    content: "・";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  .field.accent-field {
+    background: var(--accent-soft);
+    border-radius: 8px;
+    padding: 16px 16px;
+    border-top: none;
+    margin-top: 8px;
+  }
+  .field.accent-field:last-of-type { border-bottom: none; }
+
+  .ad-field {
+    border-top: 1px dashed var(--card-line);
+  }
+
+  .pr-label {
+    background: var(--paper-deep);
+    color: var(--muted);
+  }
+
+  .ad-embed {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    padding-top: 4px;
+  }
+
+  .ad-embed table {
+    max-width: 100%;
+  }
+
+  /* 楽天/A8.netの広告コードは色をインラインstyleで固定してくるため、
+     ダークモードでも読めるようテーマの色で強制的に上書きする */
+  .ad-embed, .ad-embed * {
+    color: var(--ink) !important;
+    background: transparent !important;
+    border-color: var(--card-line) !important;
+  }
+  .ad-embed { display: block; overflow-wrap: anywhere; }
+  .ad-embed p + p { margin-top: 12px; }
+  .ad-embed img { display: block; }
+  .ad-embed a {
+    color: var(--accent) !important;
+    text-decoration: underline;
+  }
+
+  .result-illust { display: block; width: min(100%, 280px); height: auto; margin: 24px auto; border-radius: 18px; }
+  .result-illust[hidden] { display: none; }
+
+  .result-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+  }
+
+  .btn.share {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: var(--card);
+    box-shadow: 0 8px 20px -8px var(--shadow);
+  }
+  .btn.share:hover { transform: translateY(-1px); }
+
+  .share-icon {
+    width: 15px;
+    height: 15px;
+    fill: currentColor;
+    flex: none;
+  }
+
+  @media (max-width: 480px) {
+    .file-body { padding: 28px 20px 26px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <a class="back-link" href="../">← 診断ファイル室</a>
+  <div class="file">
+    <div class="tab">推し活タイプ診断ファイル</div>
+    <div class="file-body">
+
+      <section class="screen intro" id="screen-intro">
+        <p class="eyebrow">Oshi File</p>
+        <h1>あなたの「推し活タイプ」を診断します</h1>
+        <p class="lead">会いに行く、じっくり考える、宝物を集める。あなたはどんなふうに「好き」を楽しむ？ 全8問、いちばん近い答えを選んでください。所要時間は1〜2分。</p><p class="hint">趣味の楽しみ方を振り返るためのオリジナル診断です。科学的な性格判定ではありません。課金額や活動量で優劣を付けるものではなく、推しが複数いても今の気分で答えられます。</p>
+        <button class="btn primary" id="start-btn" type="button">診断をはじめる</button>
+      </section>
+
+      <section class="screen quiz" id="screen-quiz" hidden>
+        <div class="quiz-head">
+          <span class="qcount" id="qcount">Q.1 / 8</span>
+          <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
+        </div>
+        <h2 class="question" id="question-text" tabindex="-1"></h2>
+        <p class="hint">ぴったりの答えがなくても大丈夫。A〜Fの中で、いちばん近いものを選んでください。</p>
+        <div class="options" id="options"></div>
+        <button class="btn ghost back-btn" id="back-btn" type="button" hidden>← 前の質問に戻る</button>
+      </section>
+
+      <section class="screen result" id="screen-result" hidden>
+        <div class="stamp-wrap">
+          <svg class="stamp" id="stamp-svg" viewBox="0 0 200 200" role="img" aria-label="診断結果のスタンプ">
+            <defs>
+              <linearGradient id="stampGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="var(--accent)"/>
+                <stop offset="100%" stop-color="#f0add8"/>
+              </linearGradient>
+            </defs>
+            <circle cx="100" cy="100" r="88" fill="url(#stampGrad)"/>
+            <text id="stamp-text" x="100" y="100" fill="#fff" font-family="M PLUS Rounded 1c, sans-serif" font-weight="800" text-anchor="middle" dominant-baseline="central"></text>
+          </svg>
+        </div>
+        <p class="eyebrow">診断結果</p>
+        <h1 class="result-name" id="result-name" tabindex="-1"></h1>
+        <p class="result-motto" id="result-motto"></p>
+        <img class="result-illust" id="result-illust" alt="" hidden>
+
+        <div class="field">
+          <span class="field-label">特徴</span>
+          <ul class="traits" id="result-traits"></ul>
+        </div>
+        <div class="field">
+          <span class="field-label">あなたの楽しみ方の良さ</span>
+          <p id="result-seen"></p>
+        </div>
+        <div class="field">
+          <span class="field-label">ちょっと注意</span>
+          <p id="result-caution"></p>
+        </div>
+        <div class="field accent-field">
+          <span class="field-label">今日の小さな楽しみ方</span>
+          <p id="result-match"></p>
+        </div>
+
+        <div class="field ad-field" id="result-ad-field" hidden>
+          <span class="field-label pr-label" id="pr-label">PR ー おすすめの一品</span>
+          <div id="result-ad" class="ad-embed"></div>
+        </div>
+
+        <div class="result-actions">
+          <a class="btn share" id="share-btn" target="_blank" rel="noopener noreferrer" style="text-decoration:none">
+            <svg class="share-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            Xでシェア
+          </a>
+          <button class="btn ghost" id="retry-btn" type="button">もう一度診断する</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  const TYPES = {
+  "live": {
+    "name": "現場参戦タイプ",
+    "stamp": "現場",
+    "motto": "同じ空間で会える瞬間が、日々のエネルギー。",
+    "traits": [
+      "ライブやイベントの空気を味わうのが好き",
+      "予定や持ち物を考える時間も楽しい",
+      "会えた日の記憶を大切にしている"
+    ],
+    "seen": "好きなものに会いに行く行動力が、周りの背中も押してくれます。",
+    "caution": "遠征が続くと、予算や体力に無理が出ることも。行けない日も応援の気持ちは変わりません。",
+    "match": "次の現場の持ち物と予算を、小さなリストにしてみよう。",
+    "ad": "<p>会場で推しの姿を楽しむ道具の候補です。倍率やピント方式を販売ページで確認してください。</p><p><a href=\"https://hb.afl.rakuten.co.jp/ichiba/5821abd2.4bcd0d30.5821abd3.a3a97043/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fstawink124%2Ffreesougankyo%2F&amp;link_type=hybrid_url&amp;ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJoeWJyaWRfdXJsIiwic2l6ZSI6IjI0MHgyNDAiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MSwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9\" target=\"_blank\" rel=\"sponsored nofollow noopener\">コンサート用双眼鏡を楽天で見る →</a></p><p class=\"hint\">広告リンクを含みます。価格・在庫・条件は販売ページで確認してください。</p>",
+    "illust": "img/live.png",
+    "illustAlt": "イベントを楽しむ現場参戦タイプのイラスト"
+  },
+  "study": {
+    "name": "じっくり考察タイプ",
+    "stamp": "考察",
+    "motto": "何度も見返すたび、好きの理由が増えていく。",
+    "traits": [
+      "歌詞・台詞・細かな表情に気づく",
+      "作品の背景を知るともっと楽しくなる",
+      "感想を自分の言葉にするのが好き"
+    ],
+    "seen": "細かい魅力を言葉にして、作品の新しい楽しみ方を届けてくれます。",
+    "caution": "解釈が違っても、どちらかが間違いとは限りません。正解探しより、好きな発見を大切に。",
+    "match": "好きな一場面と、心が動いた理由を3行で残してみよう。",
+    "ad": "<p>音楽や配信を自分のペースで楽しむ道具の候補です。</p><p><a href=\"https://hb.afl.rakuten.co.jp/ichiba/5821aef6.912f5cf9.5821aef7.fd9358aa/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fgracevally%2Fgrace-x1%2F&amp;link_type=hybrid_url&amp;ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJoeWJyaWRfdXJsIiwic2l6ZSI6IjI0MHgyNDAiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MSwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9\" target=\"_blank\" rel=\"sponsored nofollow noopener\">ワイヤレスイヤホンを楽天で見る →</a></p><p class=\"hint\">広告リンクを含みます。価格・在庫・条件は販売ページで確認してください。</p>",
+    "illust": "img/study.png",
+    "illustAlt": "作品をじっくり楽しむ考察タイプのイラスト"
+  },
+  "collect": {
+    "name": "宝物コレクタータイプ",
+    "stamp": "宝物",
+    "motto": "好きの記憶を、手元にそっと集めたい。",
+    "traits": [
+      "グッズや思い出を並べると幸せになる",
+      "飾り方や収納を工夫するのが好き",
+      "お気に入りの一品に愛着がある"
+    ],
+    "seen": "思い出を大切にする姿から、好きなものへの愛情が伝わります。",
+    "caution": "全部そろえなくても大丈夫。置き場所と予算を決めると、宝物を長く楽しめます。",
+    "match": "今あるお気に入りをひとつ選び、飾る場所を整えてみよう。",
+    "ad": "<p>アクスタや写真をまとめて持ち歩く道具の候補です。収納サイズを販売ページで確認してください。</p><p><a href=\"https://hb.afl.rakuten.co.jp/ichiba/5821af80.02b3fca0.5821af81.7dead865/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Flucky13%2Frbmulticase%2F&amp;link_type=hybrid_url&amp;ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJoeWJyaWRfdXJsIiwic2l6ZSI6IjI0MHgyNDAiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MSwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9\" target=\"_blank\" rel=\"sponsored nofollow noopener\">アクリルスタンドケースを楽天で見る →</a></p><p class=\"hint\">広告リンクを含みます。価格・在庫・条件は販売ページで確認してください。</p>",
+    "illust": "img/collect.png",
+    "illustAlt": "大切なグッズを並べるコレクタータイプのイラスト"
+  },
+  "share": {
+    "name": "魅力お届けタイプ",
+    "stamp": "布教",
+    "motto": "この良さ、誰かと分かち合いたい。",
+    "traits": [
+      "おすすめの入口を考えるのが楽しい",
+      "相手に合う作品や曲を紹介したくなる",
+      "感想を共有できると嬉しさが増える"
+    ],
+    "seen": "相手の好みに合わせた紹介で、新しい出会いを作ってくれます。",
+    "caution": "反応が薄くても、あなたの好きが否定されたわけではありません。相手のペースも大切に。",
+    "match": "初めての人向けに「まずこれひとつ」を選んで紹介してみよう。",
+    "ad": "<p>グッズの紹介写真や動画を撮るときの道具の候補です。スマホの対応サイズを確認してください。</p><p><a href=\"https://hb.afl.rakuten.co.jp/ichiba/5821afbf.d0f463dc.5821afc0.b2d382f9/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Flapset%2Fcompass1756699139%2F&amp;link_type=hybrid_url&amp;ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJoeWJyaWRfdXJsIiwic2l6ZSI6IjI0MHgyNDAiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MSwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9\" target=\"_blank\" rel=\"sponsored nofollow noopener\">撮影用スマホスタンドを楽天で見る →</a></p><p class=\"hint\">広告リンクを含みます。価格・在庫・条件は販売ページで確認してください。</p>",
+    "illust": "img/share.png",
+    "illustAlt": "好きな作品を紹介する魅力お届けタイプのイラスト"
+  },
+  "create": {
+    "name": "ひらめき創作タイプ",
+    "stamp": "創作",
+    "motto": "好きの気持ちを、自分なりの形にしたい。",
+    "traits": [
+      "感想や絵など、形に残すことが好き",
+      "推しをきっかけにアイデアが浮かぶ",
+      "作る時間そのものを楽しめる"
+    ],
+    "seen": "あなたならではの表現で、好きなものの魅力を広げてくれます。",
+    "caution": "反応の数と作品の価値は別。公開するときは、作品や公式の利用ルールも確かめよう。",
+    "match": "完成を急がず、10分だけ好きな気持ちを言葉や線にしてみよう。",
+    "ad": "<p>好きな気持ちを絵や色で残すための道具の候補です。</p><p><a href=\"https://hb.afl.rakuten.co.jp/ichiba/5821b079.baea252e.5821b07a.9665f472/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fnanos-sr%2F4901991016314%2F&amp;link_type=hybrid_url&amp;ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJoeWJyaWRfdXJsIiwic2l6ZSI6IjI0MHgyNDAiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MSwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9\" target=\"_blank\" rel=\"sponsored nofollow noopener\">トンボ 色鉛筆24色を楽天で見る →</a></p><p class=\"hint\">広告リンクを含みます。価格・在庫・条件は販売ページで確認してください。</p>",
+    "illust": "img/create.png",
+    "illustAlt": "好きな気持ちを作品にする創作タイプのイラスト"
+  },
+  "pace": {
+    "name": "マイペース応援タイプ",
+    "stamp": "日常",
+    "motto": "好きがそばにある、いつもの毎日が幸せ。",
+    "traits": [
+      "生活の中で無理なく楽しみたい",
+      "追いきれない情報があっても自分のペース",
+      "静かに長く応援する時間が好き"
+    ],
+    "seen": "周りと比べず楽しむ姿が、一緒にいる人をほっとさせてくれます。",
+    "caution": "熱量の見せ方は人それぞれ。買わない・投稿しない・休むことも、自然な楽しみ方です。",
+    "match": "今日の気分に合う一曲や一場面を、少しだけ楽しんでみよう。",
+    "ad": "<p>自宅で動画や配信をのんびり楽しむ道具の候補です。</p><p><a href=\"https://hb.afl.rakuten.co.jp/ichiba/5821b0eb.43a79b42.5821b0ec.be1f4610/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fcocopla%2F101-vap0125a0008%2F&amp;link_type=hybrid_url&amp;ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJoeWJyaWRfdXJsIiwic2l6ZSI6IjI0MHgyNDAiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MSwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9\" target=\"_blank\" rel=\"sponsored nofollow noopener\">ビーズクッションを楽天で見る →</a></p><p class=\"hint\">広告リンクを含みます。価格・在庫・条件は販売ページで確認してください。</p>",
+    "illust": "img/pace.png",
+    "illustAlt": "自宅でのんびり推しを楽しむマイペースタイプのイラスト"
+  }
+};
+
+  const QUESTIONS = [
+  {
+    "text": "推しの新しいお知らせ！まず何が気になる？",
+    "options": [
+      {
+        "label": "会いに行けるイベントの予定",
+        "type": "live"
+      },
+      {
+        "label": "作品や言葉に込められた意味",
+        "type": "study"
+      },
+      {
+        "label": "グッズのデザインやラインナップ",
+        "type": "collect"
+      },
+      {
+        "label": "誰にこのニュースを伝えようか",
+        "type": "share"
+      },
+      {
+        "label": "感想や絵にしたいアイデア",
+        "type": "create"
+      },
+      {
+        "label": "自分の空いた時間に楽しめる内容",
+        "type": "pace"
+      }
+    ]
+  },
+  {
+    "text": "今日は少し自由な時間がある。何をしたい？",
+    "options": [
+      {
+        "label": "作品を見返して好きな場面を深掘り",
+        "type": "study"
+      },
+      {
+        "label": "グッズや思い出を整理して眺める",
+        "type": "collect"
+      },
+      {
+        "label": "友達とおすすめや感想を話す",
+        "type": "share"
+      },
+      {
+        "label": "文章や絵などを作ってみる",
+        "type": "create"
+      },
+      {
+        "label": "気分に合う曲や動画をのんびり楽しむ",
+        "type": "pace"
+      },
+      {
+        "label": "次の現場や遠征の計画を立てる",
+        "type": "live"
+      }
+    ]
+  },
+  {
+    "text": "推し活で「最高！」と思う瞬間は？",
+    "options": [
+      {
+        "label": "大切な一品を手元に迎えたとき",
+        "type": "collect"
+      },
+      {
+        "label": "紹介した人が「好きかも」と言ってくれたとき",
+        "type": "share"
+      },
+      {
+        "label": "好きの気持ちを形にできたとき",
+        "type": "create"
+      },
+      {
+        "label": "普通の日が推しのおかげで少し明るくなったとき",
+        "type": "pace"
+      },
+      {
+        "label": "同じ空間で生の姿や音に触れたとき",
+        "type": "live"
+      },
+      {
+        "label": "今まで気づかなかった魅力を発見したとき",
+        "type": "study"
+      }
+    ]
+  },
+  {
+    "text": "友達に「どこが好き？」と聞かれたら？",
+    "options": [
+      {
+        "label": "相手の好みに合う入口を紹介する",
+        "type": "share"
+      },
+      {
+        "label": "自分の感想や作ったものを見せる",
+        "type": "create"
+      },
+      {
+        "label": "一緒に気軽に見られるものを流す",
+        "type": "pace"
+      },
+      {
+        "label": "会場で感じた空気や体験を話す",
+        "type": "live"
+      },
+      {
+        "label": "作品の細部や表現の魅力を話す",
+        "type": "study"
+      },
+      {
+        "label": "お気に入りのグッズや思い出を見せる",
+        "type": "collect"
+      }
+    ]
+  },
+  {
+    "text": "新しい作品を楽しんだ後、ついすることは？",
+    "options": [
+      {
+        "label": "心が動いたことを言葉や絵にする",
+        "type": "create"
+      },
+      {
+        "label": "余韻を味わいながら日常に戻る",
+        "type": "pace"
+      },
+      {
+        "label": "次に生で見られる機会を調べる",
+        "type": "live"
+      },
+      {
+        "label": "気になったところをもう一度見返す",
+        "type": "study"
+      },
+      {
+        "label": "記念になるものを飾りたくなる",
+        "type": "collect"
+      },
+      {
+        "label": "誰かと感想を分かち合う",
+        "type": "share"
+      }
+    ]
+  },
+  {
+    "text": "推し活のための道具を選ぶなら、重視するのは？",
+    "options": [
+      {
+        "label": "いつもの暮らしに自然になじむこと",
+        "type": "pace"
+      },
+      {
+        "label": "移動やイベントで使いやすいこと",
+        "type": "live"
+      },
+      {
+        "label": "音や内容に集中して楽しめること",
+        "type": "study"
+      },
+      {
+        "label": "大切なものを整理して守れること",
+        "type": "collect"
+      },
+      {
+        "label": "人に紹介したり一緒に楽しみやすいこと",
+        "type": "share"
+      },
+      {
+        "label": "自分の表現を形にしやすいこと",
+        "type": "create"
+      }
+    ]
+  },
+  {
+    "text": "情報がたくさん届いたとき、あなたに近いのは？",
+    "options": [
+      {
+        "label": "参加したい予定を先に押さえる",
+        "type": "live"
+      },
+      {
+        "label": "気になる内容をじっくり読み込む",
+        "type": "study"
+      },
+      {
+        "label": "欲しいものや残したい情報を整理する",
+        "type": "collect"
+      },
+      {
+        "label": "分かりやすくまとめて誰かに伝える",
+        "type": "share"
+      },
+      {
+        "label": "刺激を受けたことをメモや作品にする",
+        "type": "create"
+      },
+      {
+        "label": "今の自分が楽しめる分だけ受け取る",
+        "type": "pace"
+      }
+    ]
+  },
+  {
+    "text": "これからの推し活で増やしたいのは？",
+    "options": [
+      {
+        "label": "好きの理由が深まる発見",
+        "type": "study"
+      },
+      {
+        "label": "大切にできる宝物",
+        "type": "collect"
+      },
+      {
+        "label": "好きなことを話せる仲間や会話",
+        "type": "share"
+      },
+      {
+        "label": "自分らしい表現",
+        "type": "create"
+      },
+      {
+        "label": "無理なく楽しめる日常の時間",
+        "type": "pace"
+      },
+      {
+        "label": "会いに行った日の思い出",
+        "type": "live"
+      }
+    ]
+  }
+];
+
+  const screenIntro = document.getElementById("screen-intro");
+  const screenQuiz = document.getElementById("screen-quiz");
+  const screenResult = document.getElementById("screen-result");
+  const qcount = document.getElementById("qcount");
+  const progressFill = document.getElementById("progress-fill");
+  const questionText = document.getElementById("question-text");
+  const optionsEl = document.getElementById("options");
+  const backBtn = document.getElementById("back-btn");
+
+  let current = 0;
+  const scores = Object.fromEntries(Object.keys(TYPES).map(k => [k, 0]));
+  const typeOrder = Object.keys(TYPES);
+  const answers = new Array(QUESTIONS.length).fill(null);
+
+  document.getElementById("start-btn").addEventListener("click", () => {
+    screenIntro.hidden = true;
+    screenQuiz.hidden = false;
+    renderQuestion();
+  });
+
+  document.getElementById("retry-btn").addEventListener("click", () => {
+    current = 0;
+    typeOrder.forEach(k => (scores[k] = 0));
+    answers.fill(null);
+    screenResult.hidden = true;
+    screenQuiz.hidden = false;
+    document.getElementById("stamp-svg").classList.remove("show");
+    renderQuestion();
+  });
+
+  backBtn.addEventListener("click", () => {
+    if (current > 0) {
+      current -= 1;
+      renderQuestion();
+    }
+  });
+
+  function renderQuestion() {
+    const q = QUESTIONS[current];
+    qcount.textContent = `Q.${current + 1} / ${QUESTIONS.length}`;
+    progressFill.style.width = `${((current + 1) / QUESTIONS.length) * 100}%`;
+    questionText.textContent = q.text;
+    optionsEl.innerHTML = "";
+    const marks = ["A", "B", "C", "D", "E", "F"];
+    q.options.forEach((opt, i) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "option" + (answers[current] === opt.type ? " selected" : "");
+      btn.innerHTML = `<span class="option-mark">${marks[i]}</span><span>${opt.label}</span>`;
+      btn.addEventListener("click", () => selectOption(opt.type));
+      optionsEl.appendChild(btn);
+    });
+    backBtn.hidden = current === 0;
+    questionText.focus();
+  }
+
+  function selectOption(type) {
+    if (answers[current] != null) {
+      scores[answers[current]] -= 1;
+    }
+    scores[type] += 1;
+    answers[current] = type;
+    current += 1;
+    if (current < QUESTIONS.length) {
+      renderQuestion();
+    } else {
+      showResult();
+    }
+  }
+
+  function showResult() {
+    let winner = typeOrder[0];
+    const highest = Math.max(...typeOrder.map(k => scores[k]));
+    const tied = typeOrder.filter(k => scores[k] === highest);
+    // In a tie, use the most recently chosen tied tendency, never fixed type order.
+    winner = [...answers].reverse().find(k => tied.includes(k));
+    const t = TYPES[winner];
+    const illust = document.getElementById("result-illust");
+    illust.hidden = true;
+    illust.alt = t.illustAlt || "";
+    illust.onload = () => { illust.hidden = false; };
+    illust.onerror = () => { illust.hidden = true; };
+    if (t.illust) illust.src = t.illust;
+    else illust.removeAttribute("src");
+
+    document.getElementById("result-name").textContent = t.name;
+    document.getElementById("result-motto").textContent = t.motto;
+    document.getElementById("result-seen").textContent = t.seen;
+    document.getElementById("result-caution").textContent = t.caution;
+    document.getElementById("result-match").textContent = t.match;
+
+    const adField = document.getElementById("result-ad-field");
+    const adEl = document.getElementById("result-ad");
+    const prLabel = document.getElementById("pr-label");
+    if (t.ad) {
+      adEl.innerHTML = t.ad;
+      prLabel.textContent = `PR ー ${t.name}のあなたにおすすめの一品`;
+      adField.hidden = false;
+    } else {
+      adEl.innerHTML = "";
+      adField.hidden = true;
+    }
+
+    const traitsEl = document.getElementById("result-traits");
+    traitsEl.innerHTML = "";
+    t.traits.forEach(tr => {
+      const li = document.createElement("li");
+      li.textContent = tr;
+      traitsEl.appendChild(li);
+    });
+
+    const stampText = document.getElementById("stamp-text");
+    stampText.textContent = "";
+    const chars = t.stamp.split("");
+    const fontSize = chars.length <= 1 ? 64 : chars.length === 2 ? 42 : chars.length === 3 ? 30 : 24;
+    stampText.setAttribute("font-size", fontSize);
+    const lineHeight = fontSize * 1.05;
+    const totalHeight = lineHeight * (chars.length - 1);
+    chars.forEach((ch, i) => {
+      const tspan = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
+      tspan.setAttribute("x", "100");
+      tspan.setAttribute("y", 100 - totalHeight / 2 + i * lineHeight);
+      tspan.textContent = ch;
+      stampText.appendChild(tspan);
+    });
+
+    document.getElementById("result-motto").textContent += tied.length > 1 ? "（複数の楽しみ方が近い結果です）" : "";
+    screenQuiz.hidden = true;
+    screenResult.hidden = false;
+    document.getElementById("result-name").focus();
+    const stampSvg = document.getElementById("stamp-svg");
+    void stampSvg.offsetWidth;
+    stampSvg.classList.add("show");
+
+    {
+      const shareText = `私は「${t.name}」でした！あなたの推し活タイプは？\n#推し活タイプ診断`;
+      const shareUrl = location.href.split("?")[0];
+      const intent = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+      document.getElementById("share-btn").href = intent;
+    };
+  }
+</script>
+</body>
+</html>
