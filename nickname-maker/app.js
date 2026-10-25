@@ -85,6 +85,9 @@ function showResult(entry, tied = false) {
   const ad = entry.affiliate;
   $('affiliate').hidden = !ad;
   if (ad) {
+    $('affiliate-image-link').href = ad.url;
+    $('affiliate-image').src = ad.image_url;
+    $('affiliate-image').alt = 'もこもこ毛布・ブランケットの商品画像';
     $('affiliate-title').textContent = ad.title;
     $('affiliate-copy').textContent = ad.copy;
     $('affiliate-link').textContent = ad.label;
