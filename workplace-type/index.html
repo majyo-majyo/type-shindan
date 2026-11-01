@@ -460,7 +460,7 @@
     .file-body { padding: 28px 20px 26px; }
   }
 </style>
-</head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@400;500&display=swap"><link rel="stylesheet" href="../diagnosis-theme.css?v=20261101-r1"><link rel="stylesheet" href="expanded-results.css"></head>
 <body>
 <div class="page">
   <a class="back-link" href="../">← 診断ファイル室</a>
@@ -502,6 +502,7 @@
         <p class="eyebrow">診断結果</p>
         <h1 class="result-name" id="result-name"></h1>
         <p class="result-motto" id="result-motto"></p>
+<figure class="workplace-portrait"><img id="workplace-art" width="1024" height="1536" alt=""><figcaption id="workplace-role"></figcaption></figure><p class="reading-note">キャラクターは働き方を表した創作上のイメージです。性別・職業の適性を判定するものではありません。</p><div id="expanded-reading"></div>
 
         <div class="field">
           <span class="field-label">特徴</span>
@@ -538,6 +539,7 @@
   </div>
 </div>
 
+<script src="expanded-results.js"></script>
 <script>
   const TYPES = {
     commander: {
@@ -776,6 +778,7 @@
       if (scores[k] > scores[winner]) winner = k;
     });
     const t = TYPES[winner];
+    window.renderWorkplaceReading(winner);
 
     document.getElementById("result-name").textContent = t.name;
     document.getElementById("result-motto").textContent = t.motto;
