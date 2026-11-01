@@ -144,14 +144,14 @@
   .file-card:nth-child(2) .file-body { border-color: var(--c2-soft); }
   .file-card:nth-child(3) .file-body { border-color: var(--c3-soft); }
   .file-card:nth-child(4) .file-body { border-color: var(--c4-soft); }
-  .file-card:nth-child(5) .file-body { border-color: var(--c5-soft); }
+  .file-card[data-retired-tanopiku] .file-body { border-color: var(--c5-soft); }
 
   .file-card:hover .file-body { transform: translateY(-3px); box-shadow: 0 22px 40px -16px var(--shadow); }
   .file-card:nth-child(1):hover .file-body { border-color: var(--c1); }
   .file-card:nth-child(2):hover .file-body { border-color: var(--c2); }
   .file-card:nth-child(3):hover .file-body { border-color: var(--c3); }
   .file-card:nth-child(4):hover .file-body { border-color: var(--c4); }
-  .file-card:nth-child(5):hover .file-body { border-color: var(--c5); }
+  .file-card[data-retired-tanopiku]:hover .file-body { border-color: var(--c5); }
 
   .file-card:focus-visible .file-body { outline: 3px solid var(--focus); outline-offset: 3px; }
 
@@ -185,7 +185,7 @@
   .file-card:nth-child(2) .badge { background: linear-gradient(135deg, var(--c2), #ffc79a); }
   .file-card:nth-child(3) .badge { background: linear-gradient(135deg, var(--c3), #a6abff); }
   .file-card:nth-child(4) .badge { background: linear-gradient(135deg, var(--c4), #7fe3d6); }
-  .file-card:nth-child(5) .badge { background: linear-gradient(135deg, var(--c5), #b4e08f); }
+  .file-card[data-retired-tanopiku] .badge { background: linear-gradient(135deg, var(--c5), #b4e08f); }
 
   .file-info { flex: 1; min-width: 0; }
 
@@ -217,9 +217,9 @@
     color: var(--muted);
   }
 
-  .file-card:nth-child(6) .file-body { border-color: #efd5e8; }
-  .file-card:nth-child(6):hover .file-body { border-color: #c05d9d; }
-  .file-card:nth-child(6) .badge { background: linear-gradient(135deg, #c05d9d, #f0add8); }
+  .file-card:nth-child(5) .file-body { border-color: #efd5e8; }
+  .file-card:nth-child(5):hover .file-body { border-color: #c05d9d; }
+  .file-card:nth-child(5) .badge { background: linear-gradient(135deg, #c05d9d, #f0add8); }
 
   .placeholder {
     border: 2px dashed #e6e1f5;
@@ -245,9 +245,9 @@
     .badge { width: 46px; height: 46px; font-size: 13px; }
   }
 
-  .file-card:nth-child(7) .file-body { border-color: #e5dcca; }
-  .file-card:nth-child(7):hover .file-body { border-color: #b34d3c; }
-  .file-card:nth-child(7) .badge { background: linear-gradient(135deg, #b34d3c, #e6b88c); }
+  .file-card:nth-child(6) .file-body { border-color: #e5dcca; }
+  .file-card:nth-child(6):hover .file-body { border-color: #b34d3c; }
+  .file-card:nth-child(6) .badge { background: linear-gradient(135deg, #b34d3c, #e6b88c); }
 </style>
 </head>
 <body>
@@ -319,22 +319,7 @@
       </div>
     </a>
 
-    <a class="file-card" href="./tanopiku/">
-      <div class="file-body">
-        <p class="file-tag">FILE 05</p>
-        <div class="file-row">
-          <div class="badge" aria-hidden="true">🧺</div>
-          <div class="file-info">
-            <h2>たのピク度診断</h2>
-            <p>ピクニックの場面から、小さなことを楽しめる「たのピク度」を0〜100%で診断します。あなたは元祖たのピク？それとも幹事ピク？</p>
-            <div class="file-meta">全8問・1〜2分</div>
-          </div>
-          <div class="arrow">→</div>
-        </div>
-      </div>
-    </a>
-
-    <a class="file-card" href="./oshi-type/">
+<a class="file-card" href="./oshi-type/">
       <div class="file-body">
         <p class="file-tag">FILE 06</p>
         <div class="file-row">
