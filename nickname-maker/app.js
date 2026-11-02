@@ -49,9 +49,9 @@ function paintArt() {
     holder.replaceChildren(); const div = document.createElement('div'); div.className = 'art-pending';
     const num = document.createElement('span'); num.className = 'number'; num.textContent = current.id.slice(1);
     const text = document.createElement('p'); text.textContent = 'このキャラクターの専用イラストは制作中です。';
-    const small = document.createElement('p'); small.className = 'small'; small.textContent = '男女それぞれ、違うポーズで描きます。'; div.append(num, text, small); holder.append(div);
+    const small = document.createElement('p'); small.className = 'small'; small.textContent = '2つのタイプを、違うポーズで描きます。'; div.append(num, text, small); holder.append(div);
   }
-  if (src) { const img = document.createElement('img'); img.src = src; img.alt = `${current.nickname}・${appearance === 'male' ? '男の子' : '女の子'}版`; img.onerror = pending; holder.append(img); } else pending();
+  if (src) { const img = document.createElement('img'); img.src = src; img.alt = `${current.nickname}・${appearance === 'male' ? 'タイプ1' : 'タイプ2'}`; img.onerror = pending; holder.append(img); } else pending();
 }
 function showResult(entry, tied = false) {
   current = entry; currentTie = tied; screen('result');
