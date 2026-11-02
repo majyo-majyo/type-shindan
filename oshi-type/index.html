@@ -462,7 +462,7 @@
     .file-body { padding: 28px 20px 26px; }
   }
 </style>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@400;500&display=swap"><link rel="stylesheet" href="../diagnosis-theme.css?v=20261101-r1"></head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@400;500&display=swap"><link rel="stylesheet" href="../diagnosis-theme.css?v=20261101-r1"><style>.oshi-art-toggle{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:22px auto}.oshi-art-toggle button{font:inherit;border:1px solid #aa8753;border-radius:8px;padding:9px 20px;background:transparent;color:inherit;cursor:pointer}.oshi-art-toggle button[aria-pressed="true"]{background:#aa8753;color:#211a34}.oshi-art-toggle button:focus-visible{outline:3px solid #ddbd75;outline-offset:3px}.result-illust[data-variant="tarot"]{width:min(100%,400px);max-height:600px;object-fit:contain}</style></head>
 <body>
 <div class="page">
   <a class="back-link" href="../">← 診断ファイル室</a>
@@ -504,6 +504,7 @@
         <p class="eyebrow">診断結果</p>
         <h1 class="result-name" id="result-name" tabindex="-1"></h1>
         <p class="result-motto" id="result-motto"></p>
+        <div id="oshi-art-toggle" class="oshi-art-toggle" role="group" aria-label="イラストのタイプ"><button type="button" id="oshi-type1" aria-pressed="true" aria-controls="result-illust">タイプ1</button><button type="button" id="oshi-type2" aria-pressed="false" aria-controls="result-illust">タイプ2</button></div>
         <img class="result-illust" id="result-illust" alt="" hidden>
 
         <div class="field">
@@ -946,6 +947,24 @@
     }
   }
 
+  let oshiAppearance='classic';
+  function renderOshiArt(key,type){
+    const image=document.getElementById('result-illust');
+    const type1=document.getElementById('oshi-type1');
+    const type2=document.getElementById('oshi-type2');
+    const paint=()=>{
+      const classic=oshiAppearance==='classic';
+      type1.setAttribute('aria-pressed',String(classic));
+      type2.setAttribute('aria-pressed',String(!classic));
+      image.hidden=true;image.dataset.variant=oshiAppearance;
+      image.onload=()=>{image.hidden=false;};image.onerror=()=>{image.hidden=true;};
+      image.alt=type.name+'・'+(classic?'タイプ1':'タイプ2');
+      image.src=classic?type.illust:'characters/'+key+'.webp';
+    };
+    type1.onclick=()=>{oshiAppearance='classic';paint();};
+    type2.onclick=()=>{oshiAppearance='tarot';paint();};
+    paint();
+  }
   function showResult() {
     let winner = typeOrder[0];
     const highest = Math.max(...typeOrder.map(k => scores[k]));
@@ -953,13 +972,7 @@
     // In a tie, use the most recently chosen tied tendency, never fixed type order.
     winner = [...answers].reverse().find(k => tied.includes(k));
     const t = TYPES[winner];
-    const illust = document.getElementById("result-illust");
-    illust.hidden = true;
-    illust.alt = t.illustAlt || "";
-    illust.onload = () => { illust.hidden = false; };
-    illust.onerror = () => { illust.hidden = true; };
-    if (t.illust) illust.src = t.illust;
-    else illust.removeAttribute("src");
+    renderOshiArt(winner,t);
 
     document.getElementById("result-name").textContent = t.name;
     document.getElementById("result-motto").textContent = t.motto;
