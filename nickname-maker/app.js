@@ -33,7 +33,7 @@ function showQuestion() {
   $('back').hidden = step === 0;
   $('question').focus();
 }
-function shareText() { return `私のあだ名は「${current.nickname}」でした。\nあなたはどのキャラクター？\n#あだ名メーカー #タイプ診断`; }
+function shareText() { return `私のキャラクターは「${current.nickname}」でした。\nあなたはどのキャラクター？\n#どうぶつキャラクター診断 #タイプ診断`; }
 function resultText() {
   return [current.nickname, current.description, ...current.reading.map(section =>
     [section.title, ...(section.paragraphs || []), ...(section.items || []).map(text => `・${text}`)].join('\n'))].join('\n\n');
@@ -100,7 +100,7 @@ $('restart').onclick = () => { answers = []; step = 0; current = null; screen('h
 for (const value of ['male','female']) $(value).onclick = () => { appearance = value; if (current) paintArt(); };
 $('copy').onclick = async () => {
   try { await navigator.clipboard.writeText(resultText()); $('toast').textContent = '詳しい診断結果をコピーしました。'; }
-  catch { $('toast').textContent = 'コピーできませんでした。あだ名の文字を選択してコピーしてください。'; }
+  catch { $('toast').textContent = 'コピーできませんでした。結果の文字を選択してコピーしてください。'; }
 };
 for (const entry of data.results) {
   const button = document.createElement('button'); button.textContent = `${entry.id} ${entry.nickname}`;
