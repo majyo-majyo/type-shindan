@@ -93,7 +93,7 @@
   .btn.share { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: var(--card); }
   .share-icon { width: 15px; height: 15px; fill: currentColor; flex: none; }
 </style>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@400;500&display=swap"><link rel="stylesheet" href="../diagnosis-theme.css?v=20261101-r1"></head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@400;500&display=swap"><link rel="stylesheet" href="../diagnosis-theme.css?v=20261109-r1"><style>#stamp-svg,#type-icon{display:none!important}.new-character{display:block;width:min(100%,400px);max-height:600px;object-fit:contain;margin:24px auto;border-radius:16px}.character-role{text-align:center;color:#aa8753}</style><style id="intro-gallery-style">.intro-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:650px;margin:24px auto 28px}.intro-gallery[data-count="2"]{grid-template-columns:repeat(2,minmax(0,1fr));max-width:450px}.intro-gallery figure{margin:0;min-width:0}.intro-gallery img{display:block;width:100%;height:clamp(145px,27vw,270px);object-fit:contain;background:#f8f2e6;border:1px solid #c5ad7d;border-radius:100px 100px 12px 12px}.intro-gallery figcaption{font-size:12px;line-height:1.6;color:#78657e;text-align:center;margin-top:9px;overflow-wrap:anywhere}@media(max-width:480px){.intro-gallery{gap:7px;margin:20px auto}.intro-gallery figcaption{font-size:11px}.intro-gallery img{height:165px}.intro-gallery[data-count="2"] img{height:220px}}</style></head>
 <body>
 <div class="page">
   <a class="back-link" href="../">← 診断ファイル室に戻る</a>
@@ -101,10 +101,10 @@
   <div class="file-body">
 
     <section class="screen intro" id="screen-intro">
-      <p class="eyebrow">Personality File</p>
       <h1>あなたの性格タイプを診断します</h1>
       <p class="lead">全12問、「はい」か「いいえ」で直感的に答えてください。迷ったら、近いほうでOKです。所要時間は1〜2分。4つの軸から、16タイプの中からあなたに一番近いものを診断します。</p>
-      <button class="btn primary" id="start-btn" type="button">診断をはじめる</button>
+      <div class="intro-gallery" data-count="3" role="group" aria-label="診断結果のキャラクター見本"><figure><img src="characters/INFJ.webp" alt="理想家の診断結果イラスト" width="1024" height="1536" decoding="async"><figcaption>理想家</figcaption></figure><figure><img src="characters/ISFP.webp" alt="芸術家の診断結果イラスト" width="1024" height="1536" decoding="async"><figcaption>芸術家</figcaption></figure><figure><img src="characters/ENTP.webp" alt="アイデアマンの診断結果イラスト" width="1024" height="1536" decoding="async"><figcaption>アイデアマン</figcaption></figure></div>
+        <button class="btn primary" id="start-btn" type="button">診断をはじめる</button>
     </section>
 
     <section class="screen quiz" id="screen-quiz" hidden>
@@ -350,7 +350,8 @@
     }
   });
 
-  function showResult() {
+  function renderCharacter(key,name){let box=document.getElementById("character-portrait");if(!box){box=document.createElement("div");box.id="character-portrait";document.getElementById("result-name").after(box);}const image=document.createElement("img");image.className="new-character";image.src="characters/"+key+".webp";image.alt=name+"の専用キャラクター";const role=document.createElement("p");role.className="character-role";role.textContent=({"ISTJ": "時を守る記録官", "ISFJ": "安らぎを編む結界師", "INFJ": "未来を照らす夢見の巫師", "INTJ": "星図を描く策士", "ISTP": "仕組みを解く魔導技師", "ISFP": "彩りを奏でる染色師", "INFP": "心の物語を紡ぐ詩人", "INTP": "謎をほどく天文学者", "ESTP": "未知へ跳ぶ冒険騎士", "ESFP": "祝祭に光をともす踊り手", "ENFP": "希望の風を運ぶ使者", "ENTP": "発想をつなぐ奇術師", "ESTJ": "街を動かす指揮監督", "ESFJ": "集いを整えるもてなしの魔法使い", "ENFJ": "一歩を照らす灯台守", "ENTJ": "未来を切り拓く旗手"})[key];box.replaceChildren(image,role);}
+function showResult() {
     const code = (scores.E > scores.I ? "E" : "I")
       + (scores.S > scores.N ? "S" : "N")
       + (scores.T > scores.F ? "T" : "F")
@@ -363,6 +364,7 @@
     iconEl.alt = `${t.name}のイラスト`;
     iconEl.style.setProperty("--type-color", TYPE_COLORS[code]);
     document.getElementById("result-name").textContent = t.name;
+    renderCharacter(code,t.name);
     document.getElementById("result-code").textContent = code;
     document.getElementById("result-motto").textContent = t.motto;
     document.getElementById("result-traits").innerHTML = t.traits.map(x => `<li>${x}</li>`).join("");

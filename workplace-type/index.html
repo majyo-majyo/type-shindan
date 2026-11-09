@@ -460,7 +460,7 @@
     .file-body { padding: 28px 20px 26px; }
   }
 </style>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@400;500&display=swap"><link rel="stylesheet" href="../diagnosis-theme.css?v=20261101-r1"><link rel="stylesheet" href="expanded-results.css"></head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@400;500&display=swap"><link rel="stylesheet" href="../diagnosis-theme.css?v=20261101-r1"><link rel="stylesheet" href="expanded-results.css"><style id="intro-gallery-style">.intro-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:650px;margin:24px auto 28px}.intro-gallery[data-count="2"]{grid-template-columns:repeat(2,minmax(0,1fr));max-width:450px}.intro-gallery figure{margin:0;min-width:0}.intro-gallery img{display:block;width:100%;height:clamp(145px,27vw,270px);object-fit:contain;background:#f8f2e6;border:1px solid #c5ad7d;border-radius:100px 100px 12px 12px}.intro-gallery figcaption{font-size:12px;line-height:1.6;color:#78657e;text-align:center;margin-top:9px;overflow-wrap:anywhere}@media(max-width:480px){.intro-gallery{gap:7px;margin:20px auto}.intro-gallery figcaption{font-size:11px}.intro-gallery img{height:165px}.intro-gallery[data-count="2"] img{height:220px}}</style></head>
 <body>
 <div class="page">
   <a class="back-link" href="../">← 診断ファイル室に戻る</a>
@@ -469,9 +469,9 @@
     <div class="file-body">
 
       <section class="screen intro" id="screen-intro">
-        <p class="eyebrow">Personality File</p>
         <h1>あなたの「職場タイプ」を診断します</h1>
         <p class="lead">全8問、直感で選んでください。ぴったりの答えがないときは、いちばん近いものでOKです。所要時間は1〜2分。仕事中のふるまいから、6タイプの中からあなたに一番近いものを診断します。</p>
+        <div class="intro-gallery" data-count="3" role="group" aria-label="診断結果のキャラクター見本"><figure><img src="characters/commander.webp" alt="司令塔の診断結果イラスト" width="1024" height="1536" decoding="async"><figcaption>司令塔</figcaption></figure><figure><img src="characters/planner.webp" alt="参謀の診断結果イラスト" width="1024" height="1536" decoding="async"><figcaption>参謀</figcaption></figure><figure><img src="characters/inventor.webp" alt="発明家の診断結果イラスト" width="1024" height="1536" decoding="async"><figcaption>発明家</figcaption></figure></div>
         <button class="btn primary" id="start-btn" type="button">診断をはじめる</button>
       </section>
 
