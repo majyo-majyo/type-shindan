@@ -462,7 +462,7 @@
     .file-body { padding: 28px 20px 26px; }
   }
 </style>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@400;500&display=swap"><link rel="stylesheet" href="../diagnosis-theme.css?v=20261101-r1"><style>.oshi-art-toggle{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:22px auto}.oshi-art-toggle button{font:inherit;border:1px solid #aa8753;border-radius:8px;padding:9px 20px;background:transparent;color:inherit;cursor:pointer}.oshi-art-toggle button[aria-pressed="true"]{background:#aa8753;color:#211a34}.oshi-art-toggle button:focus-visible{outline:3px solid #ddbd75;outline-offset:3px}.result-illust[data-variant="tarot"]{width:min(100%,400px);max-height:600px;object-fit:contain}</style><style id="intro-gallery-style">.intro-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:650px;margin:24px auto 28px}.intro-gallery[data-count="2"]{grid-template-columns:repeat(2,minmax(0,1fr));max-width:450px}.intro-gallery figure{margin:0;min-width:0}.intro-gallery img{display:block;width:100%;height:clamp(145px,27vw,270px);object-fit:contain;background:#f8f2e6;border:1px solid #c5ad7d;border-radius:100px 100px 12px 12px}.intro-gallery figcaption{font-size:12px;line-height:1.6;color:#78657e;text-align:center;margin-top:9px;overflow-wrap:anywhere}@media(max-width:480px){.intro-gallery{gap:7px;margin:20px auto}.intro-gallery figcaption{font-size:11px}.intro-gallery img{height:165px}.intro-gallery[data-count="2"] img{height:220px}}</style></head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@400;500&display=swap"><link rel="stylesheet" href="../diagnosis-theme.css?v=20261101-r1"><style>.oshi-art-toggle{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:22px auto}.oshi-art-toggle button{font:inherit;border:1px solid #aa8753;border-radius:8px;padding:9px 20px;background:transparent;color:inherit;cursor:pointer}.oshi-art-toggle button[aria-pressed="true"]{background:#aa8753;color:#211a34}.oshi-art-toggle button:focus-visible{outline:3px solid #ddbd75;outline-offset:3px}.result-illust[data-variant="tarot"]{width:min(100%,400px);max-height:600px;object-fit:contain}</style><style id="intro-gallery-style">.intro-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:650px;margin:24px auto 28px}.intro-gallery[data-count="2"]{grid-template-columns:repeat(2,minmax(0,1fr));max-width:450px}.intro-gallery figure{margin:0;min-width:0}.intro-gallery img{display:block;width:100%;height:clamp(145px,27vw,270px);object-fit:contain;background:#f8f2e6;border:1px solid #c5ad7d;border-radius:100px 100px 12px 12px}.intro-gallery figcaption{font-size:12px;line-height:1.6;color:#78657e;text-align:center;margin-top:9px;overflow-wrap:anywhere}@media(max-width:480px){.intro-gallery{gap:7px;margin:20px auto}.intro-gallery figcaption{font-size:11px}.intro-gallery img{height:165px}.intro-gallery[data-count="2"] img{height:220px}}</style><link rel="stylesheet" href="../result-sharing.css?v=20261113-r1"><script src="../result-sharing.js?v=20261113-r1"></script></head>
 <body>
 <div class="page">
   <a class="back-link" href="../">← 診断ファイル室に戻る</a>
@@ -955,6 +955,9 @@
     const type2=document.getElementById('oshi-type2');
     const paint=()=>{
       const classic=oshiAppearance==='classic';
+      window.ResultSharing.prepare("oshi-type",key,classic?"1":"2");
+      const intent=new URL('https://twitter.com/intent/tweet');intent.searchParams.set('text',`私は「${type.name}」でした！あなたの推し活タイプは？\n#推し活タイプ診断`);intent.searchParams.set('url',window.ResultSharing.url('oshi-type',key,classic?'1':'2'));document.getElementById('share-btn').href=intent.href;
+
       type1.setAttribute('aria-pressed',String(classic));
       type2.setAttribute('aria-pressed',String(!classic));
       image.hidden=true;image.dataset.variant=oshiAppearance;
@@ -1024,12 +1027,7 @@
     void stampSvg.offsetWidth;
     stampSvg.classList.add("show");
 
-    {
-      const shareText = `私は「${t.name}」でした！あなたの推し活タイプは？\n#推し活タイプ診断`;
-      const shareUrl = location.href.split("?")[0];
-      const intent = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
-      document.getElementById("share-btn").href = intent;
-    };
+
   }
 </script>
 </body>

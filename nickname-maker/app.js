@@ -39,6 +39,12 @@ function resultText() {
     [section.title, ...(section.paragraphs || []), ...(section.items || []).map(text => `・${text}`)].join('\n'))].join('\n\n');
 }
 function paintArt() {
+  if(current){
+    const variant=appearance==='male'?'1':'2';
+    window.ResultSharing.prepare('nickname-maker',current.id,variant);
+    const intent=new URL('https://twitter.com/intent/tweet');intent.searchParams.set('text',shareText());intent.searchParams.set('url',window.ResultSharing.url('nickname-maker',current.id,variant));$('share').href=intent.href;
+  }
+
   $('male').setAttribute('aria-pressed', String(appearance === 'male'));
   $('female').setAttribute('aria-pressed', String(appearance === 'female'));
   $('pose').textContent = `イラストの予定：${current[appearance + '_pose']}`;
@@ -78,8 +84,7 @@ function showResult(entry, tied = false) {
   }
   $('tie').textContent = currentTie ? 'あなたには、ほかにも近い傾向がありそうです。今回はこのキャラクターとして楽しんでみてください。' : '';
   const url = new URL('https://twitter.com/intent/tweet'); url.searchParams.set('text', shareText());
-  // Never put a localhost or file URL into a public share.
-  if (location.protocol === 'https:' && !['localhost','127.0.0.1'].includes(location.hostname)) url.searchParams.set('url', location.href.split('#')[0]);
+  url.searchParams.set('url', window.ResultSharing.url('nickname-maker',entry.id,appearance==='male'?'1':'2'));
   $('share').href = url.href;
   $('toast').textContent = ''; paintArt(); $('result-name').focus();
   const ad = entry.affiliate;

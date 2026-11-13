@@ -93,7 +93,7 @@
   .btn.share { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: var(--card); }
   .share-icon { width: 15px; height: 15px; fill: currentColor; flex: none; }
 </style>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@400;500&display=swap"><link rel="stylesheet" href="../diagnosis-theme.css?v=20261109-r1"><style>#stamp-svg,#type-icon{display:none!important}.new-character{display:block;width:min(100%,400px);max-height:600px;object-fit:contain;margin:24px auto;border-radius:16px}.character-role{text-align:center;color:#aa8753}</style><style id="intro-gallery-style">.intro-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:650px;margin:24px auto 28px}.intro-gallery[data-count="2"]{grid-template-columns:repeat(2,minmax(0,1fr));max-width:450px}.intro-gallery figure{margin:0;min-width:0}.intro-gallery img{display:block;width:100%;height:clamp(145px,27vw,270px);object-fit:contain;background:#f8f2e6;border:1px solid #c5ad7d;border-radius:100px 100px 12px 12px}.intro-gallery figcaption{font-size:12px;line-height:1.6;color:#78657e;text-align:center;margin-top:9px;overflow-wrap:anywhere}@media(max-width:480px){.intro-gallery{gap:7px;margin:20px auto}.intro-gallery figcaption{font-size:11px}.intro-gallery img{height:165px}.intro-gallery[data-count="2"] img{height:220px}}</style></head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@400;500&display=swap"><link rel="stylesheet" href="../diagnosis-theme.css?v=20261109-r1"><style>#stamp-svg,#type-icon{display:none!important}.new-character{display:block;width:min(100%,400px);max-height:600px;object-fit:contain;margin:24px auto;border-radius:16px}.character-role{text-align:center;color:#aa8753}</style><style id="intro-gallery-style">.intro-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:650px;margin:24px auto 28px}.intro-gallery[data-count="2"]{grid-template-columns:repeat(2,minmax(0,1fr));max-width:450px}.intro-gallery figure{margin:0;min-width:0}.intro-gallery img{display:block;width:100%;height:clamp(145px,27vw,270px);object-fit:contain;background:#f8f2e6;border:1px solid #c5ad7d;border-radius:100px 100px 12px 12px}.intro-gallery figcaption{font-size:12px;line-height:1.6;color:#78657e;text-align:center;margin-top:9px;overflow-wrap:anywhere}@media(max-width:480px){.intro-gallery{gap:7px;margin:20px auto}.intro-gallery figcaption{font-size:11px}.intro-gallery img{height:165px}.intro-gallery[data-count="2"] img{height:220px}}</style><link rel="stylesheet" href="../result-sharing.css?v=20261113-r1"><script src="../result-sharing.js?v=20261113-r1"></script></head>
 <body>
 <div class="page">
   <a class="back-link" href="../">← 診断ファイル室に戻る</a>
@@ -357,6 +357,7 @@ function showResult() {
       + (scores.T > scores.F ? "T" : "F")
       + (scores.J > scores.P ? "J" : "P");
     const t = TYPES[code];
+    window.ResultSharing.prepare('personality16-type',code,"1");
 
     document.getElementById("stamp-text").textContent = t.stamp;
     const iconEl = document.getElementById("type-icon");
@@ -387,7 +388,7 @@ function showResult() {
 
     document.getElementById("share-btn").onclick = () => {
       const text = `【16の性格タイプ診断】私は「${t.name}（${code}）」でした！\n${t.motto}\n`;
-      const url = location.href.split("?")[0];
+      const url = window.ResultSharing.url('personality16-type',code,'1');
       window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, "_blank");
     };
     document.getElementById("retry-btn").onclick = () => location.reload();
